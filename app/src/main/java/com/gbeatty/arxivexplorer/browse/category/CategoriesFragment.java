@@ -77,7 +77,4 @@ public class CategoriesFragment extends BaseFragment implements CategoriesView{
         return rootView;
     }
 
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
-        getActivity().runOnUiThread(() -> showFragment(R.id.content, PapersFragment.newInstance(papers, query, maxResult), tag));
-    }
 }

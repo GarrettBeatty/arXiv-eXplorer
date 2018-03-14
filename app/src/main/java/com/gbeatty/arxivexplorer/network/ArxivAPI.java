@@ -102,6 +102,35 @@ public class ArxivAPI {
 
     }
 
+    public static void searchAll(String searchQuery,
+                                    String sortOrder,
+                                    String sortBy,
+                                    int maxResults,
+                                    Callback call) {
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();
+        urlBuilder.addPathSegment(querySegment);
+
+        String query = "";
+        query = addParamToQuery(query, "all", searchQuery);
+
+        urlBuilder.addQueryParameter("search_query", query);
+        urlBuilder.addEncodedQueryParameter("sortOrder", sortOrder);
+        urlBuilder.addEncodedQueryParameter("sortBy", sortBy);
+        urlBuilder.addEncodedQueryParameter("max_results", String.valueOf(maxResults));
+
+
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        getClient().newCall(request).enqueue(call);
+
+    }
+
+
     public static void downloadFileFromURL(String url, Callback call) {
 
         Request request = new Request.Builder()

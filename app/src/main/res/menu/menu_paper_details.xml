@@ -6,14 +6,14 @@
         android:id="@+id/menu_download_paper"
         android:icon="@drawable/ic_file_download_black_24dp"
         android:title="@string/download"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
     <item
         android:id="@+id/menu_favorite_paper"
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/favorite"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
 </menu>
