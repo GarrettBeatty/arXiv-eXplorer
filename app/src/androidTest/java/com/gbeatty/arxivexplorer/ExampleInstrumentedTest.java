@@ -35,11 +35,15 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testTakeScreenshot() {
+        onView(withId(R.id.navigation_browse)).perform(click());
         Screengrab.screenshot("main");
+
         onView(withId(R.id.category_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
         onView(withId(R.id.category_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+
         Screengrab.screenshot("browse");
     }
+
 }

@@ -5,22 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00683">
+      <testcase classname="fastlane.lanes" name="0: setup_travis" time="0.00469">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: gradle" time="1.435603">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000975">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gradle" time="4.006629">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="3: capture_android_screenshots" time="7.524182">
+      <testcase classname="fastlane.lanes" name="2: gradle" time="5.843942">
         
       </testcase>
     

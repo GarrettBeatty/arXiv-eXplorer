@@ -9,6 +9,8 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+setup_travis
+
 default_platform(:android)
 
 platform :android do
@@ -23,8 +25,8 @@ platform :android do
       task: 'assemble',
       build_type: 'Release'
     )
-
-    upload_to_play_store # Uploads the APK built in the gradle step above
+    screenshots
+    upload_to_play_store
   end
 
   lane :beta do
