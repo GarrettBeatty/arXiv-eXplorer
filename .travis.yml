@@ -29,3 +29,4 @@ install:
 - bundle install
 script:
 - fastlane test
+- fastlanes screenshots
