@@ -31,4 +31,4 @@ before_install:
 
 script:
 - fastlane test
-- fastlane screenshots
+#- fastlane screenshots
