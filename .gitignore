@@ -8,4 +8,5 @@
 /captures
 .externalNativeBuild
 app/release/
-keystore.jks
+keystore*
+fastlane/googleplay.json
