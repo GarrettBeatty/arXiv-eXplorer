@@ -31,6 +31,11 @@ Deploy a new version to the Google Play
 fastlane android beta
 ```
 
+### android screenshots
+```
+fastlane android screenshots
+```
+
 
 ----
 

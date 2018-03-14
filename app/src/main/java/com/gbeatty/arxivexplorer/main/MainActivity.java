@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         MenuItem item = menu.findItem(R.id.menu_search);
         searchView.setMenuItem(item);
 
+
         // return true so that the menu pop up is opened
         return true;
     }

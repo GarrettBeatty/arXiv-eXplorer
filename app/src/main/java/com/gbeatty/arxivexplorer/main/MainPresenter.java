@@ -75,8 +75,8 @@ class MainPresenter extends BasePresenter{
         }
     }
 
-    public void onQueryTextSubmit(String query) {
-        downloadPapersFromSearch(query, getSharedPreferenceView().getSortOrder(), ArxivAPI.SORT_BY_RELEVANCE, getSharedPreferenceView().getMaxResult());
+    public void onQueryTextSubmit(String searchQuery) {
+        downloadPapersFromSearch(searchQuery, getSharedPreferenceView().getSortOrder(), ArxivAPI.SORT_BY_RELEVANCE, getSharedPreferenceView().getMaxResult());
     }
 
     private void downloadPapersFromSearch(String searchQuery, String sortOrder, String sortBy, int maxResult) {
