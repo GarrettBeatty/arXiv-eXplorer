@@ -19,18 +19,23 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :playstore do
-    gradle(task: 'clean')
     gradle(
       task: 'assemble',
       build_type: 'Release'
     )
+
     upload_to_play_store # Uploads the APK built in the gradle step above
   end
 
   lane :beta do
-    gradle(task: 'clean')
     gradle(task: 'assemble', build_type: 'Release')
     upload_to_play_store(track: 'beta')
+  end
+
+  lane :screenshots do
+    gradle(task: 'assembleDebug')
+    gradle(task: 'assembleAndroidTest')
+    capture_android_screenshots
   end
 
 end
