@@ -69,11 +69,6 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
     @Override
     public void onLoadMore() {
         if(query == null) return;
-        if(papers.size() < maxResult){
-            view.setPaginateNoMoreData(true);
-//            view.showPaginateLoading(false);
-            return;
-        }
 
         view.showPaginateError(false);
         view.showPaginateLoading(true);
