@@ -12,3 +12,4 @@ keystore.properties
 keystore.jks
 fastlane/googleplay.json
 fastlane/metadata/android/screenshots.html
+secrets.tar
