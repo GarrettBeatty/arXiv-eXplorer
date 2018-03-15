@@ -15,10 +15,7 @@ Features include:
 * Open Source
 
 ## Screenshots
-<img src="screenshots/phone/main.png" width="200"> <img src="screenshots/phone/browse.png" width="200">
-<img src="screenshots/phone/details.png" width="200"> <img src="screenshots/phone/search.png" width="200">
-<img src="screenshots/phone/favorites.png" width="200">
-
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/main_1521066216675.png" width="200">
 
 ## Downloading
 

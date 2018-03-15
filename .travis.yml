@@ -39,4 +39,5 @@ before_script:
   - adb shell input keyevent 82 &
 script:
   - fastlane test
-  - fastlanes screenshots
+after_success:
+  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" && fastlane beta

@@ -149,14 +149,18 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @Override
     public void onBackPressed() {
         presenter.cancelHttpCalls();
-        int fragments = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragments == 1) {
-            finish();
-        } else {
-            if (getFragmentManager().getBackStackEntryCount() > 1) {
-                getFragmentManager().popBackStack();
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        }else{
+            int fragments = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragments == 1) {
+                finish();
             } else {
-                super.onBackPressed();
+                if (getFragmentManager().getBackStackEntryCount() > 1) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    super.onBackPressed();
+                }
             }
         }
     }
