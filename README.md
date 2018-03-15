@@ -18,9 +18,6 @@ Features include:
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/main.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/browse.png" width="200">
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/favorites.png" width="200">
 
-
-
-
 ## Downloading
 
 ```
@@ -37,6 +34,8 @@ git clone https://github.com/GarrettBeatty/arXiv-eXplorer.git
 
 * [OkHttp](http://square.github.io/okhttp/)
 * [Sugar ORM](http://satyan.github.io/sugar/)
+* [Travis CI](https://travis-ci.org/)
+* [Fastlane](https://fastlane.tools/)
 
 ## Contributing
 
