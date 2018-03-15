@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.paper.base;
+package com.gbeatty.arxivexplorer.browse.paper.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

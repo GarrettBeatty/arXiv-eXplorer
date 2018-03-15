@@ -20,7 +20,7 @@ import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.browse.category.CategoriesFragment;
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersFragment;
+import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
