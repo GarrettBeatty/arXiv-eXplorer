@@ -22,12 +22,13 @@ Features include:
 
 ```
 git clone https://github.com/GarrettBeatty/arXiv-eXplorer.git
+bundle install
 ```
 
 ## Running the tests
 
 ```
-./gradlew test
+fastlane test
 ```
 
 ## Built With

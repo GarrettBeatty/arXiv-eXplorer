@@ -17,6 +17,7 @@ platform :android do
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
+    gradle(task: "connectedAndroidTest")
   end
 
   desc "Deploy a new version to the Google Play"
