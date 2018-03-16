@@ -16,9 +16,7 @@ default_platform(:android)
 platform :android do
   desc "Runs all the tests"
   lane :test do
-    gradle(task: 'clean')
     gradle(task: "test")
-    gradle(task: "connectedAndroidTest")
   end
 
   desc "Deploy a new version to the Google Play"
