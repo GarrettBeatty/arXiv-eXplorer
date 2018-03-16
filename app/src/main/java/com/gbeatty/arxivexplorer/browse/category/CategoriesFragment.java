@@ -11,11 +11,7 @@ import android.view.ViewGroup;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersFragment;
 import com.gbeatty.arxivexplorer.models.Category;
-import com.gbeatty.arxivexplorer.models.Paper;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

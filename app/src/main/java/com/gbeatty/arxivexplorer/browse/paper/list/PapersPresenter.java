@@ -1,5 +1,6 @@
-package com.gbeatty.arxivexplorer.browse.paper.base;
+package com.gbeatty.arxivexplorer.browse.paper.list;
 
+import com.gbeatty.arxivexplorer.browse.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -40,8 +41,7 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
         paperRowView.setAuthors(paper.getAuthor());
         paperRowView.setUpdatedDate("Updated: " + paper.getUpdatedDate());
         paperRowView.setPublishedDate("Published: " + paper.getPublishedDate());
-        if (isPaperFavorited(paper)) paperRowView.setFavoritedIcon();
-        else paperRowView.setNotFavoritedIcon();
+        updateIcons(paper, paperRowView);
     }
 
     void paperClicked(int position) {
@@ -52,6 +52,10 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
     void favoriteButtonClicked(int position, PaperRowView paperRowView) {
         Paper paper = papers.get(position);
         toggleFavoritePaper(paper);
+        updateIcons(paper, paperRowView);
+    }
+
+    private void updateIcons(Paper paper, PaperRowView paperRowView){
         if (isPaperFavorited(paper)) paperRowView.setFavoritedIcon();
         else paperRowView.setNotFavoritedIcon();
     }

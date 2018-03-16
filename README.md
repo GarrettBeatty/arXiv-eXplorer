@@ -15,27 +15,28 @@ Features include:
 * Open Source
 
 ## Screenshots
-<img src="screenshots/phone/main.png" width="200"> <img src="screenshots/phone/browse.png" width="200">
-<img src="screenshots/phone/details.png" width="200"> <img src="screenshots/phone/search.png" width="200">
-<img src="screenshots/phone/favorites.png" width="200">
-
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/main.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/browse.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/favorites.png" width="200">
 
 ## Downloading
 
 ```
 git clone https://github.com/GarrettBeatty/arXiv-eXplorer.git
+bundle install
 ```
 
 ## Running the tests
 
 ```
-./gradlew test
+fastlane test
 ```
 
 ## Built With
 
 * [OkHttp](http://square.github.io/okhttp/)
 * [Sugar ORM](http://satyan.github.io/sugar/)
+* [Travis CI](https://travis-ci.org/)
+* [Fastlane](https://fastlane.tools/)
 
 ## Contributing
 

@@ -20,7 +20,7 @@ import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.browse.category.CategoriesFragment;
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersFragment;
+import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -149,14 +149,18 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @Override
     public void onBackPressed() {
         presenter.cancelHttpCalls();
-        int fragments = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragments == 1) {
-            finish();
-        } else {
-            if (getFragmentManager().getBackStackEntryCount() > 1) {
-                getFragmentManager().popBackStack();
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        }else{
+            int fragments = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragments == 1) {
+                finish();
             } else {
-                super.onBackPressed();
+                if (getFragmentManager().getBackStackEntryCount() > 1) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    super.onBackPressed();
+                }
             }
         }
     }
