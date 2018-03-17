@@ -6,7 +6,6 @@ def keystoreProperties = new Properties()
 
 if ( keystorePropertiesFile.exists() ){
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 }
 
 android {
