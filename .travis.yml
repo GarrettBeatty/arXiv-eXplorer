@@ -28,16 +28,12 @@ android:
   - extra-android-support
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
 before_install:
-  - openssl aes-256-cbc -K $encrypted_77bee7102036_key -iv $encrypted_77bee7102036_iv -in secrets.tar.enc -out secrets.tar -d
-  - tar xvf secrets.tar
+  - scripts/before_install.sh
 install:
   - bundle install
 before_script:
-  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI
-  - emulator -avd test -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  - scripts/before_script.sh
 script:
   - fastlane test
-#after_success:
-#  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" && fastlane beta
+after_success:
+  - scripts/after_success.sh
