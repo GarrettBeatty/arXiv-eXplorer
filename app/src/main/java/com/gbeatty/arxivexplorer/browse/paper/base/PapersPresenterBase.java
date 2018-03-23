@@ -4,8 +4,8 @@ import com.gbeatty.arxivexplorer.models.Paper;
 
 public class PapersPresenterBase {
 
-    protected boolean isPaperFavorited(Paper paper) {
-        return Paper.count(Paper.class, "paper_id = ?", new String[]{paper.getPaperID()}) > 0;
+    protected boolean isPaperFavorited(String paperID) {
+        return Paper.count(Paper.class, "paper_id = ?", new String[]{paperID}) > 0;
     }
 
     private void favoritePaper(Paper paper) {
@@ -13,12 +13,12 @@ public class PapersPresenterBase {
         p.save();
     }
 
-    private void unfavoritePaper(Paper paper) {
-        Paper.deleteAll(Paper.class, "paper_id = ?", paper.getPaperID());
+    private void unfavoritePaper(String paperID) {
+        Paper.deleteAll(Paper.class, "paper_id = ?", paperID);
     }
 
     protected void toggleFavoritePaper(Paper paper) {
-        if (isPaperFavorited(paper)) unfavoritePaper(paper);
+        if (isPaperFavorited(paper.getPaperID())) unfavoritePaper(paper.getPaperID());
         else favoritePaper(paper);
     }
 

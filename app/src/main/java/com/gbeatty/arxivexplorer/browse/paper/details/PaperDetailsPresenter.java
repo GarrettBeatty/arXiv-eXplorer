@@ -33,7 +33,7 @@ class PaperDetailsPresenter extends PapersPresenterBase {
     }
 
     void updateMenuItems() {
-        if (isPaperFavorited(paper)) {
+        if (isPaperFavorited(paper.getPaperID())) {
             view.setFavoritedIcon();
         } else {
             view.setNotFavoritedIcon();

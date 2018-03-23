@@ -56,7 +56,7 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
     }
 
     private void updateIcons(Paper paper, PaperRowView paperRowView){
-        if (isPaperFavorited(paper)) paperRowView.setFavoritedIcon();
+        if (isPaperFavorited(paper.getPaperID())) paperRowView.setFavoritedIcon();
         else paperRowView.setNotFavoritedIcon();
     }
 
