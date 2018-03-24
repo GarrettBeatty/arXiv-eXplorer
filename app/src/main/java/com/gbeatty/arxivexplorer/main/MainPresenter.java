@@ -8,6 +8,7 @@ import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
+import com.orm.query.Select;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -44,7 +45,10 @@ class MainPresenter extends BasePresenter{
 
             case R.id.navigation_favorites:
                 if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;
-                view.switchToFavoritesFragment((ArrayList<Paper>) Paper.listAll(Paper.class), Tags.FAVORITES_FRAGMENT_TAG);
+                view.switchToFavoritesFragment((ArrayList<Paper>)
+                        Select.from(Paper.class)
+                        .orderBy("id desc")
+                        .list(), Tags.FAVORITES_FRAGMENT_TAG);
                 return true;
         }
         return false;
