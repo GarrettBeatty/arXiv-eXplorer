@@ -31,6 +31,7 @@ platform :android do
   end
 
   lane :beta do
+    gradle(task: 'clean')
     gradle(task: 'assemble', build_type: 'Release')
     upload_to_play_store(track: 'beta')
   end
