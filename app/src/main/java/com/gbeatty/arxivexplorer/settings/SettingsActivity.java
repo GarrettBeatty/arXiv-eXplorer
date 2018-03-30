@@ -12,7 +12,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
@@ -105,6 +108,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     private void setupActionBar() {
+        ViewGroup rootView = (ViewGroup)findViewById(R.id.action_bar_root); //id from appcompat
+
+        if (rootView != null) {
+            View view = getLayoutInflater().inflate(R.layout.app_bar_layout, rootView, false);
+            rootView.addView(view, 0);
+
+            Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.

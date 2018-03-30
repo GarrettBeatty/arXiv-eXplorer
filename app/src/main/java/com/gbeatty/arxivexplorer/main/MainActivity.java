@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         showFragment(R.id.content, PapersFragment.newInstance(papers), tag);
     }
 
+    @Override
+    public void switchToDashboardFragment(String dashboardFragmentTag) {
+
+    }
+
     public Fragment getCurrentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.content);
     }

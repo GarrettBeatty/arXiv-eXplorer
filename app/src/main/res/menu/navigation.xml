@@ -9,6 +9,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/dashboard"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/favorites"

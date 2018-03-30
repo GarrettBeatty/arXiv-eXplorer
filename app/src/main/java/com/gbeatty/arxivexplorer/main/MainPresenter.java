@@ -25,7 +25,6 @@ class MainPresenter extends BasePresenter{
 
     private MainView view;
 
-
     MainPresenter(MainView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
@@ -38,10 +37,10 @@ class MainPresenter extends BasePresenter{
                 switchToCategoriesFragment();
                 return true;
 
-//            case R.id.navigation_search:
-//                if (view.getCurrentFragment().getTag().equals(Tags.SEARCH_FRAGMENT_TAG)) return false;
-//                view.switchToSearchFragment(Tags.SEARCH_FRAGMENT_TAG);
-//                return true;
+            case R.id.navigation_dashboard:
+                if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
+                view.switchToDashboardFragment(Tags.DASHBOARD_FRAGMENT_TAG);
+                return true;
 
             case R.id.navigation_favorites:
                 if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;

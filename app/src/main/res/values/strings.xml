@@ -37,6 +37,7 @@
     <string name="authors">Authors</string>
     <string name="favorite_paper">Favorite Paper</string>
     <string name="maxResultDefault">10</string>
+    <string name="dashboard">Dashboard</string>
     <string-array name="pref_sort_order_list_titles">
         <item>Newest</item>
         <item>Oldest</item>
