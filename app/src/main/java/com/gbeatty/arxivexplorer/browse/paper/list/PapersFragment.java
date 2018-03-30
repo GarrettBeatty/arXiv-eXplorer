@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import ru.alexbykov.nopaginate.paginate.Paginate;
 import ru.alexbykov.nopaginate.paginate.PaginateBuilder;
 
-public class PapersFragment extends BaseFragment implements PapersView {
+public class PapersFragment extends BaseFragment implements PapersView{
 
     private static final String PAPERS_KEY = "paperskey";
     private static final String QUERY_KEY = "querykey";
@@ -109,6 +109,11 @@ public class PapersFragment extends BaseFragment implements PapersView {
         super.onDestroy();
     }
 
+    @Override
+    public void onResume(){
+        papersListAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
 
     @Override
     public void goToPaperDetails(Paper paper, String tag) {
@@ -140,4 +145,5 @@ public class PapersFragment extends BaseFragment implements PapersView {
     public void setPaginateNoMoreData(boolean isNoMoreItems) {
         getActivity().runOnUiThread(() -> paginate.setNoMoreItems(isNoMoreItems));
     }
+
 }

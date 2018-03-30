@@ -31,7 +31,7 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="show_abstract"
-        android:title="Show Abstract in List View"
+        android:title="@string/pref_title_show_abstract"
         />
 
     <Preference

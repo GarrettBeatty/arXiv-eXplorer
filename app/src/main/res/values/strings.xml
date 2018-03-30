@@ -39,6 +39,7 @@
     <string name="maxResultDefault">10</string>
     <string name="dashboard">Dashboard</string>
     <string name="showAbstractDefault">false</string>
+    <string name="pref_title_show_abstract">Show Abstract in List View</string>
     <string-array name="pref_sort_order_list_titles">
         <item>Newest</item>
         <item>Oldest</item>

@@ -89,5 +89,5 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     
     public boolean isShowAbstract(){return  listener.isShowAbstract();}
 
-    public SharedPreferences getSharedPrefences(){return listener.getSharedPreferences();}
+    public SharedPreferences getSharedPreferences(){return listener.getSharedPreferences();}
 }
