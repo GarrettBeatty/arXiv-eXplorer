@@ -9,6 +9,8 @@ public interface PapersViewBase {
 
     void setUpdatedDate(String updatedDate);
 
+    void setSummary(String summary);
+
     void setFavoritedIcon();
 
     void setNotFavoritedIcon();

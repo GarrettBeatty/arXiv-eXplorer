@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences();
         presenter = new MainPresenter(this, this);
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
         Toolbar myToolbar = findViewById(R.id.toolbar);
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         MenuItem item = menu.findItem(R.id.menu_search);
         searchView.setMenuItem(item);
 
-
         // return true so that the menu pop up is opened
         return true;
     }
@@ -95,10 +94,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         showFragment(R.id.content, CategoriesFragment.newInstance(categories), tag);
     }
 
-//    @Override
-//    public void switchToSearchFragment(String tag) {
-//        showFragment(R.id.content, SearchFragment.newInstance(), tag);
-//    }
 
     @Override
     public void switchToFavoritesFragment(ArrayList<Paper> papers, String tag) {
@@ -106,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     @Override
-    public void switchToDashboardFragment(String dashboardFragmentTag) {
-
+    public void switchToDashboardFragment(ArrayList<Paper> papers, String tag) {
+        showFragment(R.id.content, PapersFragment.newInstance(papers), tag);
     }
 
     public Fragment getCurrentFragment() {
@@ -216,6 +211,15 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     public int getMaxResult() {
         return Integer.parseInt(preferences.getString("max_results", getString(R.string.maxResultDefault)));
+    }
+
+    public boolean isShowAbstract() {
+        return preferences.getBoolean("show_abstract", Boolean.valueOf(getString(R.string.showAbstractDefault)));
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {

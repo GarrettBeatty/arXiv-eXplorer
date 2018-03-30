@@ -54,6 +54,9 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         TextView paperUpdated;
         @BindView(R.id.button_favorite_paper)
         ImageButton favoritePaper;
+        @BindView(R.id.paper_summary)
+        TextView paperSummary;
+        @BindView(R.id.summary_sep) View summarySep;
 
         public PaperViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +68,8 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         public void setTitle(String title) {
             paperTitle.setText(title);
         }
+
+        public void setSummary(String summary){paperSummary.setText(summary);}
 
         public void setAuthors(String authors) {
             paperAuthors.setText(authors);
@@ -89,6 +94,16 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
             favoritePaper.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
         }
 
+        @Override
+        public void hideSummary() {
+            paperSummary.setVisibility(View.GONE);
+            summarySep.setVisibility(View.GONE);
+        }
 
+        @Override
+        public void showSummary() {
+            paperSummary.setVisibility(View.VISIBLE);
+            summarySep.setVisibility(View.VISIBLE);
+        }
     }
 }

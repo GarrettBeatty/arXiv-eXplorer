@@ -4,6 +4,7 @@ import com.gbeatty.arxivexplorer.browse.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
+import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -25,7 +26,8 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
     private int start;
     private int maxResult;
 
-    public PapersPresenter(PapersView view, ArrayList<Paper> papers, String query, int maxResult) {
+    public PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView, ArrayList<Paper> papers, String query, int maxResult) {
+        super(sharedPreferencesView);
         this.view = view;
         if (papers == null) this.papers = new ArrayList<>();
         else this.papers = papers;
@@ -41,6 +43,12 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
         paperRowView.setAuthors(paper.getAuthor());
         paperRowView.setUpdatedDate("Updated: " + paper.getUpdatedDate());
         paperRowView.setPublishedDate("Published: " + paper.getPublishedDate());
+        if(getSharedPreferenceView().isShowAbstract()) {
+            paperRowView.showSummary();
+            paperRowView.setSummary(paper.getSummary());
+        }
+        else
+            paperRowView.hideSummary();
         updateIcons(paper, paperRowView);
     }
 

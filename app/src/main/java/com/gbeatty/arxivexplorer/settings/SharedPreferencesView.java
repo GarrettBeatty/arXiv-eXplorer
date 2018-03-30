@@ -5,5 +5,5 @@ public interface SharedPreferencesView {
     String getSortOrder();
     String getSortBy();
     int getMaxResult();
-
+    boolean isShowAbstract();
 }

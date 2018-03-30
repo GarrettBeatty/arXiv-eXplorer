@@ -58,7 +58,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper paper = (Paper) getArguments().getSerializable(PAPER_KEY);
-        presenter = new PaperDetailsPresenter(this, paper);
+        presenter = new PaperDetailsPresenter(this, this, paper);
         setHasOptionsMenu(true);
     }
 
@@ -161,5 +161,4 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
         });
     }
-
 }

@@ -39,7 +39,7 @@ class MainPresenter extends BasePresenter{
 
             case R.id.navigation_dashboard:
                 if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
-                view.switchToDashboardFragment(Tags.DASHBOARD_FRAGMENT_TAG);
+                view.switchToDashboardFragment(null, Tags.DASHBOARD_FRAGMENT_TAG);
                 return true;
 
             case R.id.navigation_favorites:

@@ -1,8 +1,14 @@
 package com.gbeatty.arxivexplorer.browse.paper.base;
 
+import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.models.Paper;
+import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
-public class PapersPresenterBase {
+public class PapersPresenterBase extends BasePresenter{
+
+    public PapersPresenterBase(SharedPreferencesView sharedPreferencesView) {
+        super(sharedPreferencesView);
+    }
 
     protected boolean isPaperFavorited(String paperID) {
         return Paper.count(Paper.class, "paper_id = ?", new String[]{paperID}) > 0;

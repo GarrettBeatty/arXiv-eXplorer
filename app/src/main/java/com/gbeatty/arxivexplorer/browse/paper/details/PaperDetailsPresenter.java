@@ -4,6 +4,7 @@ import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.browse.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,8 @@ class PaperDetailsPresenter extends PapersPresenterBase {
     private PaperDetailsView view;
     private Paper paper;
 
-    PaperDetailsPresenter(PaperDetailsView view, Paper paper) {
+    PaperDetailsPresenter(PaperDetailsView view, SharedPreferencesView sharedPreferencesView, Paper paper) {
+        super(sharedPreferencesView);
         this.view = view;
         this.paper = paper;
     }

@@ -67,7 +67,7 @@ public class PapersFragment extends BaseFragment implements PapersView {
         String query = getArguments().getString(QUERY_KEY);
         int maxResult = getArguments().getInt(MAX_RESULT_KEY);
         isPaginate = query != null;
-        presenter = new PapersPresenter(this, papers, query, maxResult);
+        presenter = new PapersPresenter(this, this, papers, query, maxResult);
         setHasOptionsMenu(false);
     }
 
