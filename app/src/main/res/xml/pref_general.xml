@@ -28,6 +28,12 @@
         android:inputType="number"
     />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="show_abstract"
+        android:title="Show Abstract in List View"
+        />
+
     <Preference
         android:key="delete_downloaded_papers"
         android:title="@string/pref_title_clear_downloads"

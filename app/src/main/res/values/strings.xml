@@ -20,7 +20,7 @@
     </string-array>
 
     <string name="pref_title_sort_order">Paper Order By</string>
-    <string name="pref_title_clear_downloads">Delete Downloaded Papers</string>
+    <string name="pref_title_clear_downloads">Delete Downloaded Papers Cache</string>
     <string name="pref_title_max_results">Max Results</string>
     <string name="category">Category</string>
     <string name="no_papers_to_display">No Papers to Display</string>
