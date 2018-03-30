@@ -52,7 +52,7 @@ class CategoriesPresenter extends BasePresenter {
     private void downloadPapersFromCategory(String catKey, String category, String sortOrder, String sortBy, int maxResult) {
         try {
             view.showLoading();
-            ArxivAPI.downloadPapersFromCategory(catKey, category,
+            ArxivAPI.searchPapersFromCategory(catKey, category,
                     sortOrder,
                     sortBy,
                     maxResult,

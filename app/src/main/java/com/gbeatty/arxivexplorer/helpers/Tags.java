@@ -6,5 +6,6 @@ public class Tags {
     public static final String DASHBOARD_FRAGMENT_TAG = "dashboardfragment";
     public static final String FAVORITES_FRAGMENT_TAG = "favoritesfragment";
     public static final String CATEGORY_RESULTS_TAG = "categoryresults";
+    public static final String DASHBOARD_RESULTS_TAG = "categoryresults";
     public static final String SEARCH_RESULTS_TAG = "searchresults";
 }

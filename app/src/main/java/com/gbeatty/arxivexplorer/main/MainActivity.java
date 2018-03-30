@@ -21,6 +21,7 @@ import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.browse.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
+import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -101,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     @Override
-    public void switchToDashboardFragment(ArrayList<Paper> papers, String tag) {
-        showFragment(R.id.content, PapersFragment.newInstance(papers), tag);
+    public void switchToDashboardFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
+        runOnUiThread(() -> showFragment(R.id.content, DashboardFragment.newInstance(papers, query, maxResult), tag));
     }
 
     public Fragment getCurrentFragment() {

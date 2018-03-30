@@ -16,8 +16,9 @@ Features include:
 
 ## Screenshots
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/main.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/browse.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/favorites.png" width="200">
-
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/downloaded.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/favorites.png" width="200">
 ## Downloading
 
 ```

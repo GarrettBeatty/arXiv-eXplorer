@@ -1,9 +1,12 @@
 package com.gbeatty.arxivexplorer.main;
 
+import android.util.Log;
+
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.arxivdata.Categories;
 import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.helpers.Tags;
+import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -39,7 +42,23 @@ class MainPresenter extends BasePresenter{
 
             case R.id.navigation_dashboard:
                 if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
-                view.switchToDashboardFragment(null, Tags.DASHBOARD_FRAGMENT_TAG);
+
+                ArrayList<String> catKeys = new ArrayList<>();
+                ArrayList<String> categories = new ArrayList<>();
+                for(Category category : Categories.CATEGORIES){
+                    for(Category c: category.getSubCategories()){
+                        if(c.getCatKey().equals("all")) continue;
+                        catKeys.add(c.getCatKey());
+                        categories.add(c.getShortName());
+                    }
+                }
+
+                downloadPapersFromDashboard(
+                        catKeys.toArray(new String[0]),
+                        categories.toArray(new String[0]),
+                        getSharedPreferenceView().getSortOrder(),
+                        getSharedPreferenceView().getSortBy(),
+                        getSharedPreferenceView().getMaxResult());
                 return true;
 
             case R.id.navigation_favorites:
@@ -80,6 +99,42 @@ class MainPresenter extends BasePresenter{
 
     public void onQueryTextSubmit(String searchQuery) {
         downloadPapersFromSearch(searchQuery, getSharedPreferenceView().getSortOrder(), ArxivAPI.SORT_BY_RELEVANCE, getSharedPreferenceView().getMaxResult());
+    }
+
+    private void downloadPapersFromDashboard(String[] catKeys, String[] categories, String sortOrder, String sortBy, int maxResult){
+        try {
+            view.showLoading();
+            ArxivAPI.searchMultipleCategories(catKeys, categories,
+                    sortOrder,
+                    sortBy,
+                    maxResult,
+                    new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            if (!call.isCanceled())
+                                view.errorLoading();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            try (ResponseBody responseBody = response.body()) {
+                                if (!response.isSuccessful())
+                                    throw new IOException("Unexpected code " + response);
+                                ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
+                                responseBody.close();
+                                view.dismissLoading();
+                                Log.d("url", response.request().url().toString());
+                                view.switchToDashboardFragment(papers, Tags.DASHBOARD_RESULTS_TAG,
+                                        response.request().url().toString(), maxResult);
+                            } catch (XmlPullParserException | ParseException e) {
+                                view.errorLoading();
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.errorLoading();
+        }
     }
 
     private void downloadPapersFromSearch(String searchQuery, String sortOrder, String sortBy, int maxResult) {

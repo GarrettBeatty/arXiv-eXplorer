@@ -23,74 +23,72 @@ public class ArxivAPI {
         return client;
     }
 
-    public static void downloadPapersFromCategory(String catKey, String category, String sortOrder,
-                                                  String sortBy, int maxResults, Callback call) throws Exception {
+    public static void searchPapersFromCategory(String catKey, String category, String sortOrder,
+                                                String sortBy, int maxResults, Callback call) throws Exception {
 
-        searchPapers(null,
-                null,
-                null,
-//                null,
-//                null,
-                catKey,
-                category,
-//                null,
-                null,
-//                null,
-                sortOrder,
-                sortBy,
-                maxResults,
-                call);
-    }
-
-    private static String addParamToQuery(String query, String key, String param) {
-        if (param == null || param.equals("")) return query;
-        if (query.equals("")) {
-            query = query + key + ":" + param;
-        } else {
-            query = query + "+" + "AND" + "+" + key + ":" + param;
-        }
-        return query;
-    }
-
-    public static void searchPapers(String title,
-                                    String[] authors,
-                                    String summary,
-//                                    String comment,
-//                                    String journalReference,
-                                    String catKey,
-                                    String category,
-//                                    String reportNumber,
-                                    String id,
-//                                    String all,
-                                    String sortOrder,
-                                    String sortBy,
-                                    int maxResults,
-                                    Callback call) {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();
         urlBuilder.addPathSegment(querySegment);
 
         String query = "";
-        query = addParamToQuery(query, "title", title);
-        if(authors != null){
-            for(String author: authors){
-                query = addParamToQuery(query, "au", author);
-            }
-        }
 
-        query = addParamToQuery(query, "abs", summary);
-//        query = addParamToQuery(query, "co", comment);
-//        query = addParamToQuery(query, "jr", journalReference);
-        query = addParamToQuery(query, catKey, category);
-//        query = addParamToQuery(query, "rn", reportNumber);
-        query = addParamToQuery(query, "id", id);
-//        query = addParamToQuery(query, "all", all);
+        query = addANDParamToQuery(query, catKey, category);
 
         urlBuilder.addQueryParameter("search_query", query);
         urlBuilder.addEncodedQueryParameter("sortOrder", sortOrder);
         urlBuilder.addEncodedQueryParameter("sortBy", sortBy);
         urlBuilder.addEncodedQueryParameter("max_results", String.valueOf(maxResults));
 
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        getClient().newCall(request).enqueue(call);
+    }
+
+    private static String addANDParamToQuery(String query, String key, String param) {
+        if (param == null || param.equals("")) return query;
+        if (query.equals("")) {
+            query = query + key + ":" + param;
+        } else {
+            query = query + " " + "AND" + " " + key + ":" + param;
+        }
+        return query;
+    }
+
+    private static String addORParamToQuery(String query, String key, String param) {
+        if (param == null || param.equals("")) return query;
+        if (query.equals("")) {
+            query = query + key + ":" + param;
+        } else {
+            query = query + " " + "OR" + " " + key + ":" + param;
+        }
+        return query;
+    }
+
+    public static void searchMultipleCategories(String[] catKeys, String[] categories,
+                                 String sortOrder,
+                                 String sortBy,
+                                 int maxResults,
+                                 Callback call) {
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();
+        urlBuilder.addPathSegment(querySegment);
+
+        String query = "";
+
+        if(categories != null && catKeys != null){
+            for(int i = 0; i < categories.length; i++){
+                query = addORParamToQuery(query, catKeys[i], categories[i]);
+            }
+        }
+
+        urlBuilder.addQueryParameter("search_query", query);
+        urlBuilder.addEncodedQueryParameter("sortOrder", sortOrder);
+        urlBuilder.addEncodedQueryParameter("sortBy", sortBy);
+        urlBuilder.addEncodedQueryParameter("max_results", String.valueOf(maxResults));
 
         String url = urlBuilder.build().toString();
 
@@ -112,7 +110,7 @@ public class ArxivAPI {
         urlBuilder.addPathSegment(querySegment);
 
         String query = "";
-        query = addParamToQuery(query, "all", searchQuery);
+        query = addANDParamToQuery(query, "all", searchQuery);
 
         urlBuilder.addQueryParameter("search_query", query);
         urlBuilder.addEncodedQueryParameter("sortOrder", sortOrder);

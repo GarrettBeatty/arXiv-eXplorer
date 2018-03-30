@@ -15,9 +15,7 @@ public interface MainView extends BaseView{
 
     void switchToFavoritesFragment(ArrayList<Paper> papers, String tag);
 
-    void switchToDashboardFragment(ArrayList<Paper> papers, String dashboardFragmentTag);
-
-//    void switchToSearchFragment(String tag);
+    void switchToDashboardFragment(ArrayList<Paper> papers, String tag, String query, int maxResult);
 
     Fragment getCurrentFragment();
 
