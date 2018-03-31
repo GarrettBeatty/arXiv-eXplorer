@@ -50,7 +50,6 @@ class MainPresenter extends BasePresenter{
                             catKeys.add(c.getCatKey());
                             categories.add(c.getShortName());
                         }
-
                     }
                 }
 
@@ -124,7 +123,7 @@ class MainPresenter extends BasePresenter{
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
                                 view.dismissLoading();
-                                view.switchToDashboardFragment(papers, Tags.DASHBOARD_RESULTS_TAG,
+                                view.switchToDashboardFragment(papers, Tags.DASHBOARD_FRAGMENT_TAG,
                                         response.request().url().toString(), maxResult);
                             } catch (XmlPullParserException | ParseException e) {
                                 view.errorLoading();
