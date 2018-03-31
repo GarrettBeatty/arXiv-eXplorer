@@ -94,6 +94,12 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        notifyAdapter();
+    }
+
+    @Override
     public void goToPaperDetails(Paper paper, String tag) {
         showFragment(R.id.content, PaperDetailsFragment.newInstance(paper), tag);
     }
@@ -116,12 +122,16 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showPaginateLoading(boolean isPaginateLoading) {
-        getActivity().runOnUiThread(() -> paginate.showLoading(isPaginateLoading));
+        getActivity().runOnUiThread(() -> {
+                    if (paginate == null) return;
+                    paginate.showLoading(isPaginateLoading);
+                }
+        );
     }
 
     @Override
     public void showRecyclerView() {
-        if(papersRecyclerView == null || emptyView == null) return;
+        if (papersRecyclerView == null || emptyView == null) return;
         getActivity().runOnUiThread(() -> {
                     papersRecyclerView.setVisibility(View.VISIBLE);
                     emptyView.setVisibility(View.GONE);
@@ -152,7 +162,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     }
 
     public void setRefreshing(boolean b) {
-        if(swipeRefreshLayout == null) return;
+        if (swipeRefreshLayout == null) return;
         swipeRefreshLayout.setRefreshing(b);
     }
 
