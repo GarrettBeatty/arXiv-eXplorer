@@ -72,7 +72,7 @@ class MainPresenter extends BasePresenter{
     }
 
     public void onQueryTextSubmit(String searchQuery) {
-        view.switchToSearchFragment(searchQuery, Tags.DASHBOARD_FRAGMENT_TAG);
+        view.switchToSearchFragment(searchQuery, Tags.SEARCH_RESULTS_TAG);
     }
 
 }
