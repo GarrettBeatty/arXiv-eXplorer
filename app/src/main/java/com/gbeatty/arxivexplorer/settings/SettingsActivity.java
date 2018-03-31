@@ -178,7 +178,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sortOrder.setTitle(R.string.pref_title_sort_order);
 
             EditTextPreference maxResults = new EditTextPreference(getActivity());
-            maxResults.setDefaultValue(10);
+            maxResults.setDefaultValue("10");
             maxResults.setKey("max_results");
             maxResults.setTitle(R.string.pref_title_max_results);
             maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
