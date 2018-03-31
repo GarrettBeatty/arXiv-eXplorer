@@ -40,40 +40,62 @@ class MainPresenter extends BasePresenter{
 
             case R.id.navigation_dashboard:
                 if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
-
-                ArrayList<String> catKeys = new ArrayList<>();
-                ArrayList<String> categories = new ArrayList<>();
-                for(Category category : Categories.CATEGORIES){
-                    for(Category c: category.getSubCategories()){
-                        if(c.getCatKey().equals("all")) continue;
-                        if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
-                            catKeys.add(c.getCatKey());
-                            categories.add(c.getShortName());
-                        }
-                    }
-                }
-
-                downloadPapersFromDashboard(
-                        catKeys.toArray(new String[0]),
-                        categories.toArray(new String[0]),
-                        getSharedPreferenceView().getSortOrder(),
-                        getSharedPreferenceView().getSortBy(),
-                        getSharedPreferenceView().getMaxResult());
+                switchToDashboardFragment();
                 return true;
 
             case R.id.navigation_favorites:
                 if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;
-                view.switchToFavoritesFragment((ArrayList<Paper>)
-                        Select.from(Paper.class)
-                        .orderBy("id desc")
-                        .list(), Tags.FAVORITES_FRAGMENT_TAG);
+                switchToFavoritesFragment();
                 return true;
         }
         return false;
     }
 
-    void switchToCategoriesFragment() {
+    public void switchToCategoriesFragment(){
         view.switchToCategoriesFragment(Categories.CATEGORIES, Tags.MAIN_CATEGORIES_TAG);
+    }
+
+    private void switchToFavoritesFragment(){
+        view.switchToFavoritesFragment((ArrayList<Paper>)
+                Select.from(Paper.class)
+                        .orderBy("id desc")
+                        .list(), Tags.FAVORITES_FRAGMENT_TAG);
+    }
+
+    private ArrayList<String> getToggledCatKeys(){
+        ArrayList<String> catKeys = new ArrayList<>();
+        for(Category category : Categories.CATEGORIES){
+            for(Category c: category.getSubCategories()){
+                if(c.getCatKey().equals("all")) continue;
+                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                    catKeys.add(c.getCatKey());
+                }
+            }
+        }
+        return catKeys;
+    }
+
+    private ArrayList<String> getToggledCategoriesNames(){
+        ArrayList<String> categoriesNames = new ArrayList<>();
+        for(Category category : Categories.CATEGORIES){
+            for(Category c: category.getSubCategories()){
+                if(c.getCatKey().equals("all")) continue;
+                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                    categoriesNames.add(c.getShortName());
+                }
+            }
+        }
+        return categoriesNames;
+    }
+
+    private void switchToDashboardFragment(){
+
+        downloadPapersFromDashboard(
+                getToggledCatKeys().toArray(new String[0]),
+                getToggledCategoriesNames().toArray(new String[0]),
+                getSharedPreferenceView().getSortOrder(),
+                getSharedPreferenceView().getSortBy(),
+                getSharedPreferenceView().getMaxResult());
     }
 
     public boolean onOptionsItemSelected(int itemId) {

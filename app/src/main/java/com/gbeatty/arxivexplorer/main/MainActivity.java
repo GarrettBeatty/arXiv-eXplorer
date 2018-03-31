@@ -106,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         runOnUiThread(() -> showFragment(R.id.content, DashboardFragment.newInstance(papers, query, maxResult), tag));
     }
 
+    @Override
+    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
+        runOnUiThread(() -> showFragment(R.id.content, PapersFragment.newInstance(papers, query, maxResult), tag));
+    }
+
     public Fragment getCurrentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.content);
     }
@@ -228,9 +233,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
-        runOnUiThread(() -> showFragment(R.id.content, PapersFragment.newInstance(papers, query, maxResult), tag));
-    }
 
 
 }

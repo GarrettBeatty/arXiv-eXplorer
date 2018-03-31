@@ -111,7 +111,7 @@ public class PapersFragment extends BaseFragment implements PapersView{
 
     @Override
     public void onResume(){
-        papersListAdapter.notifyDataSetChanged();
+//        papersListAdapter.notifyDataSetChanged();
         super.onResume();
     }
 
