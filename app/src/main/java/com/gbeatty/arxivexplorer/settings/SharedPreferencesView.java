@@ -6,4 +6,5 @@ public interface SharedPreferencesView {
     String getSortBy();
     int getMaxResult();
     boolean isShowAbstract();
+    boolean isDashboardCategoryChecked(String categoryName);
 }

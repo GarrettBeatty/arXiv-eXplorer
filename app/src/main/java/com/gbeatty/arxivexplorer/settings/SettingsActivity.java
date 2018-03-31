@@ -154,7 +154,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(getActivity());
 
             PreferenceCategory generalCategory = new PreferenceCategory(getActivity());
-            generalCategory.setTitle("General");
+            generalCategory.setTitle("General Preferences");
 
             screen.addPreference(generalCategory);
 

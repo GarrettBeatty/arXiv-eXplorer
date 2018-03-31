@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.main;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.arxivdata.Categories;
 import com.gbeatty.arxivexplorer.base.BasePresenter;
@@ -48,8 +46,11 @@ class MainPresenter extends BasePresenter{
                 for(Category category : Categories.CATEGORIES){
                     for(Category c: category.getSubCategories()){
                         if(c.getCatKey().equals("all")) continue;
-                        catKeys.add(c.getCatKey());
-                        categories.add(c.getShortName());
+                        if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                            catKeys.add(c.getCatKey());
+                            categories.add(c.getShortName());
+                        }
+
                     }
                 }
 
@@ -123,7 +124,6 @@ class MainPresenter extends BasePresenter{
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
                                 view.dismissLoading();
-                                Log.d("url", response.request().url().toString());
                                 view.switchToDashboardFragment(papers, Tags.DASHBOARD_RESULTS_TAG,
                                         response.request().url().toString(), maxResult);
                             } catch (XmlPullParserException | ParseException e) {

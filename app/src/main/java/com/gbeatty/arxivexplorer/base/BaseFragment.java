@@ -54,6 +54,8 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         boolean isShowAbstract();
 
         SharedPreferences getSharedPreferences();
+
+        boolean isDashboardCategoryChecked(String categoryName);
     }
 
     public void showLoading(){
@@ -86,8 +88,13 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     public int getMaxResult() {
         return listener.getMaxResult();
     }
-    
+
+    @Override
     public boolean isShowAbstract(){return  listener.isShowAbstract();}
 
-    public SharedPreferences getSharedPreferences(){return listener.getSharedPreferences();}
+    @Override
+    public boolean isDashboardCategoryChecked(String categoryName) {
+        return listener.isDashboardCategoryChecked(categoryName);
+    }
+
 }

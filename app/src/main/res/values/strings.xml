@@ -6,7 +6,6 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
 
     <string name="pref_title_sort_by">Paper Sort Order</string>
     <string-array name="pref_sort_by_list_titles">

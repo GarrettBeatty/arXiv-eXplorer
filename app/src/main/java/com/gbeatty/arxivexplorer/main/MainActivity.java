@@ -215,7 +215,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     public boolean isShowAbstract() {
-        return preferences.getBoolean("show_abstract", Boolean.valueOf(getString(R.string.showAbstractDefault)));
+        return preferences.getBoolean("show_abstract", false);
+    }
+
+    @Override
+    public boolean isDashboardCategoryChecked(String categoryName) {
+        return preferences.getBoolean(categoryName, false);
     }
 
     @Override

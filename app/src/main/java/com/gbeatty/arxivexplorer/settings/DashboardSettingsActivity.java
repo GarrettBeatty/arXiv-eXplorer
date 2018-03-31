@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
@@ -109,30 +108,49 @@ public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
             dashboardCategories.addPreference(toggleAll);
 
             for (Category category : Categories.CATEGORIES) {
-                if (category.getSubCategories() != null) {
+                PreferenceCategory toggleCategory = new PreferenceCategory(getActivity());
+                toggleCategory.setTitle(category.getName());
+                screen.addPreference(toggleCategory);
+                if (category.getSubCategories().length != 0) {
                     for (Category subCategory : category.getSubCategories()) {
-                        if (subCategory.getCatKey().equals("all")) continue;
                         SwitchPreference sp = new SwitchPreference(getActivity());
                         sp.setDefaultValue(true);
                         sp.setKey(subCategory.getShortName());
-                        sp.setTitle(subCategory.getShortName());
-                        dashboardCategories.addPreference(sp);
+                        if (subCategory.getCatKey().equals("all")) {
+                            sp.setTitle(category.getName() + " - " + "Toggle All");
+                            sp.setOnPreferenceClickListener(preference -> {
+                                for (int i = 0; i < toggleCategory.getPreferenceCount(); i++) {
+                                    SwitchPreference s = (SwitchPreference) toggleCategory.getPreference(i);
+                                    s.setChecked(sp.isChecked());
+                                }
+                                return false;
+                            });
+                        }
+                        else
+                            sp.setTitle(subCategory.getShortName() + " - " + subCategory.getName());
+                        toggleCategory.addPreference(sp);
                     }
                 } else {
                     SwitchPreference sp = new SwitchPreference(getActivity());
                     sp.setDefaultValue(true);
                     sp.setKey(category.getShortName());
                     sp.setTitle(category.getShortName());
-                    dashboardCategories.addPreference(sp);
+                    toggleCategory.addPreference(sp);
                 }
+
             }
             setPreferenceScreen(screen);
 
             toggleAll.setOnPreferenceClickListener(preference -> {
-                PreferenceGroup pGroup = (PreferenceGroup) dashboardCategories;
-                for(int i = 0; i < pGroup.getPreferenceCount(); i++){
-                    SwitchPreference s = (SwitchPreference) pGroup.getPreference(i);
-                    s.setChecked(toggleAll.isChecked());
+                for(int i = 0; i < screen.getPreferenceCount(); i++){
+                    PreferenceCategory preferenceCategory = (PreferenceCategory) screen.getPreference(i);
+                    for(int j = 0; j < preferenceCategory.getPreferenceCount(); j++){
+//                        if(screen.getPreference(i) instanceof SwitchPreference){
+                            SwitchPreference s = (SwitchPreference) preferenceCategory.getPreference(j);
+                            s.setChecked(toggleAll.isChecked());
+//                        }
+                    }
+
                 }
                 return true;
             });
