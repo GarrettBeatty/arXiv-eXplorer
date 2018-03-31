@@ -1,9 +1,9 @@
-package com.gbeatty.arxivexplorer.browse.paper.list;
+package com.gbeatty.arxivexplorer.paper.list;
 
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
+import com.gbeatty.arxivexplorer.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -18,22 +18,18 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import ru.alexbykov.nopaginate.callback.OnLoadMoreListener;
 
-public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreListener {
+public abstract class PapersPresenter extends PapersPresenterBase implements OnLoadMoreListener {
 
     private PapersView view;
     private ArrayList<Paper> papers;
     private String query;
     private int start;
-    private int maxResult;
 
-    public PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView, ArrayList<Paper> papers, String query, int maxResult) {
+    public PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
-        if (papers == null) this.papers = new ArrayList<>();
-        else this.papers = papers;
-        this.query = query;
+        getPapers();
         start = 0;
-        this.maxResult = maxResult;
     }
 
     void onBindPaperRowViewAtPosition(int position, final PaperRowView paperRowView) {
@@ -69,14 +65,15 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
     }
 
     int getPapersRowsCount() {
+        if(papers == null) return 0;
         return papers.size();
     }
 
-    public void determineContentVisibility() {
-        if(papers.size() == 0){
-            view.showNoPapersMessage();
-        }
-    }
+//    public void determineContentVisibility() {
+//        if(papers == null || papers.size() == 0){
+//            view.showNoPapersMessage();
+//        }
+//    }
 
     @Override
     public void onLoadMore() {
@@ -85,7 +82,7 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
         view.showPaginateError(false);
         view.showPaginateLoading(true);
 
-        start = start + maxResult;
+        start = start + getSharedPreferenceView().getMaxResult();
         ArxivAPI.paginateQuery(query, start, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -101,7 +98,7 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
                     ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
                     papers.addAll(p);
-                    if(p.size() < maxResult){
+                    if(p.size() < getSharedPreferenceView().getMaxResult()){
                         view.setPaginateNoMoreData(true);
                         return;
                     }
@@ -116,4 +113,26 @@ public class PapersPresenter extends PapersPresenterBase implements OnLoadMoreLi
         });
 
     }
+
+    public void updatePapers(ArrayList<Paper> papers) {
+        this.papers = papers;
+        if(papers.size() == 0){
+            view.showNoPapersMessage();
+        }else
+            view.showRecyclerView();
+            view.notifyAdapter();
+    }
+
+    public PapersView getView() {
+        return view;
+    }
+
+    public abstract void getPapers();
+
+    public String getQuery(){return query;}
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
 }

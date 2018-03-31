@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.category;
+package com.gbeatty.arxivexplorer.category;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

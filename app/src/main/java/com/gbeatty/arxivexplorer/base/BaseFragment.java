@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
-
-import java.util.ArrayList;
 
 public abstract class BaseFragment extends Fragment implements SharedPreferencesView {
 
@@ -49,8 +46,6 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
         void dismissLoading();
 
-        void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult);
-
         boolean isShowAbstract();
 
         SharedPreferences getSharedPreferences();
@@ -60,10 +55,6 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
     public void showLoading(){
         listener.showLoading();
-    }
-
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult){
-        listener.switchToPapersFragment(papers, tag, query, maxResult);
     }
 
     public void dismissLoading(){

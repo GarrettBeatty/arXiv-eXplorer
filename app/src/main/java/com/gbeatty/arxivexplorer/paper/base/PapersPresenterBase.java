@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.paper.base;
+package com.gbeatty.arxivexplorer.paper.base;
 
 import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.models.Paper;

@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.paper.details;
+package com.gbeatty.arxivexplorer.paper.details;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -40,6 +40,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperPublished;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
+    private MenuItem downloadedPaper;
     private ProgressDialog progressDialog;
 
     public PaperDetailsFragment() {
@@ -77,7 +78,9 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_paper_details, menu);
         favoritePaper = menu.findItem(R.id.menu_favorite_paper);
-        presenter.updateMenuItems();
+        downloadedPaper = menu.findItem(R.id.menu_download_paper);
+        presenter.updateFavoritedMenuItem();
+        presenter.updateDownloadedMenuItem();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -161,4 +164,24 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
         });
     }
+
+    @Override
+    public boolean isPaperDownloaded(String paperID) {
+        File papersPath = new File(getFilesDir(), "papers");
+        File file = new File(papersPath, paperID);
+        return file.exists();
+    }
+
+    @Override
+    public void setDownloadedIcon() {
+        getActivity().runOnUiThread(() -> {
+            downloadedPaper.setIcon(R.drawable.ic_remove_red_eye_black_24dp);
+        });
+    }
+
+    @Override
+    public void setNotDownloadedIcon() {
+        downloadedPaper.setIcon(R.drawable.ic_file_download_black_24dp);
+    }
+
 }

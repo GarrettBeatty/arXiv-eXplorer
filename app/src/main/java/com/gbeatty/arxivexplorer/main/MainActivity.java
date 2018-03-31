@@ -19,17 +19,15 @@ import android.widget.Toast;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
-import com.gbeatty.arxivexplorer.browse.category.CategoriesFragment;
-import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
+import com.gbeatty.arxivexplorer.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
+import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
 import com.gbeatty.arxivexplorer.models.Category;
-import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,18 +95,18 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
 
     @Override
-    public void switchToFavoritesFragment(ArrayList<Paper> papers, String tag) {
-        showFragment(R.id.content, PapersFragment.newInstance(papers), tag);
+    public void switchToFavoritesFragment(String tag) {
+        showFragment(R.id.content, FavoritesFragment.newInstance(), tag);
     }
 
     @Override
-    public void switchToDashboardFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
-        runOnUiThread(() -> showFragment(R.id.content, DashboardFragment.newInstance(papers, query, maxResult), tag));
+    public void switchToDashboardFragment(String tag) {
+        showFragment(R.id.content, DashboardFragment.newInstance(), tag);
     }
 
     @Override
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
-        runOnUiThread(() -> showFragment(R.id.content, PapersFragment.newInstance(papers, query, maxResult), tag));
+    public void switchToSearchFragment(String searchQuery, String tag) {
+        showFragment(R.id.content, SearchFragment.newInstance(searchQuery), tag);
     }
 
     public Fragment getCurrentFragment() {
@@ -206,7 +204,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         });
     }
 
-
     public String getSortOrder() {
         return preferences.getString("sort_order_list", ArxivAPI.SORT_ORDER_DESCENDING);
     }
@@ -224,15 +221,13 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     @Override
-    public boolean isDashboardCategoryChecked(String categoryName) {
-        return preferences.getBoolean(categoryName, false);
-    }
-
-    @Override
     public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-
+    @Override
+    public boolean isDashboardCategoryChecked(String categoryName) {
+        return getSharedPreferences().getBoolean(categoryName, true);
+    }
 
 }

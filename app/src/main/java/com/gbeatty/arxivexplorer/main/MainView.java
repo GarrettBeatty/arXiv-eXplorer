@@ -5,17 +5,17 @@ import android.support.v4.app.Fragment;
 
 import com.gbeatty.arxivexplorer.base.BaseView;
 import com.gbeatty.arxivexplorer.models.Category;
-import com.gbeatty.arxivexplorer.models.Paper;
-
-import java.util.ArrayList;
 
 public interface MainView extends BaseView{
 
     void switchToCategoriesFragment(Category[] categories, String tag);
 
-    void switchToFavoritesFragment(ArrayList<Paper> papers, String tag);
+    void switchToFavoritesFragment(String tag);
 
-    void switchToDashboardFragment(ArrayList<Paper> papers, String tag, String query, int maxResult);
+    void switchToDashboardFragment(String tag);
+
+    void switchToSearchFragment(String searchQuery, String tag);
+
 
     Fragment getCurrentFragment();
 

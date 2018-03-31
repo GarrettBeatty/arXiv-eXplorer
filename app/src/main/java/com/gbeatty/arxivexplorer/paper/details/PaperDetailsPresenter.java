@@ -1,9 +1,9 @@
-package com.gbeatty.arxivexplorer.browse.paper.details;
+package com.gbeatty.arxivexplorer.paper.details;
 
 import com.gbeatty.arxivexplorer.R;
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+import com.gbeatty.arxivexplorer.paper.base.PapersPresenterBase;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import java.io.File;
@@ -34,7 +34,7 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         view.setPublishedDate("Published: " + paper.getPublishedDate());
     }
 
-    void updateMenuItems() {
+    void updateFavoritedMenuItem() {
         if (isPaperFavorited(paper.getPaperID())) {
             view.setFavoritedIcon();
         } else {
@@ -42,9 +42,17 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         }
     }
 
+    void updateDownloadedMenuItem(){
+        if(view.isPaperDownloaded(paper.getPaperID())){
+            view.setDownloadedIcon();
+        }else{
+            view.setNotDownloadedIcon();
+        }
+    }
+
     private void navigationFavoritePaperClicked() {
         toggleFavoritePaper(paper);
-        updateMenuItems();
+        updateFavoritedMenuItem();
     }
 
     private void navigationDownloadPaperClicked() {
@@ -86,6 +94,7 @@ class PaperDetailsPresenter extends PapersPresenterBase {
                 sink.writeAll(response.body().source());
                 sink.close();
                 view.dismissLoading();
+                updateDownloadedMenuItem();
                 view.viewDownloadedPaper(file);
             }
         });
@@ -102,6 +111,4 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         }
         return false;
     }
-
-
 }

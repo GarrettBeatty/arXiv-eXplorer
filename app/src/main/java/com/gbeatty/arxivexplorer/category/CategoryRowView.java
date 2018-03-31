@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.category;
+package com.gbeatty.arxivexplorer.category;
 
 public interface CategoryRowView {
 

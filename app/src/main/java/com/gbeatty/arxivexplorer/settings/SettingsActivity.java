@@ -181,7 +181,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             maxResults.setDefaultValue(10);
             maxResults.setKey("max_results");
             maxResults.setTitle(R.string.pref_title_max_results);
-            maxResults.getEditText().setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
+            maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
 
             SwitchPreference showAbstract = new SwitchPreference(getActivity());
             showAbstract.setDefaultValue(false);

@@ -1,26 +1,42 @@
 package com.gbeatty.arxivexplorer.dashboard;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
-import com.gbeatty.arxivexplorer.models.Paper;
-
-import java.util.ArrayList;
+import com.gbeatty.arxivexplorer.paper.list.PapersFragment;
+import com.gbeatty.arxivexplorer.paper.list.PapersPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DashboardFragment extends PapersFragment {
 
+    private DashboardPresenter presenter;
+
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(ArrayList<Paper> papers, String query, int maxResult) {
+    @Override
+    protected PapersPresenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    protected boolean isPaginate() {
+        return true;
+    }
+
+    public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
-        fragment.setArguments(setArgs(papers, query, maxResult));
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        presenter = new DashboardPresenter(this, this);
+        super.onCreate(savedInstanceState);
     }
 
 }

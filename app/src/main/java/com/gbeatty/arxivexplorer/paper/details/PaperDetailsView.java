@@ -1,6 +1,6 @@
-package com.gbeatty.arxivexplorer.browse.paper.details;
+package com.gbeatty.arxivexplorer.paper.details;
 
-import com.gbeatty.arxivexplorer.browse.paper.base.PapersViewBase;
+import com.gbeatty.arxivexplorer.paper.base.PapersViewBase;
 
 import java.io.File;
 
@@ -10,4 +10,7 @@ interface PaperDetailsView extends PapersViewBase {
     void showLoading();
     void dismissLoading();
     void errorLoading();
+    boolean isPaperDownloaded(String paperID);
+    void setDownloadedIcon();
+    void setNotDownloadedIcon();
 }

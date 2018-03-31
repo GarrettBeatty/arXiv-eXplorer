@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.paper.base;
+package com.gbeatty.arxivexplorer.paper.base;
 
 public interface PapersViewBase {
     void setTitle(String title);

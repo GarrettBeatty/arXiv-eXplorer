@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.browse.category;
+package com.gbeatty.arxivexplorer.category;
 
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
+import com.gbeatty.arxivexplorer.browse.BrowseFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 
 import butterknife.BindView;
@@ -71,6 +72,11 @@ public class CategoriesFragment extends BaseFragment implements CategoriesView{
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return rootView;
+    }
+
+    @Override
+    public void switchToBrowseFragment(String catKey, String shortName, String tag) {
+        showFragment(R.id.content, BrowseFragment.newInstance(catKey, shortName), tag);
     }
 
 }
