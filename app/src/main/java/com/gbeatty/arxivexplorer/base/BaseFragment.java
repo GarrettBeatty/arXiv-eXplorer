@@ -40,29 +40,11 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
         int getMaxResult();
 
-        void showLoading();
-
-        void errorLoading();
-
-        void dismissLoading();
-
         boolean isShowAbstract();
 
         SharedPreferences getSharedPreferences();
 
         boolean isDashboardCategoryChecked(String categoryName);
-    }
-
-    public void showLoading(){
-        listener.showLoading();
-    }
-
-    public void dismissLoading(){
-        listener.dismissLoading();
-    }
-
-    public void errorLoading() {
-        listener.errorLoading();
     }
 
     @Override

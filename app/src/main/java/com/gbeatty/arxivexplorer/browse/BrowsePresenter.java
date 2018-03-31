@@ -37,7 +37,7 @@ class BrowsePresenter extends PapersPresenter {
 
     private void downloadPapersFromCategory(String catKey, String category, String sortOrder, String sortBy, int maxResult) {
         try {
-            getView().showLoading();
+            getView().setRefreshing(true);
             ArxivAPI.searchPapersFromCategory(catKey, category,
                     sortOrder,
                     sortBy,
@@ -45,8 +45,9 @@ class BrowsePresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            if (!call.isCanceled())
-                                getView().errorLoading();
+                            if (!call.isCanceled()){
+
+                            }
                         }
 
                         @Override
@@ -56,19 +57,17 @@ class BrowsePresenter extends PapersPresenter {
                                     throw new IOException("Unexpected code " + response);
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
-                                getView().dismissLoading();
 
+                                getView().setRefreshing(false);
                                 setQuery(response.request().url().toString());
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
-                                getView().errorLoading();
                             }
                         }
                     });
         } catch (Exception e) {
             e.printStackTrace();
-            getView().errorLoading();
         }
     }
 

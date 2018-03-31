@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.search;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -31,7 +29,7 @@ class SearchPresenter extends PapersPresenter {
     @Override
     public void getPapers() {
         try {
-            getView().showLoading();
+            getView().setRefreshing(true);
             ArxivAPI.searchAll(searchQuery,
                     getSharedPreferenceView().getSortOrder(),
                     ArxivAPI.SORT_BY_RELEVANCE,
@@ -39,7 +37,6 @@ class SearchPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            getView().errorLoading();
                         }
 
                         @Override
@@ -49,20 +46,17 @@ class SearchPresenter extends PapersPresenter {
                                     throw new IOException("Unexpected code " + response);
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
-                                getView().dismissLoading();
 
+                                getView().setRefreshing(false);
                                 setQuery(response.request().url().toString());
-                                Log.d("query", response.request().url().toString());
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
-                                getView().errorLoading();
                             }
                         }
                     });
         } catch (Exception e) {
             e.printStackTrace();
-            getView().errorLoading();
         }
     }
 

@@ -3,10 +3,9 @@ package com.gbeatty.arxivexplorer.main;
 
 import android.support.v4.app.Fragment;
 
-import com.gbeatty.arxivexplorer.base.BaseView;
 import com.gbeatty.arxivexplorer.models.Category;
 
-public interface MainView extends BaseView{
+public interface MainView{
 
     void switchToCategoriesFragment(Category[] categories, String tag);
 

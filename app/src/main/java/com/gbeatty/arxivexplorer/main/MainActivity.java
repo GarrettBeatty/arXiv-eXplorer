@@ -1,6 +1,5 @@
 package com.gbeatty.arxivexplorer.main;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @BindView(R.id.search_view) MaterialSearchView searchView;
     private MainPresenter presenter;
     private SharedPreferences preferences;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,27 +179,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             transaction.commit();
             fragmentManager.executePendingTransactions();
         }
-    }
-
-    public void showLoading(){
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.setTitle("Loading Papers");
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(true);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-    }
-
-    public void dismissLoading(){
-        progressDialog.dismiss();
-    }
-
-    public void errorLoading() {
-        runOnUiThread(() -> {
-            dismissLoading();
-            Toast.makeText(this, "Error Loading Papers", Toast.LENGTH_SHORT).show();
-        });
     }
 
     public String getSortOrder() {

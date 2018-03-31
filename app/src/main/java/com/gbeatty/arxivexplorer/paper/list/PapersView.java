@@ -1,9 +1,8 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
-import com.gbeatty.arxivexplorer.base.BaseView;
 import com.gbeatty.arxivexplorer.models.Paper;
 
-public interface PapersView extends BaseView{
+public interface PapersView{
 
     void goToPaperDetails(Paper paper, String tag);
     void showNoPapersMessage();
@@ -12,4 +11,5 @@ public interface PapersView extends BaseView{
     void showPaginateError(boolean isPaginateError);
     void setPaginateNoMoreData(boolean isNoMoreItems);
     void showRecyclerView();
+    void setRefreshing(boolean b);
 }

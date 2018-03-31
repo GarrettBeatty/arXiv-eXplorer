@@ -1,10 +1,14 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     private PapersPresenter presenter;
     private Paginate paginate;
     private PapersListAdapter papersListAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 //    private boolean isPaginate;
 
     public PapersFragment() {
@@ -39,7 +44,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
 //        isPaginate = presenter.getQuery() != null;
-        setHasOptionsMenu(false);
+        setHasOptionsMenu(true);
     }
 
     protected abstract PapersPresenter getPresenter();
@@ -63,7 +68,10 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         papersRecyclerView.setAdapter(papersListAdapter);
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        presenter.determineContentVisibility();
+        swipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            presenter.onRefresh();
+        });
 
         if (isPaginate()) {
             paginate = new PaginateBuilder()
@@ -83,12 +91,6 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         if (paginate != null) paginate.unbind();
         super.onDestroy();
     }
-
-//    @Override
-//    public void onResume(){
-//        presenter.updatePapers();
-//        super.onResume();
-//    }
 
     @Override
     public void goToPaperDetails(Paper paper, String tag) {
@@ -135,5 +137,23 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     public void setPaginateNoMoreData(boolean isNoMoreItems) {
         getActivity().runOnUiThread(() -> paginate.setNoMoreItems(isNoMoreItems));
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_paper_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return presenter.onNavigationItemSelected(id) || super.onOptionsItemSelected(item);
+    }
+
+    public void setRefreshing(boolean b) {
+        if(swipeRefreshLayout == null) return;
+        swipeRefreshLayout.setRefreshing(b);
+    }
+
 
 }

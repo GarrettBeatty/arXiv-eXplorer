@@ -17,6 +17,8 @@ class FavoritesPresenter extends PapersPresenter {
 
     @Override
     public void getPapers() {
+        getView().setRefreshing(true);
+        getView().setRefreshing(false);
         updatePapers((ArrayList<Paper>)
                 Select.from(Paper.class)
                         .orderBy("id desc")

@@ -1,5 +1,8 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
+import android.util.Log;
+
+import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -39,11 +42,10 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         paperRowView.setAuthors(paper.getAuthor());
         paperRowView.setUpdatedDate("Updated: " + paper.getUpdatedDate());
         paperRowView.setPublishedDate("Published: " + paper.getPublishedDate());
-        if(getSharedPreferenceView().isShowAbstract()) {
+        if (getSharedPreferenceView().isShowAbstract()) {
             paperRowView.showSummary();
             paperRowView.setSummary(paper.getSummary());
-        }
-        else
+        } else
             paperRowView.hideSummary();
         updateIcons(paper, paperRowView);
     }
@@ -59,13 +61,13 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         updateIcons(paper, paperRowView);
     }
 
-    private void updateIcons(Paper paper, PaperRowView paperRowView){
+    private void updateIcons(Paper paper, PaperRowView paperRowView) {
         if (isPaperFavorited(paper.getPaperID())) paperRowView.setFavoritedIcon();
         else paperRowView.setNotFavoritedIcon();
     }
 
     int getPapersRowsCount() {
-        if(papers == null) return 0;
+        if (papers == null) return 0;
         return papers.size();
     }
 
@@ -77,7 +79,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     @Override
     public void onLoadMore() {
-        if(query == null) return;
+        if (query == null) return;
 
         view.showPaginateError(false);
         view.showPaginateLoading(true);
@@ -98,7 +100,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                     ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
                     papers.addAll(p);
-                    if(p.size() < getSharedPreferenceView().getMaxResult()){
+                    if (p.size() < getSharedPreferenceView().getMaxResult()) {
                         view.setPaginateNoMoreData(true);
                         return;
                     }
@@ -116,11 +118,11 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     public void updatePapers(ArrayList<Paper> papers) {
         this.papers = papers;
-        if(papers.size() == 0){
+        if (papers.size() == 0) {
             view.showNoPapersMessage();
-        }else
+        } else
             view.showRecyclerView();
-            view.notifyAdapter();
+        view.notifyAdapter();
     }
 
     public PapersView getView() {
@@ -129,10 +131,25 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     public abstract void getPapers();
 
-    public String getQuery(){return query;}
-
     public void setQuery(String query) {
         this.query = query;
     }
 
+    public void onRefresh() {
+        getPapers();
+    }
+
+
+    public boolean onNavigationItemSelected(int id) {
+        switch (id) {
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+                Log.d("menu refresh", "refresh");
+                getPapers();
+                return true;
+        }
+
+        // User didn't trigger a refresh, let the superclass handle this action
+        return false;
+    }
 }

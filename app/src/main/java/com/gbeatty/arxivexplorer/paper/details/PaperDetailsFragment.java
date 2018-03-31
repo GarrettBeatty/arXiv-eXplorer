@@ -87,7 +87,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        return presenter.onNavigationItemSelected(id);
+        return presenter.onNavigationItemSelected(id) || super.onOptionsItemSelected(item);
     }
 
     @Override
