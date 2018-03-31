@@ -32,8 +32,8 @@ before_install:
 install:
   - bundle install
 before_script:
-  - scripts/before_script.sh
+  #- scripts/before_script.sh
 script:
   - fastlane test
 after_success:
-  - scripts/after_success.sh
+  - #scripts/after_success.sh
