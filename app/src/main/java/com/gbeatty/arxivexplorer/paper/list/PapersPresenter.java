@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -143,7 +141,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         switch (id) {
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                Log.d("menu refresh", "refresh");
                 getPapers();
                 return true;
         }
