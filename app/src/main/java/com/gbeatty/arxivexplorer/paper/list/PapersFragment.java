@@ -161,7 +161,8 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     public void setRefreshing(boolean b) {
         if (swipeRefreshLayout == null) return;
-        swipeRefreshLayout.setRefreshing(b);
+        getActivity().runOnUiThread(() -> swipeRefreshLayout.setRefreshing(b));
+
     }
 
 
