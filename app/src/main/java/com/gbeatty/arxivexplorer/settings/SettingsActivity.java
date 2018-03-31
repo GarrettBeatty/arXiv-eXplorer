@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
+import com.gbeatty.arxivexplorer.network.ArxivAPI;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -159,7 +160,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             screen.addPreference(generalCategory);
 
             ListPreference sortBy = new ListPreference(getActivity());
-            sortBy.setDefaultValue("lastUpdatedDate");
+            sortBy.setDefaultValue(ArxivAPI.SORT_BY_SUBMITTED_DATE);
             sortBy.setEntries(R.array.pref_sort_by_list_titles);
             sortBy.setEntryValues(R.array.pref_sort_by_list_values);
             sortBy.setKey("sort_by_list");
@@ -168,7 +169,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sortBy.setTitle(R.string.pref_title_sort_by);
 
             ListPreference sortOrder = new ListPreference(getActivity());
-            sortOrder.setDefaultValue("descending");
+            sortOrder.setDefaultValue(ArxivAPI.SORT_ORDER_DESCENDING);
             sortOrder.setEntries(R.array.pref_sort_order_list_titles);
             sortOrder.setEntryValues(R.array.pref_sort_order_list_values);
             sortOrder.setKey("sort_order_list");

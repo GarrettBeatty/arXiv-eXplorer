@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     public String getSortBy() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }
 
     public int getMaxResult() {
