@@ -24,6 +24,7 @@ class SearchPresenter extends PapersPresenter {
 
     public SearchPresenter(PapersView view, SharedPreferencesView sharedPreferencesView, String searchQuery) {
         super(view, sharedPreferencesView);
+        this.searchQuery = searchQuery;
     }
 
     @Override

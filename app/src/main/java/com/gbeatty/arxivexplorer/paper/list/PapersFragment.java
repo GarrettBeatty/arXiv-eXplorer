@@ -43,6 +43,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
+        presenter.getPapers();
 //        isPaginate = presenter.getQuery() != null;
         setHasOptionsMenu(true);
     }

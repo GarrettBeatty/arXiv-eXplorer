@@ -31,7 +31,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     public PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
-        getPapers();
         start = 0;
     }
 

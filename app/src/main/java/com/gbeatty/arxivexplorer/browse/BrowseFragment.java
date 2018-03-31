@@ -46,7 +46,9 @@ public class BrowseFragment extends PapersFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        presenter = new BrowsePresenter(this, this);
+        String catKey = getArguments().getString(CATKEYKEY);
+        String shortName = getArguments().getString(SHORTNAMEKEY);
+        presenter = new BrowsePresenter(this, this, catKey, shortName);
         super.onCreate(savedInstanceState);
     }
 

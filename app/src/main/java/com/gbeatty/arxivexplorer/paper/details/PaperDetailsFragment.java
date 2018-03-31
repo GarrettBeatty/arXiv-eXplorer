@@ -174,9 +174,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setDownloadedIcon() {
-        getActivity().runOnUiThread(() -> {
-            downloadedPaper.setIcon(R.drawable.ic_remove_red_eye_black_24dp);
-        });
+        getActivity().runOnUiThread(() -> downloadedPaper.setIcon(R.drawable.ic_remove_red_eye_black_24dp));
     }
 
     @Override

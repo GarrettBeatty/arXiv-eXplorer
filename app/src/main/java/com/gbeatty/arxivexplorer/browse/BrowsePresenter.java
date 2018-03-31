@@ -23,8 +23,10 @@ class BrowsePresenter extends PapersPresenter {
     private String catKey;
     private String shortName;
 
-    public BrowsePresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
+    public BrowsePresenter(PapersView view, SharedPreferencesView sharedPreferencesView, String catKey, String shortName) {
         super(view, sharedPreferencesView);
+        this.catKey = catKey;
+        this.shortName = shortName;
     }
 
     @Override
