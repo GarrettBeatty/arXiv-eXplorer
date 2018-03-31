@@ -54,6 +54,9 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".settings.DashboardSettingsActivity"
+            android:label="@string/title_activity_dashboard_settings" />
     </application>
 
 </manifest>

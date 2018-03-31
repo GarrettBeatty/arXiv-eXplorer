@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,20 +149,80 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sort_order_list"));
-            bindPreferenceSummaryToValue(findPreference("sort_by_list"));
-            bindPreferenceSummaryToValue(findPreference("max_results"));
+            PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(getActivity());
 
-            findPreference("delete_downloaded_papers").setOnPreferenceClickListener(preference -> {
+            PreferenceCategory generalCategory = new PreferenceCategory(getActivity());
+            generalCategory.setTitle("General");
+
+            screen.addPreference(generalCategory);
+
+            ListPreference sortBy = new ListPreference(getActivity());
+            sortBy.setDefaultValue("lastUpdatedDate");
+            sortBy.setEntries(R.array.pref_sort_by_list_titles);
+            sortBy.setEntryValues(R.array.pref_sort_by_list_values);
+            sortBy.setKey("sort_by_list");
+            sortBy.setPositiveButtonText(null);
+            sortBy.setNegativeButtonText(null);
+            sortBy.setTitle(R.string.pref_title_sort_by);
+
+            ListPreference sortOrder = new ListPreference(getActivity());
+            sortOrder.setDefaultValue("descending");
+            sortOrder.setEntries(R.array.pref_sort_order_list_titles);
+            sortOrder.setEntryValues(R.array.pref_sort_order_list_values);
+            sortOrder.setKey("sort_order_list");
+            sortOrder.setPositiveButtonText(null);
+            sortOrder.setNegativeButtonText(null);
+            sortOrder.setTitle(R.string.pref_title_sort_order);
+
+            EditTextPreference maxResults = new EditTextPreference(getActivity());
+            maxResults.setDefaultValue(10);
+            maxResults.setKey("max_results");
+            maxResults.setTitle(R.string.pref_title_max_results);
+            maxResults.getEditText().setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
+
+            SwitchPreference showAbstract = new SwitchPreference(getActivity());
+            showAbstract.setDefaultValue(false);
+            showAbstract.setKey("show_abstract");
+            showAbstract.setTitle(R.string.pref_title_show_abstract);
+
+            Preference deleteDownloadedPapers = new Preference(getActivity());
+            deleteDownloadedPapers.setKey("delete_downloaded_papers");
+            deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
+
+            generalCategory.addPreference(sortBy);
+            generalCategory.addPreference(sortOrder);
+            generalCategory.addPreference(maxResults);
+            generalCategory.addPreference(showAbstract);
+            generalCategory.addPreference(deleteDownloadedPapers);
+
+            PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
+            dashboardCategory.setTitle("Dashboard Preferences");
+            screen.addPreference(dashboardCategory);
+
+            Preference dashboardPreferences = new Preference(getActivity());
+            dashboardPreferences.setKey("dashboard_preferences");
+            dashboardPreferences.setTitle(R.string.pref_title_dashboard_preferences);
+
+            dashboardCategory.addPreference(dashboardPreferences);
+
+            setPreferenceScreen(screen);
+
+            bindPreferenceSummaryToValue(sortOrder);
+            bindPreferenceSummaryToValue(sortBy);
+            bindPreferenceSummaryToValue(maxResults);
+
+            deleteDownloadedPapers.setOnPreferenceClickListener(preference -> {
                 Helper.deleteFilesDir(preference.getContext());
                 Toast.makeText(preference.getContext(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
+                return true;
+            });
+
+            dashboardPreferences.setOnPreferenceClickListener(preference -> {
+                final Intent preferencesActivity = new Intent(getActivity(), DashboardSettingsActivity.class);
+                preferencesActivity.putExtra("Dashboard Settings", "dashboard_settings");
+                startActivity(preferencesActivity);
                 return true;
             });
         }

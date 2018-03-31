@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">arXiv eXplorer</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_dashboard_settings">Dashboard Settings</string>
 
     <!-- Strings related to Settings -->
 
@@ -51,5 +52,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_title_dashboard_preferences">Dashboard Categories</string>
 
 </resources>
