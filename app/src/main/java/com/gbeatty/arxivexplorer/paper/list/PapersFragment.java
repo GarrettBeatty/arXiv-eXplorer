@@ -70,9 +70,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         swipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            presenter.onRefresh();
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
 
         if (isPaginate()) {
             paginate = new PaginateBuilder()
