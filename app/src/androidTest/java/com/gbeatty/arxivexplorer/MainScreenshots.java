@@ -44,13 +44,16 @@ public class MainScreenshots {
         onView(withId(R.id.navigation_browse)).perform(click());
         Screengrab.screenshot("main");
 
-        onView(withId(R.id.category_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        onView(withId(R.id.category_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.navigation_dashboard)).perform(click());
 
         WaifForUIUpdate.waifForWithId(R.id.papers_recycler_view);
-//        Screengrab.screenshot("browse");
+
+        onView(withId(R.id.papers_recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(1, MyViewAction.clickChildViewWithId(R.id.button_favorite_paper)));
+        onView(withId(R.id.papers_recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(2, MyViewAction.clickChildViewWithId(R.id.button_favorite_paper)));
+
+        Screengrab.screenshot("dashboard");
 
         onView(withId(R.id.papers_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
@@ -67,20 +70,9 @@ public class MainScreenshots {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.pressBack();
 
-        onView(withId(R.id.navigation_dashboard)).perform(click());
-
-        WaifForUIUpdate.waifForWithId(R.id.papers_recycler_view);
-
-        onView(withId(R.id.papers_recycler_view)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(1, MyViewAction.clickChildViewWithId(R.id.button_favorite_paper)));
-        onView(withId(R.id.papers_recycler_view)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(2, MyViewAction.clickChildViewWithId(R.id.button_favorite_paper)));
-
-        Screengrab.screenshot("dashboard");
-
-        onView(withId(R.id.navigation_favorites)).perform(click());
-
-        Screengrab.screenshot("favorites");
+//        onView(withId(R.id.navigation_favorites)).perform(click());
+//
+//        Screengrab.screenshot("favorites");
 
     }
 }
