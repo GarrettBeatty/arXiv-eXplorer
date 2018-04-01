@@ -1,37 +1,57 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     >
 
     <TextView
         android:id="@+id/paper_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+        android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
     <TextView
         android:id="@+id/paper_authors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginBottom="4dp"
         android:ellipsize="end"
-        android:maxLines="2"/>
+        android:maxLines="2"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 
 
     <TextView
         android:id="@+id/paper_updated_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
     <TextView
         android:id="@+id/paper_published_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
-</merge>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/summary_sep"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/paper_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="summary"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+
+    </LinearLayout>
+
+</LinearLayout>

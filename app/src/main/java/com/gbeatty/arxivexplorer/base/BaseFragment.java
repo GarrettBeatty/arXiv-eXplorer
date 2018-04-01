@@ -1,14 +1,12 @@
 package com.gbeatty.arxivexplorer.base;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
-
-import java.util.ArrayList;
 
 public abstract class BaseFragment extends Fragment implements SharedPreferencesView {
 
@@ -42,30 +40,16 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
         int getMaxResult();
 
-        void showLoading();
+        boolean isShowAbstract();
 
-        void errorLoading();
+        SharedPreferences getSharedPreferences();
 
-        void dismissLoading();
+        boolean isDashboardCategoryChecked(String categoryName);
 
-        void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult);
+        boolean isPublishedDate();
 
-    }
+        boolean isLastUpdatedDate();
 
-    public void showLoading(){
-        listener.showLoading();
-    }
-
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult){
-        listener.switchToPapersFragment(papers, tag, query, maxResult);
-    }
-
-    public void dismissLoading(){
-        listener.dismissLoading();
-    }
-
-    public void errorLoading() {
-        listener.errorLoading();
     }
 
     @Override
@@ -82,4 +66,23 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     public int getMaxResult() {
         return listener.getMaxResult();
     }
+
+    @Override
+    public boolean isShowAbstract(){return  listener.isShowAbstract();}
+
+    @Override
+    public boolean isDashboardCategoryChecked(String categoryName) {
+        return listener.isDashboardCategoryChecked(categoryName);
+    }
+
+    @Override
+    public boolean isLastUpdatedDate() {
+        return listener.isLastUpdatedDate();
+    }
+
+    @Override
+    public boolean isPublishedDate() {
+        return listener.isPublishedDate();
+    }
+
 }

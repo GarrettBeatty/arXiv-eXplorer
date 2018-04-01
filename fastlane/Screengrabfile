@@ -10,6 +10,8 @@ locales(['en-US'])
 
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots(true)
+reinstall_app(true)
+
 
 # For more information about all available options run
 #   fastlane screengrab --help

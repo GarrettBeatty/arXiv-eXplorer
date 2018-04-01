@@ -20,26 +20,46 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :playstore do
-    gradle(
-      task: 'assemble',
-      build_type: 'Release'
-    )
-    screenshots
-    upload_to_play_store
-  end
-
-  lane :beta do
+  lane :internal do
     gradle(task: 'clean')
     gradle(task: 'assemble', build_type: 'Release')
-    upload_to_play_store(track: 'beta')
+    upload_to_play_store(
+      track: 'internal',
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      skip_upload_metadata: true
+      )
   end
 
-  lane :screenshots do
+  lane :screenshotPhone do
     gradle(task: 'assembleDebug')
     gradle(task: 'assembleAndroidTest')
-    capture_android_screenshots
+    capture_android_screenshots(
+        device_type: "phone"
+    )
   end
+
+  lane :screenshot7 do
+    gradle(task: 'assembleDebug')
+    gradle(task: 'assembleAndroidTest')
+    capture_android_screenshots(
+      device_type: "sevenInch"
+    )
+   end
+
+  lane :screenshot10 do
+    gradle(task: 'assembleDebug')
+    gradle(task: 'assembleAndroidTest')
+    capture_android_screenshots(
+      device_type: "tenInch"
+    )
+  end
+
+  lane :uploadScreenshots do
+      upload_to_play_store(
+      skip_upload_apk: true,
+      skip_upload_images: true
+      )
+    end
 
 end

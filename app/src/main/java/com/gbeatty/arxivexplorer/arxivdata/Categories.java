@@ -4,7 +4,7 @@ import com.gbeatty.arxivexplorer.models.Category;
 
 public class Categories {
 
-    public static Category[] CATEGORIES = {
+    public static final Category[] CATEGORIES = {
 
             new Category("Astrophysics", "astro-ph",
                     new Category("All", "astro-ph"),
@@ -80,19 +80,19 @@ public class Categories {
                     new Category("Signal Processing", "eess.SP")
             ),
             new Category("General Relativity and Quantum Cosmology", "gr-qc",
-                    null
+                    (Category[]) null
             ),
             new Category("High Energy Physics - Experiment", "hep-ex",
-                    null
+                    (Category[]) null
             ),
             new Category("High Energy Physics - Lattice", "hep-lat",
-                    null
+                    (Category[]) null
             ),
             new Category("High Energy Physics - Phenomenology", "hep-ph",
-                    null
+                    (Category[]) null
             ),
             new Category("High Energy Physics - Theory", "hep-th",
-                    null
+                    (Category[]) null
             ),
             new Category("Mathematics", "math",
                     new Category("All", "math"),
@@ -130,7 +130,7 @@ public class Categories {
                     new Category("Symplectic Geometry", "math.SG")
             ),
             new Category("Mathematical Physics", "math-ph",
-                    null
+                    (Category[]) null
             ),
             new Category("Nonlinear Sciences", "nlin",
                     new Category("All", "nlin"),
@@ -142,10 +142,10 @@ public class Categories {
 
             ),
             new Category("Nuclear Experiment", "nucl-ex",
-                    null
+                    (Category[]) null
             ),
             new Category("Nuclear Theory", "nucl-th",
-                    null
+                    (Category[]) null
             ),
             new Category("Physics", "physics",
                     new Category("All", "physics"),
@@ -199,7 +199,7 @@ public class Categories {
                     new Category("Trading and Market Microstructure", "q-fin.TR")
             ),
             new Category("Quantum Physics", "quant-ph",
-                    null
+                    (Category[]) null
             ),
             new Category("Statistics", "stat",
                     new Category("All", "stat"),

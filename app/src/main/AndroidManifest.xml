@@ -20,6 +20,7 @@
         <activity
             android:name=".main.MainActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +55,9 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".settings.DashboardSettingsActivity"
+            android:label="@string/title_activity_dashboard_settings" />
     </application>
 
 </manifest>

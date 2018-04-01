@@ -1,6 +1,5 @@
 package com.gbeatty.arxivexplorer.main;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,16 +19,15 @@ import android.widget.Toast;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
-import com.gbeatty.arxivexplorer.browse.category.CategoriesFragment;
-import com.gbeatty.arxivexplorer.browse.paper.list.PapersFragment;
+import com.gbeatty.arxivexplorer.category.CategoriesFragment;
+import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
+import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
 import com.gbeatty.arxivexplorer.models.Category;
-import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,23 +36,26 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @BindView(R.id.navigation)
     BottomNavigationView bottomBarView;
-    @BindView(R.id.search_view) MaterialSearchView searchView;
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
     private MainPresenter presenter;
     private SharedPreferences preferences;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences();
         presenter = new MainPresenter(this, this);
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
+        bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cardview_light_background, null));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
         if(savedInstanceState == null)
             presenter.switchToCategoriesFragment();
+
         MaterialSearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -80,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         MenuItem item = menu.findItem(R.id.menu_search);
         searchView.setMenuItem(item);
 
-
         // return true so that the menu pop up is opened
         return true;
     }
@@ -95,14 +96,20 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         showFragment(R.id.content, CategoriesFragment.newInstance(categories), tag);
     }
 
-//    @Override
-//    public void switchToSearchFragment(String tag) {
-//        showFragment(R.id.content, SearchFragment.newInstance(), tag);
-//    }
 
     @Override
-    public void switchToFavoritesFragment(ArrayList<Paper> papers, String tag) {
-        showFragment(R.id.content, PapersFragment.newInstance(papers), tag);
+    public void switchToFavoritesFragment(String tag) {
+        showFragment(R.id.content, FavoritesFragment.newInstance(), tag);
+    }
+
+    @Override
+    public void switchToDashboardFragment(String tag) {
+        showFragment(R.id.content, DashboardFragment.newInstance(), tag);
+    }
+
+    @Override
+    public void switchToSearchFragment(String searchQuery, String tag) {
+        showFragment(R.id.content, SearchFragment.newInstance(searchQuery), tag);
     }
 
     public Fragment getCurrentFragment() {
@@ -124,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         ratingDialog.show();
     }
 
-    public void goToRatingAuto() {
+    private void goToRatingAuto() {
         final RatingDialog ratingDialog = new RatingDialog.Builder(this)
                 .threshold(3)
                 .session(7)
@@ -179,43 +186,40 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         }
     }
 
-    public void showLoading(){
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.setTitle("Loading Papers");
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(true);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-    }
-
-    public void dismissLoading(){
-        progressDialog.dismiss();
-    }
-
-    public void errorLoading() {
-        runOnUiThread(() -> {
-            dismissLoading();
-            Toast.makeText(this, "Error Loading Papers", Toast.LENGTH_SHORT).show();
-        });
-    }
-
-
     public String getSortOrder() {
         return preferences.getString("sort_order_list", ArxivAPI.SORT_ORDER_DESCENDING);
     }
 
     public String getSortBy() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }
 
     public int getMaxResult() {
         return Integer.parseInt(preferences.getString("max_results", getString(R.string.maxResultDefault)));
     }
 
-    public void switchToPapersFragment(ArrayList<Paper> papers, String tag, String query, int maxResult) {
-        runOnUiThread(() -> showFragment(R.id.content, PapersFragment.newInstance(papers, query, maxResult), tag));
+    public boolean isShowAbstract() {
+        return preferences.getBoolean("show_abstract", false);
     }
 
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    public boolean isDashboardCategoryChecked(String categoryName) {
+        return getSharedPreferences().getBoolean(categoryName, true);
+    }
+
+    @Override
+    public boolean isLastUpdatedDate() {
+        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+    }
+
+    @Override
+    public boolean isPublishedDate() {
+        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+    }
 
 }

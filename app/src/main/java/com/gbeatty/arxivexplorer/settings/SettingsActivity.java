@@ -1,23 +1,29 @@
 package com.gbeatty.arxivexplorer.settings;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
-
-import java.util.List;
+import com.gbeatty.arxivexplorer.network.ArxivAPI;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -36,33 +42,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object value) {
-            String stringValue = value.toString();
+    private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = (preference, value) -> {
+        String stringValue = value.toString();
 
-            if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
+        if (preference instanceof ListPreference) {
+            // For list preferences, look up the correct display value in
+            // the preference's 'entries' list.
+            ListPreference listPreference = (ListPreference) preference;
+            int index = listPreference.findIndexOfValue(stringValue);
 
-                // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
+            // Set the summary to reflect the new value.
+            preference.setSummary(
+                    index >= 0
+                            ? listPreference.getEntries()[index]
+                            : null);
 
-            } else {
-                // For all other preferences, set the summary to the value's
-                // simple string representation.
-                preference.setSummary(stringValue);
-                if(preference.getKey().equals("delete_downloaded_papers")){
-                    Helper.deleteFilesDir(preference.getContext());
-                }
-            }
-            return true;
+        } else {
+            // For all other preferences, set the summary to the value's
+            // simple string representation.
+            preference.setSummary(stringValue);
+
         }
+        return true;
     };
 
     /**
@@ -98,6 +99,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Display the fragment as the main content.
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new PrefsFragment()).commit();
         setupActionBar();
     }
 
@@ -105,6 +109,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     private void setupActionBar() {
+        ViewGroup rootView = findViewById(R.id.action_bar_root); //id from appcompat
+
+        if (rootView != null) {
+            View view = getLayoutInflater().inflate(R.layout.app_bar_layout, rootView, false);
+            rootView.addView(view, 0);
+
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.
@@ -121,50 +135,101 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.pref_headers, target);
-    }
-
-    /**
      * This method stops fragment injection in malicious applications.
      * Make sure to deny any unknown fragments here.
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+                || PrefsFragment.class.getName().equals(fragmentName);
     }
 
-    /**
-     * This fragment shows general preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment {
+    public static class PrefsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sort_order_list"));
-            bindPreferenceSummaryToValue(findPreference("sort_by_list"));
-            bindPreferenceSummaryToValue(findPreference("max_results"));
-            bindPreferenceSummaryToValue(findPreference("delete_downloaded_papers"));
+            PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(getActivity());
+
+            PreferenceCategory generalCategory = new PreferenceCategory(getActivity());
+            generalCategory.setTitle("General Preferences");
+
+            screen.addPreference(generalCategory);
+
+            ListPreference sortBy = new ListPreference(getActivity());
+            sortBy.setDefaultValue(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+            sortBy.setEntries(R.array.pref_sort_by_list_titles);
+            sortBy.setEntryValues(R.array.pref_sort_by_list_values);
+            sortBy.setKey("sort_by_list");
+            sortBy.setPositiveButtonText(null);
+            sortBy.setNegativeButtonText(null);
+            sortBy.setTitle(R.string.pref_title_sort_by);
+
+            ListPreference sortOrder = new ListPreference(getActivity());
+            sortOrder.setDefaultValue(ArxivAPI.SORT_ORDER_DESCENDING);
+            sortOrder.setEntries(R.array.pref_sort_order_list_titles);
+            sortOrder.setEntryValues(R.array.pref_sort_order_list_values);
+            sortOrder.setKey("sort_order_list");
+            sortOrder.setPositiveButtonText(null);
+            sortOrder.setNegativeButtonText(null);
+            sortOrder.setTitle(R.string.pref_title_sort_order);
+
+            EditTextPreference maxResults = new EditTextPreference(getActivity());
+            maxResults.setDefaultValue("10");
+            maxResults.setKey("max_results");
+            maxResults.setTitle(R.string.pref_title_max_results);
+            maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+
+            SwitchPreference showAbstract = new SwitchPreference(getActivity());
+            showAbstract.setDefaultValue(false);
+            showAbstract.setKey("show_abstract");
+            showAbstract.setTitle(R.string.pref_title_show_abstract);
+
+            Preference deleteDownloadedPapers = new Preference(getActivity());
+            deleteDownloadedPapers.setKey("delete_downloaded_papers");
+            deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
+
+            generalCategory.addPreference(sortBy);
+            generalCategory.addPreference(sortOrder);
+            generalCategory.addPreference(maxResults);
+            generalCategory.addPreference(showAbstract);
+            generalCategory.addPreference(deleteDownloadedPapers);
+
+            PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
+            dashboardCategory.setTitle("Dashboard Preferences");
+            screen.addPreference(dashboardCategory);
+
+            Preference dashboardPreferences = new Preference(getActivity());
+            dashboardPreferences.setKey("dashboard_preferences");
+            dashboardPreferences.setTitle(R.string.pref_title_dashboard_preferences);
+
+            dashboardCategory.addPreference(dashboardPreferences);
+
+            setPreferenceScreen(screen);
+
+            bindPreferenceSummaryToValue(sortOrder);
+            bindPreferenceSummaryToValue(sortBy);
+            bindPreferenceSummaryToValue(maxResults);
+
+            deleteDownloadedPapers.setOnPreferenceClickListener(preference -> {
+                Helper.deleteFilesDir(preference.getContext());
+                Toast.makeText(preference.getContext(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
+                return true;
+            });
+
+            dashboardPreferences.setOnPreferenceClickListener(preference -> {
+                final Intent preferencesActivity = new Intent(getActivity(), DashboardSettingsActivity.class);
+                preferencesActivity.putExtra("Dashboard Settings", "dashboard_settings");
+                startActivity(preferencesActivity);
+                return true;
+            });
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                getActivity().finish();
                 return true;
             }
             return super.onOptionsItemSelected(item);

@@ -1,6 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,24 +12,6 @@
 
         <include layout="@layout/paper_summary" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/paper_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:textAppearance="@android:style/TextAppearance.Material.Body1" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
