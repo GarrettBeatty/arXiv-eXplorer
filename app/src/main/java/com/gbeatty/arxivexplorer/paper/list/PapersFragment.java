@@ -56,7 +56,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         return inflateFragment(R.layout.fragment_papers, inflater, container);
     }
 
-    protected View inflateFragment(int resId, LayoutInflater inflater, ViewGroup container) {
+    private View inflateFragment(int resId, LayoutInflater inflater, ViewGroup container) {
         View rootView = inflater.inflate(resId, container, false);
 
         ButterKnife.bind(this, rootView);

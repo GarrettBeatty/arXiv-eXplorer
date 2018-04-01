@@ -29,14 +29,19 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     private static final String PAPER_KEY = "paperkey";
     @BindView(R.id.paper_title)
+
     TextView paperTitle;
     @BindView(R.id.paper_summary)
+
     TextView paperSummary;
     @BindView(R.id.paper_authors)
+
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
+
     TextView paperUpdated;
     @BindView(R.id.paper_published_date)
+
     TextView paperPublished;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;

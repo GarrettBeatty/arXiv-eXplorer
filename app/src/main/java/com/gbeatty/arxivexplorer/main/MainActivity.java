@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @BindView(R.id.navigation)
     BottomNavigationView bottomBarView;
-    @BindView(R.id.search_view) MaterialSearchView searchView;
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
     private MainPresenter presenter;
     private SharedPreferences preferences;
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         ratingDialog.show();
     }
 
-    public void goToRatingAuto() {
+    private void goToRatingAuto() {
         final RatingDialog ratingDialog = new RatingDialog.Builder(this)
                 .threshold(3)
                 .session(7)

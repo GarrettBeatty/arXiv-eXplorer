@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Category implements Serializable {
 
     private String name;
-    private String shortName;
-    private Category[] subCategories;
+    private final String shortName;
+    private final Category[] subCategories;
 
     public Category(String name, String shortName, Category... subCategories) {
         this.name = name;

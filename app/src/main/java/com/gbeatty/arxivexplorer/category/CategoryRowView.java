@@ -1,6 +1,6 @@
 package com.gbeatty.arxivexplorer.category;
 
-public interface CategoryRowView {
+interface CategoryRowView {
 
     void setCategoryName(String name);
 }

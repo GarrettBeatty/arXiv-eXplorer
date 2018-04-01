@@ -7,8 +7,8 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 class CategoriesPresenter extends BasePresenter {
 
-    private Category[] categories;
-    private CategoriesView view;
+    private final Category[] categories;
+    private final CategoriesView view;
 
     CategoriesPresenter(CategoriesView view, SharedPreferencesView sharedPreferencesView, Category[] categories) {
         super(sharedPreferencesView);

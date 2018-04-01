@@ -4,13 +4,13 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 public abstract class BasePresenter {
 
-    private SharedPreferencesView sharedPreferencesView;
+    private final SharedPreferencesView sharedPreferencesView;
 
-    public BasePresenter(SharedPreferencesView sharedPreferencesView){
+    protected BasePresenter(SharedPreferencesView sharedPreferencesView){
         this.sharedPreferencesView = sharedPreferencesView;
     }
 
-    public SharedPreferencesView getSharedPreferenceView(){
+    protected SharedPreferencesView getSharedPreferenceView(){
         return sharedPreferencesView;
     }
 

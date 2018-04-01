@@ -26,7 +26,7 @@ public class SearchFragment extends PapersFragment {
         return fragment;
     }
 
-    public static Bundle setArgs(String searchQuery) {
+    private static Bundle setArgs(String searchQuery) {
         Bundle args = new Bundle();
         args.putString(SEARCH_QUERY_KEY, searchQuery);
         return args;

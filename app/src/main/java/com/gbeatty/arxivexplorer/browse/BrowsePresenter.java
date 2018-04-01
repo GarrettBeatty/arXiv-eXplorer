@@ -20,8 +20,8 @@ import okhttp3.ResponseBody;
 
 class BrowsePresenter extends PapersPresenter {
 
-    private String catKey;
-    private String shortName;
+    private final String catKey;
+    private final String shortName;
 
     public BrowsePresenter(PapersView view, SharedPreferencesView sharedPreferencesView, String catKey, String shortName) {
         super(view, sharedPreferencesView);

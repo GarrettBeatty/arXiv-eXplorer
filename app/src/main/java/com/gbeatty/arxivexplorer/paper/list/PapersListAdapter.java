@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 
 public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.PaperViewHolder> {
 
-    private PapersPresenter presenter;
+    private final PapersPresenter presenter;
 
     PapersListAdapter(PapersPresenter presenter) {
         this.presenter = presenter;
@@ -58,7 +58,7 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         TextView paperSummary;
         @BindView(R.id.summary_sep) View summarySep;
 
-        public PaperViewHolder(View itemView) {
+        PaperViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> presenter.paperClicked(getLayoutPosition()));

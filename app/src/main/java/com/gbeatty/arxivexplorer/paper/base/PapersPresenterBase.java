@@ -6,7 +6,7 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 public class PapersPresenterBase extends BasePresenter{
 
-    public PapersPresenterBase(SharedPreferencesView sharedPreferencesView) {
+    protected PapersPresenterBase(SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
     }
 

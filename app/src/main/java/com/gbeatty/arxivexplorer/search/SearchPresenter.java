@@ -20,7 +20,7 @@ import okhttp3.ResponseBody;
 
 class SearchPresenter extends PapersPresenter {
 
-    private String searchQuery;
+    private final String searchQuery;
 
     public SearchPresenter(PapersView view, SharedPreferencesView sharedPreferencesView, String searchQuery) {
         super(view, sharedPreferencesView);

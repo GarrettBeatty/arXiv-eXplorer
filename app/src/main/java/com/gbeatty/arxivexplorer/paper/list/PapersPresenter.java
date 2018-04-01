@@ -21,12 +21,12 @@ import ru.alexbykov.nopaginate.callback.OnLoadMoreListener;
 
 public abstract class PapersPresenter extends PapersPresenterBase implements OnLoadMoreListener {
 
-    private PapersView view;
+    private final PapersView view;
     private ArrayList<Paper> papers;
     private String query;
     private int start;
 
-    public PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
+    protected PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
         start = 0;
@@ -113,7 +113,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     }
 
-    public void updatePapers(ArrayList<Paper> papers) {
+    protected void updatePapers(ArrayList<Paper> papers) {
         this.papers = papers;
         if (papers.size() == 0) {
             view.showNoPapersMessage();
@@ -122,13 +122,13 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         view.notifyAdapter();
     }
 
-    public PapersView getView() {
+    protected PapersView getView() {
         return view;
     }
 
     public abstract void getPapers();
 
-    public void setQuery(String query) {
+    protected void setQuery(String query) {
         this.query = query;
     }
 

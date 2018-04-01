@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 
 public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAdapter.CategoryViewHolder> {
 
-    private CategoriesPresenter presenter;
+    private final CategoriesPresenter presenter;
 
     CategoriesListAdapter(CategoriesPresenter presenter) {
         this.presenter = presenter;

@@ -8,13 +8,13 @@ import okhttp3.Request;
 public class ArxivAPI {
 
     public static String SORT_ORDER_ASCENDING = "ascending";
-    public static String SORT_ORDER_DESCENDING = "descending";
-    public static String SORT_BY_RELEVANCE = "relevance";
+    public static final String SORT_ORDER_DESCENDING = "descending";
+    public static final String SORT_BY_RELEVANCE = "relevance";
     public static String SORT_BY_LAST_UPDATED_DATE = "lastUpdatedDate";
-    public static String SORT_BY_SUBMITTED_DATE = "submittedDate";
+    public static final String SORT_BY_SUBMITTED_DATE = "submittedDate";
     private static OkHttpClient client;
-    private static String baseURL = "http://export.arxiv.org/api/";
-    private static String querySegment = "query";
+    private static final String baseURL = "http://export.arxiv.org/api/";
+    private static final String querySegment = "query";
 
     public static OkHttpClient getClient() {
         if (client == null) {
@@ -24,7 +24,7 @@ public class ArxivAPI {
     }
 
     public static void searchPapersFromCategory(String catKey, String category, String sortOrder,
-                                                String sortBy, int maxResults, Callback call) throws Exception {
+                                                String sortBy, int maxResults, Callback call) {
 
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();

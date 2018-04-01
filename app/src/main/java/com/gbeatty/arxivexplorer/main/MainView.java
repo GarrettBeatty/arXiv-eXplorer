@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.gbeatty.arxivexplorer.models.Category;
 
-public interface MainView{
+interface MainView{
 
     void switchToCategoriesFragment(Category[] categories, String tag);
 

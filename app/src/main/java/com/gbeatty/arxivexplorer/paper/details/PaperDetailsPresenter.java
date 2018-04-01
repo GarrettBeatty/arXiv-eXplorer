@@ -17,8 +17,8 @@ import okio.Okio;
 
 class PaperDetailsPresenter extends PapersPresenterBase {
 
-    private PaperDetailsView view;
-    private Paper paper;
+    private final PaperDetailsView view;
+    private final Paper paper;
 
     PaperDetailsPresenter(PaperDetailsView view, SharedPreferencesView sharedPreferencesView, Paper paper) {
         super(sharedPreferencesView);

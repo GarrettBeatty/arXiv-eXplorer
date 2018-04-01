@@ -11,7 +11,7 @@ import okhttp3.Call;
 
 class MainPresenter extends BasePresenter{
 
-    private MainView view;
+    private final MainView view;
 
     MainPresenter(MainView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);

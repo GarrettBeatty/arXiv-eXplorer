@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  */
 public final class ISO8601 {
     /** Transform Calendar to ISO 8601 string. */
-    public static String fromCalendar(final Calendar calendar) {
+    private static String fromCalendar(final Calendar calendar) {
         Date date = calendar.getTime();
         String formatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .format(date);
