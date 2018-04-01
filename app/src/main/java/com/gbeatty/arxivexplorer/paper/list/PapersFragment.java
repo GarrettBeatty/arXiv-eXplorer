@@ -65,6 +65,8 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
         papersListAdapter = new PapersListAdapter(presenter);
 
+        papersListAdapter.expandAllSections();
+
         papersRecyclerView.setAdapter(papersListAdapter);
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
 

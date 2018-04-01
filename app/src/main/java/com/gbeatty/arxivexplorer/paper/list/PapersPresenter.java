@@ -1,5 +1,7 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
+import android.util.Log;
+
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -12,6 +14,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,6 +27,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     private final PapersView view;
     private ArrayList<Paper> papers;
+    private List<String> dates = new ArrayList<>();
     private String query;
     private int start;
 
@@ -32,22 +37,27 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         start = 0;
     }
 
-    void onBindPaperRowViewAtPosition(int position, final PaperRowView paperRowView) {
+    public void onBindHeaderViewAtPosition(int section, PapersListAdapter.HeaderViewHolder view) {
+        view.setHeaderDate(dates.get(section));
+    }
+
+    void onBindPaperRowViewAtPosition(int section, int relativePosition, int absolutePosition, final PapersListAdapter.PaperViewHolder paperRowView) {
+
+        int position = absolutePosition - (section + 1);
+
 
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
         paperRowView.setAuthors(paper.getAuthor());
 
-        if(getSharedPreferenceView().isLastUpdatedDate()){
-            paperRowView.hidePublishedDate();
-            paperRowView.showLastUpdatedDate();
-            paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
-        }
-
         if(getSharedPreferenceView().isPublishedDate() || !getSharedPreferenceView().isLastUpdatedDate()){
             paperRowView.hideLastUpdatedDate();
             paperRowView.showPublishedDate();
             paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
+        }else{
+            paperRowView.hidePublishedDate();
+            paperRowView.showLastUpdatedDate();
+            paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
         }
 
         if (getSharedPreferenceView().isShowAbstract()) {
@@ -58,12 +68,14 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         updateIcons(paper, paperRowView);
     }
 
-    void paperClicked(int position) {
+    void paperClicked(int absolutePosition, int section) {
+        int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
         view.goToPaperDetails(paper, paper.getPaperID());
     }
 
-    void favoriteButtonClicked(int position, PaperRowView paperRowView) {
+    void favoriteButtonClicked(int absolutePosition, int section, PaperRowView paperRowView) {
+        int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
         toggleFavoritePaper(paper);
         updateIcons(paper, paperRowView);
@@ -74,9 +86,19 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         else paperRowView.setNotFavoritedIcon();
     }
 
-    int getPapersRowsCount() {
-        if (papers == null) return 0;
-        return papers.size();
+    int getPapersRowsCount(int sectionIndex) {
+
+        Log.d("papers", papers.get(0).getTitle());
+        if (papers == null || dates == null) return 0;
+
+        Log.d("dates", Arrays.toString(dates.toArray()));
+
+        String date = dates.get(sectionIndex);
+        int count = 0;
+        for(Paper p : papers){
+            if(p.getPublishedDate().equals(date)) count++;
+        }
+        return count;
     }
 
 //    public void determineContentVisibility() {
@@ -107,13 +129,14 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                         throw new IOException("Unexpected code " + response);
                     ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
-                    papers.addAll(p);
+
+                    addToPapers(p);
+
                     if (p.size() < getSharedPreferenceView().getMaxResult()) {
                         view.setPaginateNoMoreData(true);
                         return;
                     }
                     view.showPaginateLoading(false);
-                    view.notifyAdapter();
 
                 } catch (XmlPullParserException | ParseException e) {
                     view.showPaginateLoading(false);
@@ -124,13 +147,33 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     }
 
+    private void addToPapers(ArrayList<Paper> papers){
+        this.papers.addAll(papers);
+        updateDates();
+        view.notifyAdapter();
+    }
+
     protected void updatePapers(ArrayList<Paper> papers) {
         this.papers = papers;
         if (papers.size() == 0) {
             view.showNoPapersMessage();
         } else
             view.showRecyclerView();
+        updateDates();
         view.notifyAdapter();
+    }
+
+    private void updateDates() {
+        for(Paper p : papers){
+            boolean found = false;
+            for(int i = 0; i < dates.size(); i++){
+                if(dates.get(i).equals(p.getPublishedDate())){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) dates.add(p.getPublishedDate());
+        }
     }
 
     protected PapersView getView() {
@@ -159,4 +202,11 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         // User didn't trigger a refresh, let the superclass handle this action
         return false;
     }
+
+    public int getSectionCount() {
+        if(dates == null) return 0;
+        return dates.size();
+    }
+
+
 }
