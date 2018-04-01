@@ -10,7 +10,7 @@
     <string name="pref_title_sort_by">Paper Sort Order</string>
     <string-array name="pref_sort_by_list_titles">
         <item>Last Updated Date</item>
-        <item>Publish Date</item>
+        <item>Submitted Date</item>
         <item>Relevance</item>
     </string-array>
     <string-array name="pref_sort_by_list_values">
