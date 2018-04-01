@@ -1,7 +1,6 @@
 package com.gbeatty.arxivexplorer.settings;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -160,7 +159,7 @@ public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), DashboardSettingsActivity.class));
+                getActivity().finish();
                 return true;
             }
             return super.onOptionsItemSelected(item);

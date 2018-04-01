@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
         if(savedInstanceState == null)
             presenter.switchToCategoriesFragment();
+
         MaterialSearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
