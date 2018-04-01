@@ -35,10 +35,28 @@ platform :android do
     upload_to_play_store(track: 'beta')
   end
 
-  lane :screenshots do
+  lane :screenshotPhone do
     gradle(task: 'assembleDebug')
     gradle(task: 'assembleAndroidTest')
-    capture_android_screenshots
+    capture_android_screenshots(
+        device_type: "phone"
+    )
+  end
+
+  lane :screenshot7 do
+    gradle(task: 'assembleDebug')
+    gradle(task: 'assembleAndroidTest')
+    capture_android_screenshots(
+      device_type: "sevenInch"
+    )
+   end
+
+  lane :screenshot10 do
+    gradle(task: 'assembleDebug')
+    gradle(task: 'assembleAndroidTest')
+    capture_android_screenshots(
+      device_type: "tenInch"
+    )
   end
 
 end
