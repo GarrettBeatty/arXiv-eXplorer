@@ -50,7 +50,7 @@ public class MainScreenshots {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
         WaifForUIUpdate.waifForWithId(R.id.papers_recycler_view);
-        Screengrab.screenshot("browse");
+//        Screengrab.screenshot("browse");
 
         onView(withId(R.id.papers_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
@@ -60,7 +60,7 @@ public class MainScreenshots {
         onView(withId(R.id.menu_download_paper))
                 .perform(click());
 
-        WaifForUIUpdate.waitFor(3000);
+        WaifForUIUpdate.waitFor(7000);
 
         Screengrab.screenshot("downloaded");
 
