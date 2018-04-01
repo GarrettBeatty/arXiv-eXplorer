@@ -21,10 +21,14 @@ platform :android do
   end
 
   lane :internal do
+    gradle(task: 'clean')
     gradle(task: 'assemble', build_type: 'Release')
     upload_to_play_store(
       track: 'internal',
-      skip_upload_metadata: true)
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      skip_upload_metadata: true
+      )
   end
 
   lane :screenshotPhone do

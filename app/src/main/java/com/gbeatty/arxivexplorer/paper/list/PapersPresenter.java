@@ -44,7 +44,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
         }
 
-        if(getSharedPreferenceView().isPublishedDate()){
+        if(getSharedPreferenceView().isPublishedDate() || !getSharedPreferenceView().isLastUpdatedDate()){
             paperRowView.hideLastUpdatedDate();
             paperRowView.showPublishedDate();
             paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());

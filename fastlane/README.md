@@ -21,14 +21,9 @@ or alternatively using `brew cask install fastlane`
 fastlane android test
 ```
 Runs all the tests
-### android playstore
+### android internal
 ```
-fastlane android playstore
-```
-Deploy a new version to the Google Play
-### android beta
-```
-fastlane android beta
+fastlane android internal
 ```
 
 ### android screenshotPhone
@@ -44,6 +39,11 @@ fastlane android screenshot7
 ### android screenshot10
 ```
 fastlane android screenshot10
+```
+
+### android uploadScreenshots
+```
+fastlane android uploadScreenshots
 ```
 
 
