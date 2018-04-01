@@ -93,12 +93,6 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        notifyAdapter();
-    }
-
-    @Override
     public void goToPaperDetails(Paper paper, String tag) {
         showFragment(R.id.content, PaperDetailsFragment.newInstance(paper), tag);
     }

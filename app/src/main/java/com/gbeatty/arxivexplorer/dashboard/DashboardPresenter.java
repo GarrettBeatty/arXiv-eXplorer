@@ -72,9 +72,7 @@ class DashboardPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            if (!call.isCanceled()){
 
-                            }
                         }
 
                         @Override

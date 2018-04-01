@@ -34,6 +34,12 @@ public class DashboardFragment extends PapersFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onRefresh();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         presenter = new DashboardPresenter(this, this);
         super.onCreate(savedInstanceState);

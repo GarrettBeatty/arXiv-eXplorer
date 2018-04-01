@@ -41,6 +41,7 @@ fastlane test
 * [Sugar ORM](http://satyan.github.io/sugar/)
 * [Travis CI](https://travis-ci.org/)
 * [Fastlane](https://fastlane.tools/)
+* [Sectioned-RecyclerView](https://github.com/afollestad/sectioned-recyclerview)
 
 ## Contributing
 

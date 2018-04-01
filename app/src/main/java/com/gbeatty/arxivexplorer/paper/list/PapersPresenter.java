@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -14,7 +12,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -45,19 +42,18 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         int position = absolutePosition - (section + 1);
 
-
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
         paperRowView.setAuthors(paper.getAuthor());
 
-        if(getSharedPreferenceView().isPublishedDate() || !getSharedPreferenceView().isLastUpdatedDate()){
-            paperRowView.hideLastUpdatedDate();
-            paperRowView.showPublishedDate();
-            paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
-        }else{
+        if (getSharedPreferenceView().isLastUpdatedDate()) {
             paperRowView.hidePublishedDate();
             paperRowView.showLastUpdatedDate();
             paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
+        } else {
+            paperRowView.hideLastUpdatedDate();
+            paperRowView.showPublishedDate();
+            paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
         }
 
         if (getSharedPreferenceView().isShowAbstract()) {
@@ -88,15 +84,18 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     int getPapersRowsCount(int sectionIndex) {
 
-        Log.d("papers", papers.get(0).getTitle());
         if (papers == null || dates == null) return 0;
-
-        Log.d("dates", Arrays.toString(dates.toArray()));
 
         String date = dates.get(sectionIndex);
         int count = 0;
-        for(Paper p : papers){
-            if(p.getPublishedDate().equals(date)) count++;
+        for (Paper p : papers) {
+
+            if (!getSharedPreferenceView().isLastUpdatedDate()){
+                if (p.getPublishedDate().equals(date)) count++;
+            }
+            else{
+                if (p.getUpdatedDate().equals(date)) count++;
+            }
         }
         return count;
     }
@@ -147,7 +146,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     }
 
-    private void addToPapers(ArrayList<Paper> papers){
+    private void addToPapers(ArrayList<Paper> papers) {
         this.papers.addAll(papers);
         updateDates();
         view.notifyAdapter();
@@ -164,15 +163,29 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     private void updateDates() {
-        for(Paper p : papers){
+        for (Paper p : papers) {
             boolean found = false;
-            for(int i = 0; i < dates.size(); i++){
-                if(dates.get(i).equals(p.getPublishedDate())){
-                    found = true;
-                    break;
+            for (int i = 0; i < dates.size(); i++) {
+
+                if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                    if (dates.get(i).equals(p.getPublishedDate())) {
+                        found = true;
+                        break;
+                    }
+                } else {
+                    if (dates.get(i).equals(p.getUpdatedDate())) {
+                        found = true;
+                        break;
+                    }
                 }
+
+
             }
-            if(!found) dates.add(p.getPublishedDate());
+            if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                if (!found) dates.add(p.getPublishedDate());
+            } else {
+                if (!found) dates.add(p.getUpdatedDate());
+            }
         }
     }
 
@@ -204,7 +217,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     public int getSectionCount() {
-        if(dates == null) return 0;
+        if (dates == null) return 0;
         return dates.size();
     }
 
