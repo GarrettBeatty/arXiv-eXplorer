@@ -159,5 +159,10 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         getActivity().runOnUiThread(() -> swipeRefreshLayout.setRefreshing(b));
     }
 
-
+    @Override
+    public void scrollToTop(){
+        LinearLayoutManager layoutManager = (LinearLayoutManager) papersRecyclerView
+                .getLayoutManager();
+        layoutManager.scrollToPositionWithOffset(0, 0);
+    }
 }

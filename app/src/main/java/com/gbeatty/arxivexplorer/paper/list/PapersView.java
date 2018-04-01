@@ -12,4 +12,6 @@ public interface PapersView{
     void setPaginateNoMoreData(boolean isNoMoreItems);
     void showRecyclerView();
     void setRefreshing(boolean b);
+
+    void scrollToTop();
 }

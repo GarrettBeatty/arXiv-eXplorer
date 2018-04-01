@@ -59,7 +59,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
-        presenter.onBindPaperRowViewAtPosition(section, relativePosition, absolutePosition, (PaperViewHolder) holder);
+        presenter.onBindPaperRowViewAtPosition(section, absolutePosition, (PaperViewHolder) holder);
     }
 
     @Override

@@ -35,8 +35,8 @@ public class DashboardFragment extends PapersFragment {
 
     @Override
     public void onResume() {
-        super.onResume();
         presenter.onRefresh();
+        super.onResume();
     }
 
     @Override

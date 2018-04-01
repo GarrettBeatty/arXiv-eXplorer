@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.network;
 
-import android.util.Log;
-
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -93,9 +91,6 @@ public class ArxivAPI {
         urlBuilder.addEncodedQueryParameter("max_results", String.valueOf(maxResults));
 
         String url = urlBuilder.build().toString();
-
-        Log.d("query is", url);
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();

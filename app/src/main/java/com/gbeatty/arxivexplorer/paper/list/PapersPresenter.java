@@ -38,9 +38,11 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         view.setHeaderDate(dates.get(section));
     }
 
-    void onBindPaperRowViewAtPosition(int section, int relativePosition, int absolutePosition, final PapersListAdapter.PaperViewHolder paperRowView) {
+    void onBindPaperRowViewAtPosition(int section, int absolutePosition, final PapersListAdapter.PaperViewHolder paperRowView) {
 
         int position = absolutePosition - (section + 1);
+
+        if(position < 0 || position > papers.size()) return;
 
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
@@ -88,15 +90,19 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         String date = dates.get(sectionIndex);
         int count = 0;
-        for (Paper p : papers) {
 
-            if (!getSharedPreferenceView().isLastUpdatedDate()){
-                if (p.getPublishedDate().equals(date)) count++;
-            }
-            else{
-                if (p.getUpdatedDate().equals(date)) count++;
+        synchronized (papers){
+            for (int i = 0; i < papers.size(); i++) {
+
+                if (!getSharedPreferenceView().isLastUpdatedDate()){
+                    if (papers.get(i).getPublishedDate().equals(date)) count++;
+                }
+                else{
+                    if (papers.get(i).getUpdatedDate().equals(date)) count++;
+                }
             }
         }
+
         return count;
     }
 
@@ -163,28 +169,27 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     private void updateDates() {
-        for (Paper p : papers) {
+        for (int i = 0; i < papers.size(); i++) {
             boolean found = false;
-            for (int i = 0; i < dates.size(); i++) {
+            for (int j = 0; j < dates.size(); j++) {
 
                 if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                    if (dates.get(i).equals(p.getPublishedDate())) {
+                    if (dates.get(j).equals(papers.get(i).getPublishedDate())) {
                         found = true;
                         break;
                     }
                 } else {
-                    if (dates.get(i).equals(p.getUpdatedDate())) {
+                    if (dates.get(j).equals(papers.get(i).getUpdatedDate())) {
                         found = true;
                         break;
                     }
                 }
 
-
             }
             if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                if (!found) dates.add(p.getPublishedDate());
+                if (!found) dates.add(papers.get(i).getPublishedDate());
             } else {
-                if (!found) dates.add(p.getUpdatedDate());
+                if (!found) dates.add(papers.get(i).getUpdatedDate());
             }
         }
     }
@@ -201,6 +206,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     public void onRefresh() {
         getPapers();
+        view.scrollToTop();
     }
 
 
@@ -221,5 +227,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         return dates.size();
     }
 
-
+//
+//    public void headerClicked(int section, PapersListAdapter adapter) {
+//        adapter.toggleSectionExpanded(section);
+//    }
 }
