@@ -1,38 +1,41 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     >
 
     <TextView
         android:id="@+id/paper_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+        android:text="title"
+        android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
     <TextView
         android:id="@+id/paper_authors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:ellipsize="end"
-        android:maxLines="2"/>
+        android:maxLines="2"
+        android:text="authors"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 
 
     <TextView
         android:id="@+id/paper_updated_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:text="updated"
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
     <TextView
         android:id="@+id/paper_published_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:text="published"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,8 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
+            android:text="summary"
             android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     </LinearLayout>
 
-</merge>
+</LinearLayout>

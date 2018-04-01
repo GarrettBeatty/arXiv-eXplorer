@@ -37,6 +37,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
         paperRowView.setAuthors(paper.getAuthor());
+        //TODO determine sort by which to show
         paperRowView.setUpdatedDate("Updated: " + paper.getUpdatedDate());
         paperRowView.setPublishedDate("Published: " + paper.getPublishedDate());
         if (getSharedPreferenceView().isShowAbstract()) {

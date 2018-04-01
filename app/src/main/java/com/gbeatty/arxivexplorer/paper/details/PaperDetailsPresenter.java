@@ -31,7 +31,7 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         view.setAuthors(paper.getAuthor());
         view.setSummary(paper.getSummary());
         view.setUpdatedDate("Updated: " + paper.getUpdatedDate());
-        view.setPublishedDate("Published: " + paper.getPublishedDate());
+        view.setPublishedDate("Submitted: " + paper.getPublishedDate());
     }
 
     void updateFavoritedMenuItem() {

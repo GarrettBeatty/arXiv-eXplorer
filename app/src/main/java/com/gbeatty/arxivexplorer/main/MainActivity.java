@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         preferences = getSharedPreferences();
         presenter = new MainPresenter(this, this);
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
+        bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cardview_light_background, null));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
