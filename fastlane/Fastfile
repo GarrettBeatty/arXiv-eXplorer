@@ -20,19 +20,11 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :playstore do
-    gradle(
-      task: 'assemble',
-      build_type: 'Release'
-    )
-    screenshots
-    upload_to_play_store
-  end
-
-  lane :beta do
+  lane :internal do
     gradle(task: 'assemble', build_type: 'Release')
-    upload_to_play_store(track: 'beta')
+    upload_to_play_store(
+      track: 'internal',
+      skip_upload_metadata: true)
   end
 
   lane :screenshotPhone do
@@ -58,5 +50,12 @@ platform :android do
       device_type: "tenInch"
     )
   end
+
+  lane :uploadScreenshots do
+      upload_to_play_store(
+      skip_upload_apk: true,
+      skip_upload_images: true
+      )
+    end
 
 end
