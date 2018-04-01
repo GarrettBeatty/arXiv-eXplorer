@@ -45,6 +45,11 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         SharedPreferences getSharedPreferences();
 
         boolean isDashboardCategoryChecked(String categoryName);
+
+        boolean isPublishedDate();
+
+        boolean isLastUpdatedDate();
+
     }
 
     @Override
@@ -68,6 +73,16 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     @Override
     public boolean isDashboardCategoryChecked(String categoryName) {
         return listener.isDashboardCategoryChecked(categoryName);
+    }
+
+    @Override
+    public boolean isLastUpdatedDate() {
+        return listener.isLastUpdatedDate();
+    }
+
+    @Override
+    public boolean isPublishedDate() {
+        return listener.isPublishedDate();
     }
 
 }

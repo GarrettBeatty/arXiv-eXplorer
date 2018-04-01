@@ -212,4 +212,14 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         return getSharedPreferences().getBoolean(categoryName, true);
     }
 
+    @Override
+    public boolean isLastUpdatedDate() {
+        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+    }
+
+    @Override
+    public boolean isPublishedDate() {
+        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+    }
+
 }

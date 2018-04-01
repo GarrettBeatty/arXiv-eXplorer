@@ -80,7 +80,7 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         }
 
         @Override
-        public void setUpdatedDate(String updatedDate) {
+        public void setLastUpdatedDate(String updatedDate) {
             paperUpdated.setText(updatedDate);
         }
 
@@ -104,6 +104,26 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         public void showSummary() {
             paperSummary.setVisibility(View.VISIBLE);
             summarySep.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void hidePublishedDate() {
+            paperPublished.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void showLastUpdatedDate() {
+            paperUpdated.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void hideLastUpdatedDate() {
+            paperUpdated.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void showPublishedDate() {
+            paperPublished.setVisibility(View.VISIBLE);
         }
     }
 }

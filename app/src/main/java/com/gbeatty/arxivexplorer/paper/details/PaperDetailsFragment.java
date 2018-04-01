@@ -111,7 +111,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     @Override
-    public void setUpdatedDate(String updatedDate) {
+    public void setLastUpdatedDate(String updatedDate) {
         paperUpdated.setText(updatedDate);
     }
 

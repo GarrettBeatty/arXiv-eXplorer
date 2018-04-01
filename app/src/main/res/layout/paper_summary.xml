@@ -8,17 +8,15 @@
         android:id="@+id/paper_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="title"
         android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
     <TextView
         android:id="@+id/paper_authors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="authors"
-        android:layout_marginBottom="4dp"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 
 
@@ -26,14 +24,12 @@
         android:id="@+id/paper_updated_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="updated"
         android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
     <TextView
         android:id="@+id/paper_published_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="published"
         android:layout_marginBottom="4dp"
         android:textAppearance="@android:style/TextAppearance.Material.Small" />
 

@@ -7,7 +7,7 @@ public interface PapersViewBase {
 
     void setPublishedDate(String publishedDate);
 
-    void setUpdatedDate(String updatedDate);
+    void setLastUpdatedDate(String updatedDate);
 
     void setSummary(String summary);
 

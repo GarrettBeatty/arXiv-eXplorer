@@ -7,4 +7,7 @@ public interface SharedPreferencesView {
     int getMaxResult();
     boolean isShowAbstract();
     boolean isDashboardCategoryChecked(String categoryName);
+
+    boolean isLastUpdatedDate();
+    boolean isPublishedDate();
 }
