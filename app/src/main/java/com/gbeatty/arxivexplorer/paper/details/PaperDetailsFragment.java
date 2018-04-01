@@ -151,6 +151,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     public void showLoading(){
+        if(BuildConfig.DEBUG) return;
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Downloading..");
         progressDialog.setTitle("Downloading PDF");
@@ -160,10 +161,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     public void dismissLoading(){
+        if(BuildConfig.DEBUG) return;
         progressDialog.dismiss();
     }
 
     public void errorLoading() {
+        if(BuildConfig.DEBUG) return;
         getActivity().runOnUiThread(() -> {
             dismissLoading();
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();

@@ -26,6 +26,7 @@ public class WaifForUIUpdate {
 
     }
 
+
     static void waitFor(int ms) {
         final CountDownLatch signal = new CountDownLatch(1);
 

@@ -1,9 +1,11 @@
 package com.gbeatty.arxivexplorer;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.uiautomator.UiDevice;
 import android.view.View;
 
 import com.gbeatty.arxivexplorer.main.MainActivity;
@@ -55,10 +57,15 @@ public class MainScreenshots {
 
         Screengrab.screenshot("details");
 
-//        onView(withId(R.id.menu_download_paper))
-//                .perform(click());
-//
-//        Screengrab.screenshot("downloaded");
+        onView(withId(R.id.menu_download_paper))
+                .perform(click());
+
+        WaifForUIUpdate.waitFor(3000);
+
+        Screengrab.screenshot("downloaded");
+
+        UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        mDevice.pressBack();
 
         onView(withId(R.id.navigation_dashboard)).perform(click());
 
