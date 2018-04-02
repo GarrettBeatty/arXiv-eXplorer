@@ -27,6 +27,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public SectionedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutRes;
         SectionedViewHolder viewHolder;
+
         switch (viewType) {
             case VIEW_TYPE_HEADER:
                 layoutRes = R.layout.date_header;

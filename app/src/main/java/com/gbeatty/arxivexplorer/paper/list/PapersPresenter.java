@@ -87,6 +87,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     int getPapersRowsCount(int sectionIndex) {
 
         if (papers == null || dates == null) return 0;
+        if(isRelevanceDate()) return papers.size();
 
         String date = dates.get(sectionIndex);
         int count = 0;
@@ -169,6 +170,12 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     private void updateDates() {
+
+        if(isRelevanceDate()){
+            if(dates.isEmpty()) dates.add("Relevance");
+            return;
+        }
+
         for (int i = 0; i < papers.size(); i++) {
             boolean found = false;
             for (int j = 0; j < dates.size(); j++) {
@@ -225,6 +232,10 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     public int getSectionCount() {
         if (dates == null) return 0;
         return dates.size();
+    }
+
+    public boolean isRelevanceDate() {
+        return getSharedPreferenceView().isRelevanceDate();
     }
 
 //

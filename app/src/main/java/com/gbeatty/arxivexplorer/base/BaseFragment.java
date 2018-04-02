@@ -50,6 +50,8 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
         boolean isLastUpdatedDate();
 
+        boolean isRelevanceDate();
+
     }
 
     @Override
@@ -83,6 +85,11 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     @Override
     public boolean isPublishedDate() {
         return listener.isPublishedDate();
+    }
+
+    @Override
+    public boolean isRelevanceDate() {
+        return listener.isRelevanceDate();
     }
 
 }
