@@ -46,7 +46,7 @@ class MainPresenter extends BasePresenter{
         view.switchToFavoritesFragment(Tags.FAVORITES_FRAGMENT_TAG);
     }
 
-    private void switchToDashboardFragment(){
+    public void switchToDashboardFragment(){
         view.switchToDashboardFragment(Tags.DASHBOARD_FRAGMENT_TAG);
     }
 
