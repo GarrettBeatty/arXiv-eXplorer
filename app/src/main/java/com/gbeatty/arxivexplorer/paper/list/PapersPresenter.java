@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,13 +25,14 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     private final PapersView view;
     private ArrayList<Paper> papers;
-    private List<String> dates = new ArrayList<>();
+    private List<String> dates;
     private String query;
     private int start;
 
     protected PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
+        dates = new CopyOnWriteArrayList<>();
         start = 0;
     }
 
@@ -172,7 +174,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     private void updateDates() {
 
         if(isRelevanceDate()){
-            if(dates.isEmpty()) dates.add("Relevance");
+            dates = new CopyOnWriteArrayList<>();
+            dates.add("Relevance");
             return;
         }
 
@@ -213,7 +216,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     public void onRefresh() {
         getPapers();
-        view.scrollToTop();
     }
 
 
@@ -222,6 +224,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
                 getPapers();
+                view.scrollToTop();
                 return true;
         }
 
