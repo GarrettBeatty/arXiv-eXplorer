@@ -168,6 +168,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         } else
             view.showRecyclerView();
         updateDates();
+        view.setRefreshing(false);
         view.notifyAdapter();
     }
 
@@ -223,6 +224,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         switch (id) {
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
+                view.setRefreshing(true);
                 getPapers();
                 view.scrollToTop();
                 return true;

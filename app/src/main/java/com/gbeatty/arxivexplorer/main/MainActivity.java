@@ -227,4 +227,5 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }
 
+
 }

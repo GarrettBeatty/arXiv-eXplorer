@@ -64,7 +64,7 @@ class DashboardPresenter extends PapersPresenter {
 
     private void downloadPapersFromDashboard(String[] catKeys, String[] categories, String sortOrder, String sortBy, int maxResult){
         try {
-            getView().setRefreshing(true);
+//            getView().setRefreshing(true);
             ArxivAPI.searchMultipleCategories(catKeys, categories,
                     sortOrder,
                     sortBy,
@@ -72,7 +72,7 @@ class DashboardPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-
+                            getView().showError();
                         }
 
                         @Override
@@ -83,16 +83,16 @@ class DashboardPresenter extends PapersPresenter {
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
 
-                                getView().setRefreshing(false);
                                 setQuery(response.request().url().toString());
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
+                                getView().showError();
                             }
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            getView().showError();
         }
     }
 }

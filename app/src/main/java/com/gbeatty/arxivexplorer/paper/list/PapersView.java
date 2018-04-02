@@ -14,4 +14,6 @@ public interface PapersView{
     void setRefreshing(boolean b);
 
     void scrollToTop();
+
+    void showError();
 }

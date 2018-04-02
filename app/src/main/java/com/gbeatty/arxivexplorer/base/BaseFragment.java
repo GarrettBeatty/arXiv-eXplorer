@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
@@ -90,6 +91,10 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     @Override
     public boolean isRelevanceDate() {
         return listener.isRelevanceDate();
+    }
+
+    public void showError(){
+        Toast.makeText(getContext(), "Error Loading Papers", Toast.LENGTH_SHORT).show();
     }
 
 }
