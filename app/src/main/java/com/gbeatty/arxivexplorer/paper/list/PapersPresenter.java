@@ -174,8 +174,9 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     private void updateDates() {
 
+        dates = new CopyOnWriteArrayList<>();
+
         if(isRelevanceDate()){
-            dates = new CopyOnWriteArrayList<>();
             dates.add("Relevance");
             return;
         }

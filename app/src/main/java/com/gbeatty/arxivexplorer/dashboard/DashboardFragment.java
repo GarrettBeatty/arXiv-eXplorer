@@ -33,11 +33,11 @@ public class DashboardFragment extends PapersFragment {
         return fragment;
     }
 
-    @Override
-    public void onResume() {
-        presenter.onRefresh();
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//        presenter.onRefresh();
+//        super.onResume();
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

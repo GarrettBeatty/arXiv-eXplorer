@@ -3,6 +3,7 @@ package com.gbeatty.arxivexplorer.paper.list;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,12 +61,21 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
         ButterKnife.bind(this, rootView);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        papersRecyclerView.setLayoutManager(linearLayoutManager);
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+        RecyclerView.LayoutManager manager;
 
         papersListAdapter = new PapersListAdapter(presenter);
-
         papersListAdapter.expandAllSections();
+
+        if(tabletSize){
+            manager = new GridLayoutManager(getContext(), 2);
+            papersListAdapter.setLayoutManager((GridLayoutManager) manager);
+        }else{
+            manager = new LinearLayoutManager(getActivity());
+        }
+
+        papersRecyclerView.setLayoutManager(manager);
 
         papersRecyclerView.setAdapter(papersListAdapter);
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
