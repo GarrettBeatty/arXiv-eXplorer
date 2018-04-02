@@ -243,6 +243,12 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         return getSharedPreferenceView().isRelevanceDate();
     }
 
+    public void errorLoading(){
+        getView().setRefreshing(false);
+        getView().showError();
+        getView().showPaginateLoading(false);
+    }
+
 //
 //    public void headerClicked(int section, PapersListAdapter adapter) {
 //        adapter.toggleSectionExpanded(section);

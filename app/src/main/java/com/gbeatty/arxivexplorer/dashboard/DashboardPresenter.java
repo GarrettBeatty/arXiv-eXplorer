@@ -72,7 +72,7 @@ class DashboardPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            getView().showError();
+                            errorLoading();
                         }
 
                         @Override
@@ -87,12 +87,12 @@ class DashboardPresenter extends PapersPresenter {
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
-                                getView().showError();
+                                errorLoading();
                             }
                         }
                     });
         } catch (Exception e) {
-            getView().showError();
+            errorLoading();
         }
     }
 }
