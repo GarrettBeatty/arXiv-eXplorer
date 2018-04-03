@@ -21,7 +21,7 @@ class DownloadedPresenter extends PapersPresenter {
         getView().setRefreshing(false);
         updatePapers(
                 (ArrayList<Paper>) Select.from(Paper.class)
-                        .where("downloaded = ?", new String[]{"1"})
+                        .where("downloaded = 1")
                         .orderBy("id desc")
                         .list());
     }

@@ -6,7 +6,7 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import java.util.List;
 
-public class PapersPresenterBase extends BasePresenter{
+public class PapersPresenterBase extends BasePresenter {
 
     protected PapersPresenterBase(SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
@@ -17,14 +17,10 @@ public class PapersPresenterBase extends BasePresenter{
     }
 
     private void favoritePaper(Paper paper) {
+        savePaperIfDoesntExist(paper);
         List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paper.getPaperID());
-        if(ps.isEmpty()){
-            paper.setFavorited(true);
-            paper.save();
-        }else{
-            ps.get(0).setFavorited(true);
-            ps.get(0).save();
-        }
+        ps.get(0).setFavorited(true);
+        ps.get(0).save();
     }
 
     private void unfavoritePaper(String paperID) {
@@ -38,4 +34,10 @@ public class PapersPresenterBase extends BasePresenter{
         else favoritePaper(paper);
     }
 
+    public void savePaperIfDoesntExist(Paper paper) {
+        Paper p = Paper.findById(Paper.class, paper.getId());
+        if (p == null) {
+            paper.save();
+        }
+    }
 }

@@ -44,7 +44,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         int position = absolutePosition - (section + 1);
 
-        if (position < 0 || position > papers.size()) return;
+        if (position < 0 || position >= papers.size()) return;
 
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
@@ -104,7 +104,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                 if (papers.get(i).getUpdatedDate().equals(date)) count++;
             }
         }
-
 
         return count;
     }

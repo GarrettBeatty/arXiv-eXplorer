@@ -26,6 +26,8 @@ import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 
+import java.io.File;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -221,7 +223,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(maxResults);
 
             deleteDownloadedPapers.setOnPreferenceClickListener(preference -> {
-                Helper.deleteFilesDir(preference.getContext());
+                Helper.deleteFilesDir(new File(getActivity().getFilesDir(), "papers"));
                 Toast.makeText(preference.getContext(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
                 return true;
             });

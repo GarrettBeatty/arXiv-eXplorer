@@ -1,19 +1,20 @@
 package com.gbeatty.arxivexplorer.helpers;
 
-import android.content.Context;
+import android.util.Log;
 
-import com.gbeatty.arxivexplorer.models.Paper;
+import com.gbeatty.arxivexplorer.paper.details.PaperDetailsPresenter;
 
 import java.io.File;
-import java.util.List;
 
 public class Helper {
 
-    public static void deleteFilesDir(Context context) {
+    public static void deleteFilesDir(File dir) {
         try {
-            File dir = context.getFilesDir();
+            Log.d("deleting dir", dir.getAbsolutePath());
             deleteDir(dir);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static boolean deleteDir(File dir) {
@@ -28,10 +29,7 @@ public class Helper {
             return dir.delete();
         } else if(dir!= null && dir.isFile()) {
             String name = dir.getName();
-            List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", name);
-            Paper p = ps.get(0);
-            p.setDownloaded(false);
-            p.save();
+            PaperDetailsPresenter.setPaperDownloaded(name, false);
             return dir.delete();
         } else {
             return false;
