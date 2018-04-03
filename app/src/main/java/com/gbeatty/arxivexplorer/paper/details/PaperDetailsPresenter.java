@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -69,6 +67,7 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         File file = new File(papersPath, paper.getPaperID());
 
         if (file.exists()) {
+            savePaperIfDoesntExist(paper);
             setPaperDownloaded(paper.getPaperID(), true);
             view.viewDownloadedPaper(file);
             return;
@@ -109,8 +108,6 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
                 BufferedSink sink = Okio.buffer(Okio.sink(file));
                 sink.writeAll(response.body().source());
                 sink.close();
-
-                Log.d("saved to ", file.getAbsolutePath());
 
                 view.dismissLoading();
                 savePaperIfDoesntExist(paper);

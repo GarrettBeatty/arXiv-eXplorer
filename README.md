@@ -49,7 +49,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-* **Garrett Beatty**
+* **Garrett Beatty** - Developer
 
 ## License
 
