@@ -36,11 +36,11 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         start = 0;
     }
 
-    public void onBindHeaderViewAtPosition(int section, PapersListAdapter.HeaderViewHolder view) {
+    public void onBindHeaderViewAtPosition(int section, HeaderView view) {
         view.setHeaderDate(dates.get(section));
     }
 
-    void onBindPaperRowViewAtPosition(int section, int absolutePosition, final PapersListAdapter.PaperViewHolder paperRowView) {
+    void onBindPaperRowViewAtPosition(int section, int absolutePosition, PaperRowView paperRowView) {
 
         int position = absolutePosition - (section + 1);
 
