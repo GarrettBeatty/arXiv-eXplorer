@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/navigation_browse"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/browse"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/navigation_dashboard"
@@ -21,10 +15,16 @@
         android:title="@string/favorites"
         app:showAsAction="never" />
 
-    <!--<item-->
-    <!--android:id="@+id/navigation_downloaded"-->
-    <!--android:icon="@drawable/ic_file_download_black_24dp"-->
-    <!--app:showAsAction="never"-->
-    <!--android:title="Downloaded" />-->
+    <item
+        android:id="@+id/navigation_downloaded"
+        android:icon="@drawable/ic_file_download_black_24dp"
+        android:title="Downloaded"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/navigation_browse"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/browse"
+        app:showAsAction="never" />
 
 </menu>

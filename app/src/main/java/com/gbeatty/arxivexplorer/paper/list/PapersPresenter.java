@@ -89,7 +89,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     int getPapersRowsCount(int sectionIndex) {
 
         if (papers == null || dates == null) return 0;
-        if (isRelevanceDate() || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return papers.size();
+        if (isRelevanceDate() || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)
+                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) return papers.size();
 
         String date = dates.get(sectionIndex);
         int count = 0;
@@ -179,7 +180,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             return;
         }
 
-        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) {
+        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
             dates.add("Recently Added");
             return;
         }

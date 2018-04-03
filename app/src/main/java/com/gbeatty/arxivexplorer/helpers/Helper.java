@@ -2,7 +2,10 @@ package com.gbeatty.arxivexplorer.helpers;
 
 import android.content.Context;
 
+import com.gbeatty.arxivexplorer.models.Paper;
+
 import java.io.File;
+import java.util.List;
 
 public class Helper {
 
@@ -24,6 +27,11 @@ public class Helper {
             }
             return dir.delete();
         } else if(dir!= null && dir.isFile()) {
+            String name = dir.getName();
+            List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", name);
+            Paper p = ps.get(0);
+            p.setDownloaded(false);
+            p.save();
             return dir.delete();
         } else {
             return false;

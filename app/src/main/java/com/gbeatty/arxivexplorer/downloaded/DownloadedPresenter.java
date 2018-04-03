@@ -1,4 +1,4 @@
-package com.gbeatty.arxivexplorer.favorites;
+package com.gbeatty.arxivexplorer.downloaded;
 
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.paper.list.PapersPresenter;
@@ -8,9 +8,9 @@ import com.orm.query.Select;
 
 import java.util.ArrayList;
 
-class FavoritesPresenter extends PapersPresenter {
+class DownloadedPresenter extends PapersPresenter {
 
-    public FavoritesPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
+    public DownloadedPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(view, sharedPreferencesView);
         setQuery(null);
     }
@@ -21,7 +21,7 @@ class FavoritesPresenter extends PapersPresenter {
         getView().setRefreshing(false);
         updatePapers(
                 (ArrayList<Paper>) Select.from(Paper.class)
-                        .where("favorited = ?", new String[]{"1"})
+                        .where("downloaded = ?", new String[]{"1"})
                         .orderBy("id desc")
                         .list());
     }

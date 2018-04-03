@@ -20,10 +20,6 @@ class MainPresenter extends BasePresenter{
 
     boolean onNavigationItemSelected(int id) {
         switch (id) {
-            case R.id.navigation_browse:
-                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG)) return false;
-                switchToCategoriesFragment();
-                return true;
 
             case R.id.navigation_dashboard:
                 if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
@@ -34,8 +30,22 @@ class MainPresenter extends BasePresenter{
                 if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;
                 switchToFavoritesFragment();
                 return true;
+
+                case R.id.navigation_downloaded:
+                if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) return false;
+                switchToDownloadedFragment();
+                return true;
+
+            case R.id.navigation_browse:
+                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG)) return false;
+                switchToCategoriesFragment();
+                return true;
         }
         return false;
+    }
+
+    private void switchToDownloadedFragment() {
+        view.switchToDownloadedFragment(Tags.DOWNLOADED_FRAGMENT_TAG);
     }
 
     public void switchToCategoriesFragment(){

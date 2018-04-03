@@ -1,5 +1,7 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
+import android.util.Log;
+
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -43,11 +45,15 @@ class PaperDetailsPresenter extends PapersPresenterBase {
     }
 
     void updateDownloadedMenuItem(){
-        if(view.isPaperDownloaded(paper.getPaperID())){
+        if(isPaperDownloaded(paper.getPaperID())){
             view.setDownloadedIcon();
         }else{
             view.setNotDownloadedIcon();
         }
+    }
+
+    private boolean isPaperDownloaded(String paperID) {
+        return Paper.count(Paper.class, "paper_id = ? and downloaded = 1", new String[]{paperID}) > 0;
     }
 
     private void navigationFavoritePaperClicked() {
@@ -59,6 +65,8 @@ class PaperDetailsPresenter extends PapersPresenterBase {
 
         File papersPath = new File(view.getFilesDir(), "papers");
         File file = new File(papersPath, paper.getPaperID());
+
+        Log.d("paperid", paper.getPaperID());
 
         if (file.exists()) {
             view.viewDownloadedPaper(file);
@@ -94,6 +102,15 @@ class PaperDetailsPresenter extends PapersPresenterBase {
                 sink.writeAll(response.body().source());
                 sink.close();
                 view.dismissLoading();
+
+                Paper p = Paper.findById(Paper.class, paper.getId());
+                if(p == null){
+                    paper.save();
+                    p = Paper.findById(Paper.class, paper.getId());
+                }
+                p.setDownloaded(true);
+                p.save();
+
                 updateDownloadedMenuItem();
                 view.viewDownloadedPaper(file);
             }

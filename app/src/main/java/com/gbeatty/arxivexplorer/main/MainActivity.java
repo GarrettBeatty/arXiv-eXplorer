@@ -21,8 +21,8 @@ import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
+import com.gbeatty.arxivexplorer.downloaded.DownloadedFragment;
 import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
-import com.gbeatty.arxivexplorer.helpers.Tags;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.search.SearchFragment;
@@ -114,6 +114,14 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         showFragment(R.id.content, SearchFragment.newInstance(searchQuery), tag);
     }
 
+
+
+    @Override
+    public void switchToDownloadedFragment(String tag) {
+        showFragment(R.id.content, DownloadedFragment.newInstance(), tag);
+    }
+
+
     public Fragment getCurrentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.content);
     }
@@ -181,11 +189,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         if (!fragmentPopped) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            if(!backStateName.equals(Tags.MAIN_CATEGORIES_TAG)){
+//            if(!backStateName.equals(Tags.MAIN_CATEGORIES_TAG)){
                 transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-            }else{
-                transaction.setCustomAnimations(R.anim.enter_two, R.anim.exit_two, R.anim.pop_enter_two, R.anim.pop_exit_two);
-            }
+//            }else{
+//                transaction.setCustomAnimations(R.anim.enter_two, R.anim.exit_two, R.anim.pop_enter_two, R.anim.pop_exit_two);
+//            }
             transaction.replace(fragmentContainerId, fragment, backStateName);
             transaction.addToBackStack(backStateName);
             transaction.commit();
