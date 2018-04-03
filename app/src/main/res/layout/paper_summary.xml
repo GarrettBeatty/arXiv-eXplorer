@@ -49,7 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:text="summary"
             android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     </LinearLayout>

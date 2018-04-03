@@ -39,12 +39,21 @@ class DashboardPresenter extends PapersPresenter {
     private ArrayList<String> getToggledCatKeys(){
         ArrayList<String> catKeys = new ArrayList<>();
         for(Category category : Categories.CATEGORIES){
-            for(Category c: category.getSubCategories()){
+
+            if(category.getSubCategories().length != 0){
+                for(Category c: category.getSubCategories()){
                 if(c.getCatKey().equals("all")) continue;
-                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
-                    catKeys.add(c.getCatKey());
+                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                        catKeys.add(c.getCatKey());
+                    }
+                }
+            }else{
+                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+                    catKeys.add(category.getCatKey());
                 }
             }
+
+
         }
         return catKeys;
     }
@@ -52,12 +61,21 @@ class DashboardPresenter extends PapersPresenter {
     private ArrayList<String> getToggledCategoriesNames(){
         ArrayList<String> categoriesNames = new ArrayList<>();
         for(Category category : Categories.CATEGORIES){
-            for(Category c: category.getSubCategories()){
+
+            if(category.getSubCategories().length != 0){
+                for(Category c: category.getSubCategories()){
                 if(c.getCatKey().equals("all")) continue;
-                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
-                    categoriesNames.add(c.getShortName());
+                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                        categoriesNames.add(c.getShortName());
+                    }
+                }
+            }else{
+                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+                    categoriesNames.add(category.getShortName());
                 }
             }
+
+
         }
         return categoriesNames;
     }

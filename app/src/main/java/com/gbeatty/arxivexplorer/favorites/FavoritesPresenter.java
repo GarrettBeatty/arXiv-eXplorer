@@ -19,8 +19,8 @@ class FavoritesPresenter extends PapersPresenter {
     public void getPapers() {
         getView().setRefreshing(true);
         getView().setRefreshing(false);
-        updatePapers((ArrayList<Paper>)
-                Select.from(Paper.class)
+        updatePapers(
+                (ArrayList<Paper>) Select.from(Paper.class)
                         .orderBy("id desc")
                         .list());
     }

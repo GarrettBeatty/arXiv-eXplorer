@@ -16,4 +16,6 @@ public interface PapersView{
     void scrollToTop();
 
     void showError();
+
+    String getTag();
 }

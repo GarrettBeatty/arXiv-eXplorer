@@ -1,6 +1,7 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
 import com.gbeatty.arxivexplorer.R;
+import com.gbeatty.arxivexplorer.helpers.Tags;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,7 +24,7 @@ import ru.alexbykov.nopaginate.callback.OnLoadMoreListener;
 public abstract class PapersPresenter extends PapersPresenterBase implements OnLoadMoreListener {
 
     private final PapersView view;
-    private ArrayList<Paper> papers;
+    private List<Paper> papers;
     private List<String> dates;
     private String query;
     private int start;
@@ -32,7 +32,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     protected PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
-        dates = new CopyOnWriteArrayList<>();
+        dates = new ArrayList<>();
         start = 0;
     }
 
@@ -44,7 +44,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         int position = absolutePosition - (section + 1);
 
-        if(position < 0 || position > papers.size()) return;
+        if (position < 0 || position > papers.size()) return;
 
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
@@ -89,22 +89,20 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     int getPapersRowsCount(int sectionIndex) {
 
         if (papers == null || dates == null) return 0;
-        if(isRelevanceDate()) return papers.size();
+        if (isRelevanceDate() || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return papers.size();
 
         String date = dates.get(sectionIndex);
         int count = 0;
 
-        synchronized (papers){
-            for (int i = 0; i < papers.size(); i++) {
+        for (int i = 0; i < papers.size(); i++) {
 
-                if (!getSharedPreferenceView().isLastUpdatedDate()){
-                    if (papers.get(i).getPublishedDate().equals(date)) count++;
-                }
-                else{
-                    if (papers.get(i).getUpdatedDate().equals(date)) count++;
-                }
+            if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                if (papers.get(i).getPublishedDate().equals(date)) count++;
+            } else {
+                if (papers.get(i).getUpdatedDate().equals(date)) count++;
             }
         }
+
 
         return count;
     }
@@ -174,10 +172,15 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     private void updateDates() {
 
-        dates = new CopyOnWriteArrayList<>();
+        dates = new ArrayList<>();
 
-        if(isRelevanceDate()){
+        if (isRelevanceDate()) {
             dates.add("Relevance");
+            return;
+        }
+
+        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) {
+            dates.add("Recently Added");
             return;
         }
 
@@ -217,6 +220,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     public void onRefresh() {
+        start = 0;
         getPapers();
     }
 
@@ -244,14 +248,10 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         return getSharedPreferenceView().isRelevanceDate();
     }
 
-    public void errorLoading(){
+    public void errorLoading() {
         getView().setRefreshing(false);
         getView().showError();
         getView().showPaginateLoading(false);
     }
 
-//
-//    public void headerClicked(int section, PapersListAdapter adapter) {
-//        adapter.toggleSectionExpanded(section);
-//    }
 }

@@ -74,7 +74,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         }else{
             manager = new LinearLayoutManager(getActivity());
         }
-
+        papersRecyclerView.setHasFixedSize(false);
         papersRecyclerView.setLayoutManager(manager);
 
         papersRecyclerView.setAdapter(papersListAdapter);
