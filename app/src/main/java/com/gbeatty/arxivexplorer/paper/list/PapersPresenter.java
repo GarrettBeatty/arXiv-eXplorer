@@ -108,12 +108,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         return count;
     }
 
-//    public void determineContentVisibility() {
-//        if(papers == null || papers.size() == 0){
-//            view.showNoPapersMessage();
-//        }
-//    }
-
     @Override
     public void onLoadMore() {
         if (query == null) return;
@@ -162,7 +156,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     protected void updatePapers(ArrayList<Paper> papers) {
         this.papers = papers;
-        if (papers.size() == 0) {
+        if (papers.isEmpty()) {
             view.showNoPapersMessage();
         } else
             view.showRecyclerView();
