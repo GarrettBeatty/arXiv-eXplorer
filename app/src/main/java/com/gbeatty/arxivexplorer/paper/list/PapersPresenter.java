@@ -230,7 +230,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
                 view.setRefreshing(true);
-                getPapers();
+                onRefresh();
                 view.scrollToTop();
                 return true;
         }
