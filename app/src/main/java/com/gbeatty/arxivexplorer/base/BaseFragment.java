@@ -94,7 +94,7 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     }
 
     public void showError(){
-        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error Loading Papers", Toast.LENGTH_SHORT).show());
     }
 
 }
