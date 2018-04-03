@@ -29,20 +29,17 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     private static final String PAPER_KEY = "paperkey";
     @BindView(R.id.paper_title)
-
     TextView paperTitle;
     @BindView(R.id.paper_summary)
-
     TextView paperSummary;
     @BindView(R.id.paper_authors)
-
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
-
     TextView paperUpdated;
     @BindView(R.id.paper_published_date)
-
     TextView paperPublished;
+    @BindView(R.id.paper_categories)
+    TextView paperCategories;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
@@ -123,6 +120,11 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void setNotFavoritedIcon() {
         favoritePaper.setIcon(R.drawable.ic_favorite_border_black_24dp);
+    }
+
+    @Override
+    public void setPaperCategories(String categories) {
+        paperCategories.setText(categories);
     }
 
     @Override

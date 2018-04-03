@@ -105,6 +105,8 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         TextView paperPublished;
         @BindView(R.id.paper_updated_date)
         TextView paperUpdated;
+        @BindView(R.id.paper_categories)
+        TextView paperCategories;
         @BindView(R.id.button_favorite_paper)
         ImageButton favoritePaper;
         @BindView(R.id.paper_summary)
@@ -157,6 +159,11 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void setNotFavoritedIcon() {
             favoritePaper.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+        }
+
+        @Override
+        public void setPaperCategories(String categories) {
+            paperCategories.setText(categories);
         }
 
         @Override

@@ -95,7 +95,6 @@ public class ArxivAPI {
                 .url(url)
                 .build();
 
-
         getClient().newCall(request).enqueue(call);
     }
 

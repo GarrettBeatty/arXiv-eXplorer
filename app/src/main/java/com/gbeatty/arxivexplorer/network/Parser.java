@@ -58,6 +58,7 @@ public class Parser {
         String published = null;
         String id = null;
         String pdfLink = null;
+        StringBuilder categories = null;
 
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -83,11 +84,18 @@ public class Parser {
             } else if (name.equals("link") && parser.getAttributeValue(null, "title") != null &&
                     parser.getAttributeValue(null, "title").equals("pdf")) {
                 pdfLink = readPDFURL(parser);
-            } else {
+            }else if (name.equals("category")) {
+                if (categories == null) {
+                    categories = new StringBuilder(readCategory(parser));
+                } else {
+                    categories.append(", ").append(readCategory(parser));
+                }
+            }
+            else {
                 skip(parser);
             }
         }
-        return new Paper(title, author.toString(), summary, updated, published, id, pdfLink);
+        return new Paper(title, author.toString(), summary, updated, published, id, pdfLink, categories.toString());
     }
 
     private static String readDate(XmlPullParser parser) throws IOException, XmlPullParserException, ParseException {
@@ -129,6 +137,14 @@ public class Parser {
     private static String readPDFURL(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, null, "link");
         String pdfLink = parser.getAttributeValue(null, "href");
+        parser.next();
+//        parser.require(XmlPullParser., null, "link");
+        return pdfLink;
+    }
+
+    private static String readCategory(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, null, "category");
+        String pdfLink = parser.getAttributeValue(null, "term");
         parser.next();
 //        parser.require(XmlPullParser., null, "link");
         return pdfLink;
