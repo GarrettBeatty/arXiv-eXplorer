@@ -170,13 +170,13 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         dates = new ArrayList<>();
 
-        if (isRelevanceDate()) {
-            dates.add("Relevance");
+        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
+            dates.add("Recently Added");
             return;
         }
 
-        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
-            dates.add("Recently Added");
+        if (isRelevanceDate()) {
+            dates.add("Relevance");
             return;
         }
 

@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -67,8 +65,6 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         File papersPath = new File(view.getFilesDir(), "papers");
         File file = new File(papersPath, paper.getPaperID());
 
-        Log.d("paperid", paper.getPaperID());
-
         if (file.exists()) {
             view.viewDownloadedPaper(file);
             return;
@@ -76,7 +72,6 @@ class PaperDetailsPresenter extends PapersPresenterBase {
 
         if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
-
 
         try {
             file.createNewFile();
