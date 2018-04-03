@@ -14,8 +14,8 @@ android {
         applicationId "com.gbeatty.arxiv"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 21
-        versionName "3.4.2"
+        versionCode 22
+        versionName "3.4.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
