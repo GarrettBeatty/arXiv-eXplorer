@@ -8,6 +8,7 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -15,7 +16,7 @@ import okhttp3.Response;
 import okio.BufferedSink;
 import okio.Okio;
 
-class PaperDetailsPresenter extends PapersPresenterBase {
+public class PaperDetailsPresenter extends PapersPresenterBase {
 
     private final PaperDetailsView view;
     private final Paper paper;
@@ -32,6 +33,7 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         view.setSummary(paper.getSummary());
         view.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
         view.setPublishedDate("Submitted: " + paper.getPublishedDate());
+        view.setPaperCategories(paper.getCategories());
     }
 
     void updateFavoritedMenuItem() {
@@ -43,11 +45,15 @@ class PaperDetailsPresenter extends PapersPresenterBase {
     }
 
     void updateDownloadedMenuItem(){
-        if(view.isPaperDownloaded(paper.getPaperID())){
+        if(isPaperDownloaded(paper.getPaperID())){
             view.setDownloadedIcon();
         }else{
             view.setNotDownloadedIcon();
         }
+    }
+
+    private boolean isPaperDownloaded(String paperID) {
+        return Paper.count(Paper.class, "paper_id = ? and downloaded = 1", new String[]{paperID}) > 0;
     }
 
     private void navigationFavoritePaperClicked() {
@@ -61,13 +67,14 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         File file = new File(papersPath, paper.getPaperID());
 
         if (file.exists()) {
+            savePaperIfDoesntExist(paper);
+            setPaperDownloaded(paper.getPaperID(), true);
             view.viewDownloadedPaper(file);
             return;
         }
 
         if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
-
 
         try {
             file.createNewFile();
@@ -76,6 +83,14 @@ class PaperDetailsPresenter extends PapersPresenterBase {
         }
 
         downloadPDFandView(file);
+    }
+
+    public static void setPaperDownloaded(String paperID, boolean downloaded){
+        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paperID);
+        if(ps == null || ps.isEmpty()) return;
+        Paper p = ps.get(0);
+        p.setDownloaded(downloaded);
+        p.save();
     }
 
     private void downloadPDFandView(File file) {
@@ -93,7 +108,10 @@ class PaperDetailsPresenter extends PapersPresenterBase {
                 BufferedSink sink = Okio.buffer(Okio.sink(file));
                 sink.writeAll(response.body().source());
                 sink.close();
+
                 view.dismissLoading();
+                savePaperIfDoesntExist(paper);
+                setPaperDownloaded(paper.getPaperID(), true);
                 updateDownloadedMenuItem();
                 view.viewDownloadedPaper(file);
             }

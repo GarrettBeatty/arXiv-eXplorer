@@ -30,7 +30,7 @@ class SearchPresenter extends PapersPresenter {
     @Override
     public void getPapers() {
         try {
-            getView().setRefreshing(true);
+//            getView().setRefreshing(true);
             ArxivAPI.searchAll(searchQuery,
                     getSharedPreferenceView().getSortOrder(),
                     ArxivAPI.SORT_BY_RELEVANCE,
@@ -38,6 +38,7 @@ class SearchPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            errorLoading();
                         }
 
                         @Override
@@ -48,16 +49,16 @@ class SearchPresenter extends PapersPresenter {
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
 
-                                getView().setRefreshing(false);
                                 setQuery(response.request().url().toString());
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
+                                errorLoading();
                             }
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            errorLoading();
         }
     }
 

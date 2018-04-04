@@ -1,6 +1,7 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
 import com.gbeatty.arxivexplorer.R;
+import com.gbeatty.arxivexplorer.helpers.Tags;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.network.Parser;
@@ -12,6 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,29 +24,38 @@ import ru.alexbykov.nopaginate.callback.OnLoadMoreListener;
 public abstract class PapersPresenter extends PapersPresenterBase implements OnLoadMoreListener {
 
     private final PapersView view;
-    private ArrayList<Paper> papers;
+    private List<Paper> papers;
+    private List<String> dates;
     private String query;
     private int start;
 
     protected PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
+        dates = new ArrayList<>();
         start = 0;
     }
 
-    void onBindPaperRowViewAtPosition(int position, final PaperRowView paperRowView) {
+    public void onBindHeaderViewAtPosition(int section, HeaderView view) {
+        view.setHeaderDate(dates.get(section));
+    }
+
+    void onBindPaperRowViewAtPosition(int section, int absolutePosition, PaperRowView paperRowView) {
+
+        int position = absolutePosition - (section + 1);
+
+        if (position < 0 || position >= papers.size()) return;
 
         final Paper paper = papers.get(position);
         paperRowView.setTitle(paper.getTitle());
         paperRowView.setAuthors(paper.getAuthor());
+        paperRowView.setPaperCategories(paper.getCategories());
 
-        if(getSharedPreferenceView().isLastUpdatedDate()){
+        if (getSharedPreferenceView().isLastUpdatedDate()) {
             paperRowView.hidePublishedDate();
             paperRowView.showLastUpdatedDate();
             paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
-        }
-
-        if(getSharedPreferenceView().isPublishedDate() || !getSharedPreferenceView().isLastUpdatedDate()){
+        } else {
             paperRowView.hideLastUpdatedDate();
             paperRowView.showPublishedDate();
             paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
@@ -58,12 +69,14 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         updateIcons(paper, paperRowView);
     }
 
-    void paperClicked(int position) {
+    void paperClicked(int absolutePosition, int section) {
+        int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
         view.goToPaperDetails(paper, paper.getPaperID());
     }
 
-    void favoriteButtonClicked(int position, PaperRowView paperRowView) {
+    void favoriteButtonClicked(int absolutePosition, int section, PaperRowView paperRowView) {
+        int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
         toggleFavoritePaper(paper);
         updateIcons(paper, paperRowView);
@@ -74,16 +87,26 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         else paperRowView.setNotFavoritedIcon();
     }
 
-    int getPapersRowsCount() {
-        if (papers == null) return 0;
-        return papers.size();
-    }
+    int getPapersRowsCount(int sectionIndex) {
 
-//    public void determineContentVisibility() {
-//        if(papers == null || papers.size() == 0){
-//            view.showNoPapersMessage();
-//        }
-//    }
+        if (papers == null || dates == null) return 0;
+        if (isRelevanceDate() || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)
+                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) return papers.size();
+
+        String date = dates.get(sectionIndex);
+        int count = 0;
+
+        for (int i = 0; i < papers.size(); i++) {
+
+            if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                if (papers.get(i).getPublishedDate().equals(date)) count++;
+            } else {
+                if (papers.get(i).getUpdatedDate().equals(date)) count++;
+            }
+        }
+
+        return count;
+    }
 
     @Override
     public void onLoadMore() {
@@ -107,13 +130,14 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                         throw new IOException("Unexpected code " + response);
                     ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
-                    papers.addAll(p);
+
+                    addToPapers(p);
+
                     if (p.size() < getSharedPreferenceView().getMaxResult()) {
                         view.setPaginateNoMoreData(true);
                         return;
                     }
                     view.showPaginateLoading(false);
-                    view.notifyAdapter();
 
                 } catch (XmlPullParserException | ParseException e) {
                     view.showPaginateLoading(false);
@@ -124,13 +148,60 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     }
 
+    private void addToPapers(ArrayList<Paper> papers) {
+        this.papers.addAll(papers);
+        updateDates();
+        view.notifyAdapter();
+    }
+
     protected void updatePapers(ArrayList<Paper> papers) {
         this.papers = papers;
-        if (papers.size() == 0) {
+        if (papers.isEmpty()) {
             view.showNoPapersMessage();
         } else
             view.showRecyclerView();
+        updateDates();
+        view.setRefreshing(false);
         view.notifyAdapter();
+    }
+
+    private void updateDates() {
+
+        dates = new ArrayList<>();
+
+        if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
+            dates.add("Recently Added");
+            return;
+        }
+
+        if (isRelevanceDate()) {
+            dates.add("Relevance");
+            return;
+        }
+
+        for (int i = 0; i < papers.size(); i++) {
+            boolean found = false;
+            for (int j = 0; j < dates.size(); j++) {
+
+                if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                    if (dates.get(j).equals(papers.get(i).getPublishedDate())) {
+                        found = true;
+                        break;
+                    }
+                } else {
+                    if (dates.get(j).equals(papers.get(i).getUpdatedDate())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+            }
+            if (!getSharedPreferenceView().isLastUpdatedDate()) {
+                if (!found) dates.add(papers.get(i).getPublishedDate());
+            } else {
+                if (!found) dates.add(papers.get(i).getUpdatedDate());
+            }
+        }
     }
 
     protected PapersView getView() {
@@ -144,6 +215,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     public void onRefresh() {
+        start = 0;
         getPapers();
     }
 
@@ -152,11 +224,29 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         switch (id) {
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                getPapers();
+                view.setRefreshing(true);
+                onRefresh();
+                view.scrollToTop();
                 return true;
         }
 
         // User didn't trigger a refresh, let the superclass handle this action
         return false;
     }
+
+    public int getSectionCount() {
+        if (dates == null) return 0;
+        return dates.size();
+    }
+
+    public boolean isRelevanceDate() {
+        return getSharedPreferenceView().isRelevanceDate();
+    }
+
+    public void errorLoading() {
+        getView().setRefreshing(false);
+        getView().showError();
+        getView().showPaginateLoading(false);
+    }
+
 }

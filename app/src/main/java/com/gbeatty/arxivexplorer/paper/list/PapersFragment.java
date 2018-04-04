@@ -44,7 +44,6 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         super.onCreate(savedInstanceState);
         presenter = getPresenter();
         presenter.getPapers();
-//        isPaginate = presenter.getQuery() != null;
         setHasOptionsMenu(true);
     }
 
@@ -61,10 +60,21 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
         ButterKnife.bind(this, rootView);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        papersRecyclerView.setLayoutManager(linearLayoutManager);
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+        RecyclerView.LayoutManager manager;
 
         papersListAdapter = new PapersListAdapter(presenter);
+        papersListAdapter.expandAllSections();
+
+//        if(tabletSize){
+//            manager = new GridLayoutManager(getContext(), 2);
+//            papersListAdapter.setLayoutManager((GridLayoutManager) manager);
+//        }else{
+            manager = new LinearLayoutManager(getActivity());
+//        }
+        papersRecyclerView.setHasFixedSize(false);
+        papersRecyclerView.setLayoutManager(manager);
 
         papersRecyclerView.setAdapter(papersListAdapter);
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -89,12 +99,6 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     public void onDestroy() {
         if (paginate != null) paginate.unbind();
         super.onDestroy();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        notifyAdapter();
     }
 
     @Override
@@ -164,5 +168,10 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         getActivity().runOnUiThread(() -> swipeRefreshLayout.setRefreshing(b));
     }
 
-
+    @Override
+    public void scrollToTop(){
+        LinearLayoutManager layoutManager = (LinearLayoutManager) papersRecyclerView
+                .getLayoutManager();
+        layoutManager.scrollToPositionWithOffset(0, 0);
+    }
 }

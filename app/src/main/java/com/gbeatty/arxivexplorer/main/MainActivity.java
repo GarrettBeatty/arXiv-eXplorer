@@ -21,6 +21,7 @@ import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
+import com.gbeatty.arxivexplorer.downloaded.DownloadedFragment;
 import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -48,13 +49,14 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         ButterKnife.bind(this);
         preferences = getSharedPreferences();
         presenter = new MainPresenter(this, this);
+        bottomBarView.setSelectedItemId(R.id.navigation_dashboard);
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
         bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cardview_light_background, null));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         if(savedInstanceState == null)
-            presenter.switchToCategoriesFragment();
+            presenter.switchToDashboardFragment();
 
         MaterialSearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -111,6 +113,14 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     public void switchToSearchFragment(String searchQuery, String tag) {
         showFragment(R.id.content, SearchFragment.newInstance(searchQuery), tag);
     }
+
+
+
+    @Override
+    public void switchToDownloadedFragment(String tag) {
+        showFragment(R.id.content, DownloadedFragment.newInstance(), tag);
+    }
+
 
     public Fragment getCurrentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.content);
@@ -178,7 +188,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, 0);
         if (!fragmentPopped) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+
+//            if(!backStateName.equals(Tags.MAIN_CATEGORIES_TAG)){
+                transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//            }else{
+//                transaction.setCustomAnimations(R.anim.enter_two, R.anim.exit_two, R.anim.pop_enter_two, R.anim.pop_exit_two);
+//            }
             transaction.replace(fragmentContainerId, fragment, backStateName);
             transaction.addToBackStack(backStateName);
             transaction.commit();
@@ -218,8 +233,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     @Override
+    public boolean isRelevanceDate() {
+        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_RELEVANCE);
+    }
+
+    @Override
     public boolean isPublishedDate() {
         return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }
-
 }

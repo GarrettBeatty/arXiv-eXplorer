@@ -10,7 +10,6 @@ interface PaperDetailsView extends PapersViewBase {
     void showLoading();
     void dismissLoading();
     void errorLoading();
-    boolean isPaperDownloaded(String paperID);
     void setDownloadedIcon();
     void setNotDownloadedIcon();
 }

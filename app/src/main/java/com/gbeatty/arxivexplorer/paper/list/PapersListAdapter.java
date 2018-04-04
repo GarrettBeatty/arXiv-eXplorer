@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.afollestad.sectionedrecyclerview.ItemCoord;
+import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
 import com.gbeatty.arxivexplorer.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.PaperViewHolder> {
+public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
     private final PapersPresenter presenter;
 
@@ -21,15 +24,43 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
     }
 
     @Override
-    public PaperViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.paper_view, parent, false);
-        PaperViewHolder viewHolder = new PaperViewHolder(view);
+    public SectionedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        int layoutRes;
+        SectionedViewHolder viewHolder;
+
+        switch (viewType) {
+            case VIEW_TYPE_HEADER:
+                layoutRes = R.layout.date_header;
+                View h = LayoutInflater.from(parent.getContext())
+                        .inflate(layoutRes, parent, false);
+                viewHolder = new HeaderViewHolder(h);
+                break;
+
+            default:
+                layoutRes = R.layout.paper_view;
+                View p = LayoutInflater.from(parent.getContext())
+                        .inflate(layoutRes, parent, false);
+                viewHolder = new PaperViewHolder(p);
+                break;
+        }
+
         return viewHolder;
+
     }
 
     @Override
-    public void onBindViewHolder(PaperViewHolder holder, final int position) {
-        presenter.onBindPaperRowViewAtPosition(position, holder);
+    public void onBindHeaderViewHolder(SectionedViewHolder holder, int section, boolean expanded) {
+        presenter.onBindHeaderViewAtPosition(section, (HeaderViewHolder) holder);
+    }
+
+    @Override
+    public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
+        // Setup footer view, if footers are enabled (see the next section)
+    }
+
+    @Override
+    public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
+        presenter.onBindPaperRowViewAtPosition(section, absolutePosition, (PaperViewHolder) holder);
     }
 
     @Override
@@ -38,11 +69,33 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
     }
 
     @Override
-    public int getItemCount() {
-        return presenter.getPapersRowsCount();
+    public int getItemCount(int sectionIndex) {
+        return presenter.getPapersRowsCount(sectionIndex);
     }
 
-    public class PaperViewHolder extends RecyclerView.ViewHolder implements PaperRowView {
+    @Override
+    public int getSectionCount() {
+        return presenter.getSectionCount();
+    }
+
+    public class HeaderViewHolder extends SectionedViewHolder implements HeaderView {
+
+        @BindView(R.id.paper_date_header)
+        TextView dateHeader;
+
+        HeaderViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void setHeaderDate(String date) {
+            dateHeader.setText(date);
+        }
+    }
+
+
+    public class PaperViewHolder extends SectionedViewHolder implements PaperRowView {
 
         @BindView(R.id.paper_title)
         TextView paperTitle;
@@ -52,24 +105,38 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         TextView paperPublished;
         @BindView(R.id.paper_updated_date)
         TextView paperUpdated;
+        @BindView(R.id.paper_categories)
+        TextView paperCategories;
         @BindView(R.id.button_favorite_paper)
         ImageButton favoritePaper;
         @BindView(R.id.paper_summary)
         TextView paperSummary;
-        @BindView(R.id.summary_sep) View summarySep;
+        @BindView(R.id.summary_sep)
+        View summarySep;
 
         PaperViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(view -> presenter.paperClicked(getLayoutPosition()));
-            favoritePaper.setOnClickListener(view -> presenter.favoriteButtonClicked(getLayoutPosition(), this));
+
+            itemView.setOnClickListener(view -> {
+                ItemCoord position = getRelativePosition();
+                int section = position.section();
+                presenter.paperClicked(getLayoutPosition(),section);
+            });
+            favoritePaper.setOnClickListener(view -> {
+                ItemCoord position = getRelativePosition();
+                int section = position.section();
+                presenter.favoriteButtonClicked(getLayoutPosition(),section , this);
+            });
         }
 
         public void setTitle(String title) {
             paperTitle.setText(title);
         }
 
-        public void setSummary(String summary){paperSummary.setText(summary);}
+        public void setSummary(String summary) {
+            paperSummary.setText(summary);
+        }
 
         public void setAuthors(String authors) {
             paperAuthors.setText(authors);
@@ -92,6 +159,11 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         @Override
         public void setNotFavoritedIcon() {
             favoritePaper.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+        }
+
+        @Override
+        public void setPaperCategories(String categories) {
+            paperCategories.setText(categories);
         }
 
         @Override
@@ -125,5 +197,6 @@ public class PapersListAdapter extends RecyclerView.Adapter<PapersListAdapter.Pa
         public void showPublishedDate() {
             paperPublished.setVisibility(View.VISIBLE);
         }
+
     }
 }

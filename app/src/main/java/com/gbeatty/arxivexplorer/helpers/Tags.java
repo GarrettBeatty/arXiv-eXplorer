@@ -7,4 +7,5 @@ public class Tags {
     public static final String FAVORITES_FRAGMENT_TAG = "favoritesfragment";
     public static final String CATEGORY_RESULTS_TAG = "categoryresults";
     public static final String SEARCH_RESULTS_TAG = "searchresults";
+    public static final String DOWNLOADED_FRAGMENT_TAG = "downloadedfragment";
 }

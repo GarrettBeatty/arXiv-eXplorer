@@ -10,4 +10,6 @@ public interface SharedPreferencesView {
 
     boolean isLastUpdatedDate();
     boolean isPublishedDate();
+
+    boolean isRelevanceDate();
 }

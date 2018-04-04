@@ -63,9 +63,9 @@ public class MainScreenshots {
         onView(withId(R.id.menu_download_paper))
                 .perform(click());
 
-        WaifForUIUpdate.waitFor(7000);
+        WaifForUIUpdate.waitFor(15000);
 
-        Screengrab.screenshot("downloaded");
+        Screengrab.screenshot("pdf");
 
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.pressBack();
@@ -73,6 +73,10 @@ public class MainScreenshots {
 //        onView(withId(R.id.navigation_favorites)).perform(click());
 //
 //        Screengrab.screenshot("favorites");
+
+        onView(withId(R.id.navigation_downloaded)).perform(click());
+
+        Screengrab.screenshot("downloaded");
 
     }
 }

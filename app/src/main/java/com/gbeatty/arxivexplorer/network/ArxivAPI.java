@@ -91,13 +91,11 @@ public class ArxivAPI {
         urlBuilder.addEncodedQueryParameter("max_results", String.valueOf(maxResults));
 
         String url = urlBuilder.build().toString();
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         getClient().newCall(request).enqueue(call);
-
     }
 
     public static void searchAll(String searchQuery,

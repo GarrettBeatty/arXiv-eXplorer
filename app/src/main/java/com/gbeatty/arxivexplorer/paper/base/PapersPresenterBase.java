@@ -4,23 +4,29 @@ import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
-public class PapersPresenterBase extends BasePresenter{
+import java.util.List;
+
+public class PapersPresenterBase extends BasePresenter {
 
     protected PapersPresenterBase(SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
     }
 
     protected boolean isPaperFavorited(String paperID) {
-        return Paper.count(Paper.class, "paper_id = ?", new String[]{paperID}) > 0;
+        return Paper.count(Paper.class, "paper_id = ? and favorited = 1", new String[]{paperID}) > 0;
     }
 
     private void favoritePaper(Paper paper) {
-        Paper p = new Paper(paper.getTitle(), paper.getAuthor(), paper.getSummary(), paper.getUpdatedDate(), paper.getPublishedDate(), paper.getPaperID(), paper.getPDFURL());
-        p.save();
+        savePaperIfDoesntExist(paper);
+        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paper.getPaperID());
+        ps.get(0).setFavorited(true);
+        ps.get(0).save();
     }
 
     private void unfavoritePaper(String paperID) {
-        Paper.deleteAll(Paper.class, "paper_id = ?", paperID);
+        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paperID);
+        ps.get(0).setFavorited(false);
+        ps.get(0).save();
     }
 
     protected void toggleFavoritePaper(Paper paper) {
@@ -28,4 +34,10 @@ public class PapersPresenterBase extends BasePresenter{
         else favoritePaper(paper);
     }
 
+    public void savePaperIfDoesntExist(Paper paper) {
+        Paper p = Paper.findById(Paper.class, paper.getId());
+        if (p == null) {
+            paper.save();
+        }
+    }
 }

@@ -14,4 +14,6 @@ public interface PapersViewBase {
     void setFavoritedIcon();
 
     void setNotFavoritedIcon();
+
+    void setPaperCategories(String categories);
 }

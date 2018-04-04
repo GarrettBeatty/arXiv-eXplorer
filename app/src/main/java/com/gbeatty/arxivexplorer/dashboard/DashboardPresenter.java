@@ -39,12 +39,21 @@ class DashboardPresenter extends PapersPresenter {
     private ArrayList<String> getToggledCatKeys(){
         ArrayList<String> catKeys = new ArrayList<>();
         for(Category category : Categories.CATEGORIES){
-            for(Category c: category.getSubCategories()){
+
+            if(category.getSubCategories().length != 0){
+                for(Category c: category.getSubCategories()){
                 if(c.getCatKey().equals("all")) continue;
-                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
-                    catKeys.add(c.getCatKey());
+                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                        catKeys.add(c.getCatKey());
+                    }
+                }
+            }else{
+                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+                    catKeys.add(category.getCatKey());
                 }
             }
+
+
         }
         return catKeys;
     }
@@ -52,19 +61,28 @@ class DashboardPresenter extends PapersPresenter {
     private ArrayList<String> getToggledCategoriesNames(){
         ArrayList<String> categoriesNames = new ArrayList<>();
         for(Category category : Categories.CATEGORIES){
-            for(Category c: category.getSubCategories()){
+
+            if(category.getSubCategories().length != 0){
+                for(Category c: category.getSubCategories()){
                 if(c.getCatKey().equals("all")) continue;
-                if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
-                    categoriesNames.add(c.getShortName());
+                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+                        categoriesNames.add(c.getShortName());
+                    }
+                }
+            }else{
+                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+                    categoriesNames.add(category.getShortName());
                 }
             }
+
+
         }
         return categoriesNames;
     }
 
     private void downloadPapersFromDashboard(String[] catKeys, String[] categories, String sortOrder, String sortBy, int maxResult){
         try {
-            getView().setRefreshing(true);
+//            getView().setRefreshing(true);
             ArxivAPI.searchMultipleCategories(catKeys, categories,
                     sortOrder,
                     sortBy,
@@ -72,9 +90,7 @@ class DashboardPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            if (!call.isCanceled()){
-
-                            }
+                            errorLoading();
                         }
 
                         @Override
@@ -85,16 +101,16 @@ class DashboardPresenter extends PapersPresenter {
                                 ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
 
-                                getView().setRefreshing(false);
                                 setQuery(response.request().url().toString());
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
+                                errorLoading();
                             }
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            errorLoading();
         }
     }
 }

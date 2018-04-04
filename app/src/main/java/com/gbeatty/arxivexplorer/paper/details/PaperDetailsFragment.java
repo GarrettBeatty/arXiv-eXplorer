@@ -29,20 +29,17 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     private static final String PAPER_KEY = "paperkey";
     @BindView(R.id.paper_title)
-
     TextView paperTitle;
     @BindView(R.id.paper_summary)
-
     TextView paperSummary;
     @BindView(R.id.paper_authors)
-
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
-
     TextView paperUpdated;
     @BindView(R.id.paper_published_date)
-
     TextView paperPublished;
+    @BindView(R.id.paper_categories)
+    TextView paperCategories;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
@@ -126,6 +123,11 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     @Override
+    public void setPaperCategories(String categories) {
+        paperCategories.setText(categories);
+    }
+
+    @Override
     public void setSummary(String summary) {
         paperSummary.setText(summary);
     }
@@ -171,13 +173,6 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
             dismissLoading();
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
         });
-    }
-
-    @Override
-    public boolean isPaperDownloaded(String paperID) {
-        File papersPath = new File(getFilesDir(), "papers");
-        File file = new File(papersPath, paperID);
-        return file.exists();
     }
 
     @Override

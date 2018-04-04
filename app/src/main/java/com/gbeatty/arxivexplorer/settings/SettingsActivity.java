@@ -16,6 +16,7 @@ import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+
+import java.io.File;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -144,6 +147,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     public static class PrefsFragment extends PreferenceFragment {
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = super.onCreateView(inflater, container, savedInstanceState);
+            view.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
+            return view;
+        }
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -212,7 +223,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(maxResults);
 
             deleteDownloadedPapers.setOnPreferenceClickListener(preference -> {
-                Helper.deleteFilesDir(preference.getContext());
+                Helper.deleteFilesDir(new File(getActivity().getFilesDir(), "papers"));
                 Toast.makeText(preference.getContext(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
                 return true;
             });
