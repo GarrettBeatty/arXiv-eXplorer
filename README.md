@@ -16,9 +16,9 @@ Features include:
 * Open Source
 
 ## Screenshots
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard_1522596508665.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details_1522596509588.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/downloaded_1522596517149.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_1522596522853.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_dashboard_1522596526519.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard_1522787954880.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/details_1522787934382.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/pdf_1522787949848.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_1522787960155.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_dashboard_1522787963870.png" width="200">
 ## Downloading
 
 ```
