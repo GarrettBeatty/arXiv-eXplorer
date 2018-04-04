@@ -46,7 +46,9 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-* **Garrett Beatty** - Developer
+* [**Garrett Beatty**](https://github.com/GarrettBeatty) - Developer
+* [**Gabriele Bozzola**](https://github.com/Sbozzolo) - UI and Functionality Ideas
+
 
 ## License
 
