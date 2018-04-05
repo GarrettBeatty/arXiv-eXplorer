@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codemybrainsout.ratingdialog.RatingDialog;
+import com.crashlytics.android.Crashlytics;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.category.CategoriesFragment;
@@ -32,6 +33,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements MainView, BaseFragment.ActivityListener, SharedPreferencesView {
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         preferences = getSharedPreferences();
