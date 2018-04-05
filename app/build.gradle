@@ -13,26 +13,23 @@ apply plugin: 'io.fabric'
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 
-def getLocalProperty(String propertyName) {
-    def propsFile = rootProject.file('fabric.properties')
-    if (propsFile.exists()) {
-        def props = new Properties()
-        props.load(new FileInputStream(propsFile))
-        return props[propertyName]
-    } else {
-        return ""
-    }
-}
+def propsFile = rootProject.file('fabric.properties')
+def props = new Properties()
+
 
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+if (propsFile.exists()) {
+    props.load(new FileInputStream(propsFile))
 }
 
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        manifestPlaceholders = [crashlytics:getLocalProperty("crashlytics.key")]
+        manifestPlaceholders = [crashlytics:props["crashlytics.key"]]
 
         applicationId "com.gbeatty.arxiv"
         minSdkVersion 21

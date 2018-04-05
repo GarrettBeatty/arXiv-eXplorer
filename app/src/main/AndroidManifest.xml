@@ -60,8 +60,7 @@
             android:label="@string/title_activity_dashboard_settings" />
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="
-            ${crashlytics}"/>
+            android:value="${crashlytics}"/>
     </application>
 
 </manifest>

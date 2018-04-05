@@ -2,8 +2,8 @@ sudo: required
 language: android
 jdk: oraclejdk8
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -rf $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
   - "$HOME/.gradle/caches/"
@@ -15,8 +15,8 @@ env:
   - ANDROID_BUILD_TOOLS_VERSION=27.0.3
   - ANDROID_EMU_API_LEVEL=22
   - ANDROID_ABI=armeabi-v7a
-  - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
-  - QEMU_AUDIO_DRV=none # Remove audio
+  - ADB_INSTALL_TIMEOUT=20
+  - QEMU_AUDIO_DRV=none
 android:
   components:
   - tools
@@ -28,12 +28,11 @@ android:
   - extra-android-support
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
 before_install:
-  - scripts/before_install.sh
+- scripts/before_install.sh
 install:
-  - bundle install
-before_script:
-  #- scripts/before_script.sh
+- bundle install
+before_script: 
 script:
-  - fastlane test
+- fastlane test
 after_success:
-  - #scripts/after_success.sh
+- 
