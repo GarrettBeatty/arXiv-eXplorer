@@ -10,6 +10,6 @@
     <color name="divider">#1F000000</color>
     <color name="colorBackground">#FAFAFA</color>
     <color name="detailsBackground">#FFFFFF</color>
-    <color name="tabLight">@color/primary</color>
-    <color name="tabDark">@color/accent</color>
+    <color name="tabLight">#303F9F</color>
+    <color name="tabDark">#B3E5FC</color>
 </resources>

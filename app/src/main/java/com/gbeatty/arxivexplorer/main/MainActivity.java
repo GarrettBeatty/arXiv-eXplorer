@@ -51,20 +51,23 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
+        preferences = getSharedPreferences();
+
+        if(isDarkMode())
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //For night mode theme
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        preferences = getSharedPreferences();
+
         presenter = new MainPresenter(this, this);
 
-        int modeType = AppCompatDelegate.getDefaultNightMode();
-
-        if (modeType == AppCompatDelegate.MODE_NIGHT_NO) {
+        if (!isDarkMode()) {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
 
-        } else if (modeType == AppCompatDelegate.MODE_NIGHT_YES) {
+        } else {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
         }
@@ -245,21 +248,25 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @Override
     public boolean isDashboardCategoryChecked(String categoryName) {
-        return getSharedPreferences().getBoolean(categoryName, true);
+        return preferences.getBoolean(categoryName, true);
     }
 
     @Override
     public boolean isLastUpdatedDate() {
-        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
     }
 
     @Override
     public boolean isRelevanceDate() {
-        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_RELEVANCE);
+        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_RELEVANCE);
     }
 
     @Override
     public boolean isPublishedDate() {
-        return getSharedPreferences().getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+    }
+
+    private boolean isDarkMode(){
+        return preferences.getBoolean("dark_mode", false);
     }
 }

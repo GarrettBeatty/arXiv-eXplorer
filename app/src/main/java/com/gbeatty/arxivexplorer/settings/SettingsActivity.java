@@ -199,11 +199,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             deleteDownloadedPapers.setKey("delete_downloaded_papers");
             deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
 
+            SwitchPreference darkMode = new SwitchPreference(getActivity());
+            darkMode.setDefaultValue(false);
+            darkMode.setKey("dark_mode");
+            darkMode.setTitle(R.string.pref_title_dark_mode);
+
             generalCategory.addPreference(sortBy);
             generalCategory.addPreference(sortOrder);
             generalCategory.addPreference(maxResults);
             generalCategory.addPreference(showAbstract);
             generalCategory.addPreference(deleteDownloadedPapers);
+            generalCategory.addPreference(darkMode);
 
             PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
             dashboardCategory.setTitle("Dashboard Preferences");
