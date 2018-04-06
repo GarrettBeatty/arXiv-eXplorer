@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.crashlytics.android.Crashlytics;
 import com.gbeatty.arxivexplorer.R;
@@ -39,7 +40,7 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements MainView, BaseFragment.ActivityListener, SharedPreferencesView {
 
     @BindView(R.id.navigation)
-    BottomNavigationView bottomBarView;
+    AHBottomNavigation bottomBarView;
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
     private MainPresenter presenter;
@@ -60,13 +61,18 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         int modeType = AppCompatDelegate.getDefaultNightMode();
 
         if (modeType == AppCompatDelegate.MODE_NIGHT_NO) {
-            bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
+
         } else if (modeType == AppCompatDelegate.MODE_NIGHT_YES) {
-            bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
+            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
         }
 
-        bottomBarView.setSelectedItemId(R.id.navigation_dashboard);
-        bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
+        AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.navigation);
+        navigationAdapter.setupWithBottomNavigation(bottomBarView);
+
+        bottomBarView.setOnTabSelectedListener((position, wasSelected) -> presenter.onNavigationItemSelected(position));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 

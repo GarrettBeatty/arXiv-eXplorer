@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/primary_text"
             android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
     </LinearLayout>

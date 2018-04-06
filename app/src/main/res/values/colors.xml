@@ -8,5 +8,8 @@
     <color name="secondary_text">#8A000000</color>
     <color name="icons">#61000000</color>
     <color name="divider">#1F000000</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="detailsBackground">#FFFFFF</color>
+    <color name="tabLight">@color/primary</color>
+    <color name="tabDark">@color/accent</color>
 </resources>

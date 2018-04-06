@@ -9,4 +9,7 @@
     <color name="icons">#80FFFFFF</color>
     <color name="divider">#80FFFFFF</color>
     <color name="colorBackground">#000000</color>
+    <color name="detailsBackground">#FF424242</color>
+    <color name="tabLight">@color/primary</color>
+    <color name="tabDark">@color/accent</color>
 </resources>

@@ -21,22 +21,22 @@ class MainPresenter extends BasePresenter{
     boolean onNavigationItemSelected(int id) {
         switch (id) {
 
-            case R.id.navigation_dashboard:
+            case 0:
                 if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
                 switchToDashboardFragment();
                 return true;
 
-            case R.id.navigation_favorites:
+            case 1:
                 if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;
                 switchToFavoritesFragment();
                 return true;
 
-                case R.id.navigation_downloaded:
+                case 2:
                 if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) return false;
                 switchToDownloadedFragment();
                 return true;
 
-            case R.id.navigation_browse:
+            case 3:
                 if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG)) return false;
                 switchToCategoriesFragment();
                 return true;

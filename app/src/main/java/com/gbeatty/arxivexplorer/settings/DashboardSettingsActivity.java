@@ -58,7 +58,7 @@ public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
         ViewGroup rootView = findViewById(R.id.action_bar_root); //id from appcompat
 
         if (rootView != null) {
-            View view = getLayoutInflater().inflate(R.layout.app_bar_layout, rootView, false);
+            View view = getLayoutInflater().inflate(R.layout.toolbar, rootView, false);
             rootView.addView(view, 0);
 
             Toolbar toolbar = findViewById(R.id.toolbar);
