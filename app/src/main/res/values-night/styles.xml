@@ -9,7 +9,7 @@
 
     </style>
 
-    <style name="CardView.DayNight" parent="CardView.Light" />
+    <style name="CardView.DayNight" parent="CardView.Dark" />
 
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@android:color/white</item>

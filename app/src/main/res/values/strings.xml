@@ -45,5 +45,6 @@
 
     <string name="pref_title_dashboard_preferences">Dashboard Categories</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="downloaded">Downloaded</string>
 
 </resources>

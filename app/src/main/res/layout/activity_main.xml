@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
-            app:theme="@style/ToolBarStyle"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:theme="@style/ToolBarStyle" />
 
         <com.miguelcatalan.materialsearchview.MaterialSearchView
             android:id="@+id/search_view"
@@ -39,6 +38,7 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:menu="@menu/navigation" />
 
 </LinearLayout>

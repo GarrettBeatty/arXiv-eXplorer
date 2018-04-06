@@ -63,8 +63,7 @@ public class CategoriesFragment extends BaseFragment implements CategoriesView{
         CategoriesListAdapter categoriesListAdapter = new CategoriesListAdapter(presenter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(
-                categoryRecyclerView.getContext(),
-                linearLayoutManager.getOrientation()
+                categoryRecyclerView.getContext(), linearLayoutManager.getOrientation()
         );
         categoryRecyclerView.addItemDecoration(itemDecoration);
 

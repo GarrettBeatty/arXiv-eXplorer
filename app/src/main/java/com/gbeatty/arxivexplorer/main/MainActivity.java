@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,13 +49,24 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         preferences = getSharedPreferences();
         presenter = new MainPresenter(this, this);
+
+        int modeType = AppCompatDelegate.getDefaultNightMode();
+
+        if (modeType == AppCompatDelegate.MODE_NIGHT_NO) {
+            bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+        } else if (modeType == AppCompatDelegate.MODE_NIGHT_YES) {
+            bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
+        }
+
         bottomBarView.setSelectedItemId(R.id.navigation_dashboard);
         bottomBarView.setOnNavigationItemSelectedListener(item -> presenter.onNavigationItemSelected(item.getItemId()));
-        bottomBarView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cardview_light_background, null));
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 

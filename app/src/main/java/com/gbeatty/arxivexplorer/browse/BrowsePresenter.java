@@ -47,9 +47,7 @@ class BrowsePresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            if (!call.isCanceled()){
-
-                            }
+                            getView().showError();
                         }
 
                         @Override
@@ -65,11 +63,12 @@ class BrowsePresenter extends PapersPresenter {
                                 updatePapers(papers);
 
                             } catch (XmlPullParserException | ParseException e) {
+                                getView().showError();
                             }
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            getView().showError();
         }
     }
 
