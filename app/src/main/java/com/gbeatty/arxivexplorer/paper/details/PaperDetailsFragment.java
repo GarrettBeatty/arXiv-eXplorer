@@ -131,6 +131,26 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     @Override
+    public void hideLatexSummary() {
+        paperSummaryLatex.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLatexSummary() {
+        paperSummaryLatex.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSummary() {
+        paperSummary.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSummary() {
+        paperSummary.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void setSummary(String summary) {
         paperSummary.setText(summary);
     }

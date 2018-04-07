@@ -30,10 +30,24 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
     void initializeMainContent() {
         view.setTitle(paper.getTitle());
         view.setAuthors(paper.getAuthor());
-        view.setSummary(paper.getSummary());
         view.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
         view.setPublishedDate("Submitted: " + paper.getPublishedDate());
         view.setPaperCategories(paper.getCategories());
+
+        view.hideSummary();
+        view.hideLatexSummary();
+
+        if (getSharedPreferenceView().isShowAbstract()) {
+
+            if (getSharedPreferenceView().isRenderLatex()){
+                view.showLatexSummary();
+                view.setLatexSummary(paper.getSummary());
+            }else{
+                view.showSummary();
+                view.setSummary(paper.getSummary());
+            }
+        }
+
     }
 
     void updateFavoritedMenuItem() {

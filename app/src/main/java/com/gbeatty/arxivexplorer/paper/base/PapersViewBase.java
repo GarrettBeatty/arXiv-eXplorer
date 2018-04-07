@@ -18,4 +18,12 @@ public interface PapersViewBase {
     void setNotFavoritedIcon();
 
     void setPaperCategories(String categories);
+
+    void hideLatexSummary();
+
+    void showLatexSummary();
+
+    void hideSummary();
+
+    void showSummary();
 }

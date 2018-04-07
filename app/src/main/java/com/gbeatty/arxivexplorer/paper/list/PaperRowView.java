@@ -4,9 +4,7 @@ import com.gbeatty.arxivexplorer.paper.base.PapersViewBase;
 
 interface PaperRowView extends PapersViewBase {
 
-    void hideSummary();
 
-    void showSummary();
 
     void hidePublishedDate();
 
@@ -16,7 +14,5 @@ interface PaperRowView extends PapersViewBase {
 
     void showPublishedDate();
 
-    void hideLatexSummary();
 
-    void showLatexSummary();
 }
