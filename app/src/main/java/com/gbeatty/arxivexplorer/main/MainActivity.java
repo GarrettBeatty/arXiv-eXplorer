@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     private MainPresenter presenter;
     private SharedPreferences preferences;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,26 +65,43 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         presenter = new MainPresenter(this, this);
 
+        MaterialSearchView searchView = findViewById(R.id.search_view);
+        searchView.setHint("Search for papers");
+        searchView.setBackIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back_black_24dp, null));
+        searchView.setCloseIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_close_black_24dp, null));
+        searchView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+        searchView.setHintTextColor(ResourcesCompat.getColor(getResources(), R.color.grey_500, null));
+
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+
         if (!isDarkMode()) {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
+            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
+            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
+
 
         } else {
-            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
+            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+
         }
+
+        setSupportActionBar(myToolbar);
+
 
         AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.navigation);
         navigationAdapter.setupWithBottomNavigation(bottomBarView);
 
         bottomBarView.setOnTabSelectedListener((position, wasSelected) -> presenter.onNavigationItemSelected(position));
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+
 
         if(savedInstanceState == null)
             presenter.switchToDashboardFragment();
 
-        MaterialSearchView searchView = findViewById(R.id.search_view);
+
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

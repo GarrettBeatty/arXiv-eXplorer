@@ -3,14 +3,18 @@
     <color name="primary">#3F51B5</color>
     <color name="primary_dark">#303F9F</color>
     <color name="primary_light">#C5CAE9</color>
-    <color name="accent">#448AFF</color>
+    <color name="accent">#536DFE</color>
     <color name="primary_text">#DE000000</color>
     <color name="secondary_text">#8A000000</color>
     <color name="icons">#61000000</color>
     <color name="divider">#1F000000</color>
     <color name="colorBackground">#FAFAFA</color>
-    <color name="detailsBackground">#FFFFFF</color>
+    <color name="detailsBackground">#FAFAFA</color>
     <color name="tabLight">#303F9F</color>
     <color name="tabDark">#B3E5FC</color>
     <color name="favoriteColor">#3F51B5</color>
+    <color name="toolbarLight">#3F51B5</color>
+    <color name="toolbarDark">#212121</color>
+    <color name="nightBackground">#303030</color>
+
 </resources>

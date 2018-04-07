@@ -8,9 +8,12 @@
     <color name="secondary_text">#B3FFFFFF</color>
     <color name="icons">#80FFFFFF</color>
     <color name="divider">#80FFFFFF</color>
-    <color name="colorBackground">#000000</color>
-    <color name="detailsBackground">#FF424242</color>
+    <color name="colorBackground">#303030</color>
+    <color name="detailsBackground">#303030</color>
     <color name="tabLight">#303F9F</color>
     <color name="tabDark">#B3E5FC</color>
     <color name="favoriteColor">#B3E5FC</color>
+    <color name="toolbarLight">#3F51B5</color>
+    <color name="toolbarDark">#212121</color>
+    <color name="nightBackground">#303030</color>
 </resources>

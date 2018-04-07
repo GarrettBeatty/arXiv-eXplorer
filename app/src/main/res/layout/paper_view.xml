@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/ic_favorite_black_24dp"
             android:backgroundTint="@color/favoriteColor"
             android:contentDescription="@string/favorite_paper" />
