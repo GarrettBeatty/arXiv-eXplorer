@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     private SharedPreferences preferences;
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        preferences = getSharedPreferences();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +62,9 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         preferences = getSharedPreferences();
 
-        if(isDarkMode())
+        if(isDarkMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
+        }
         else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //For night mode theme
 
@@ -76,14 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         Toolbar myToolbar = findViewById(R.id.toolbar);
 
-        if (!isDarkMode()) {
-            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
-            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
-            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
-            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
-
-
-        } else {
+        if (isDarkMode()) {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
             searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
@@ -93,11 +92,14 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
                 getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
                 getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
             }
-
+        } else {
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
+            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
+            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
         }
 
         setSupportActionBar(myToolbar);
-
 
         AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.navigation);
         navigationAdapter.setupWithBottomNavigation(bottomBarView);
