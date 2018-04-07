@@ -13,6 +13,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -118,8 +119,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             View view = getLayoutInflater().inflate(R.layout.toolbar, rootView, false);
             rootView.addView(view, 0);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+            Toolbar myToolbar = findViewById(R.id.toolbar);
+
+            if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("dark_mode", false)) {
+                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
+            } else {
+                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+
+            }
+
+            setSupportActionBar(myToolbar);
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -239,6 +248,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 startActivity(preferencesActivity);
                 return true;
             });
+
+            darkMode.setOnPreferenceClickListener(preference -> {
+                Intent i = getActivity().getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getActivity().getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(i);
+                return true;
+            });
         }
 
         @Override
@@ -251,4 +268,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        startActivity(i);
+//    }
 }

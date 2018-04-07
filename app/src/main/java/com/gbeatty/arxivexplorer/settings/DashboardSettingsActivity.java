@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -61,8 +63,16 @@ public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
             View view = getLayoutInflater().inflate(R.layout.toolbar, rootView, false);
             rootView.addView(view, 0);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+            Toolbar myToolbar = findViewById(R.id.toolbar);
+
+            if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("dark_mode", false)) {
+                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
+            } else {
+                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+
+            }
+
+            setSupportActionBar(myToolbar);
         }
 
         ActionBar actionBar = getSupportActionBar();
