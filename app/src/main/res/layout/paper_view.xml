@@ -34,7 +34,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:background="@drawable/ic_favorite_black_24dp"
-            android:backgroundTint="@color/accent"
+            android:backgroundTint="@color/favoriteColor"
             android:contentDescription="@string/favorite_paper" />
 
     </LinearLayout>
