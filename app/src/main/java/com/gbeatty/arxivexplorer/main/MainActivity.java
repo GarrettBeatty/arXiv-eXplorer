@@ -2,11 +2,13 @@ package com.gbeatty.arxivexplorer.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -86,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
             searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
             myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
+                getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
+            }
 
         }
 

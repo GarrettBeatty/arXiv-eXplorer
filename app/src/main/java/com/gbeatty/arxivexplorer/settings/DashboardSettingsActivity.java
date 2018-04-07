@@ -1,23 +1,16 @@
 package com.gbeatty.arxivexplorer.settings;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.arxivdata.Categories;
 import com.gbeatty.arxivexplorer.models.Category;
 
@@ -32,17 +25,7 @@ import com.gbeatty.arxivexplorer.models.Category;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
-
-
-    /**
-     * Helper method to determine if the device has an extra-large screen. For
-     * example, 10" tablets are extra-large.
-     */
-    private static boolean isXLargeTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
-    }
+public class DashboardSettingsActivity extends BaseSettingsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,52 +34,6 @@ public class DashboardSettingsActivity extends AppCompatPreferenceActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new DashboardPrefs()).commit();
         setupActionBar();
-    }
-
-    /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
-     */
-    private void setupActionBar() {
-        ViewGroup rootView = findViewById(R.id.action_bar_root); //id from appcompat
-
-        if (rootView != null) {
-            View view = getLayoutInflater().inflate(R.layout.toolbar, rootView, false);
-            rootView.addView(view, 0);
-
-            Toolbar myToolbar = findViewById(R.id.toolbar);
-
-            if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("dark_mode", false)) {
-                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
-            } else {
-                myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
-
-            }
-
-            setSupportActionBar(myToolbar);
-        }
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onIsMultiPane() {
-        return isXLargeTablet(this);
-    }
-
-    /**
-     * This method stops fragment injection in malicious applications.
-     * Make sure to deny any unknown fragments here.
-     */
-    protected boolean isValidFragment(String fragmentName) {
-        return PreferenceFragment.class.getName().equals(fragmentName)
-                || DashboardPrefs.class.getName().equals(fragmentName);
     }
 
     public static class DashboardPrefs extends PreferenceFragment {
