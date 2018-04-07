@@ -288,6 +288,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     @Override
+    public boolean isRenderLatex() {
+        return preferences.getBoolean("latex", false);
+    }
+
+    @Override
     public boolean isPublishedDate() {
         return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }

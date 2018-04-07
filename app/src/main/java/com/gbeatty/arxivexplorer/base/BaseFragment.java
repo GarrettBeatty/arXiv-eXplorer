@@ -53,6 +53,7 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
 
         boolean isRelevanceDate();
 
+        boolean isRenderLatex();
     }
 
     @Override
@@ -91,6 +92,11 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     @Override
     public boolean isRelevanceDate() {
         return listener.isRelevanceDate();
+    }
+
+    @Override
+    public boolean isRenderLatex() {
+        return listener.isRenderLatex();
     }
 
     public void showError(){

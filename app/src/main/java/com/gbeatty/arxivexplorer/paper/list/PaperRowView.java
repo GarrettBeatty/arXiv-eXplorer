@@ -15,4 +15,8 @@ interface PaperRowView extends PapersViewBase {
     void hideLastUpdatedDate();
 
     void showPublishedDate();
+
+    void hideLatexSummary();
+
+    void showLatexSummary();
 }

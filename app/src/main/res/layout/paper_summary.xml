@@ -55,14 +55,15 @@
             android:layout_marginBottom="4dp"
             android:background="@color/divider" />
 
-        <!--<katex.hourglass.in.mathlib.MathView-->
-            <!--android:id="@+id/paper_summary"-->
-            <!--app:setTextColor="@color/primary_text"-->
-            <!--app:setTextSize="10sp"-->
-            <!--app:setClickable="true"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/paper_summary_latex"
+            app:setTextColor="@color/primary_text"
+            app:setTextSize="9sp"
+            app:setClickable="true"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/paper_summary"

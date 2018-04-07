@@ -61,11 +61,19 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
         }
 
+        paperRowView.hideSummary();
+        paperRowView.hideLatexSummary();
+
         if (getSharedPreferenceView().isShowAbstract()) {
-            paperRowView.showSummary();
-            paperRowView.setSummary(paper.getSummary());
-        } else
-            paperRowView.hideSummary();
+
+            if (getSharedPreferenceView().isRenderLatex()){
+                paperRowView.showLatexSummary();
+                paperRowView.setLatexSummary(paper.getSummary());
+            }else{
+                paperRowView.showSummary();
+                paperRowView.setSummary(paper.getSummary());
+            }
+        }
         updateIcons(paper, paperRowView);
     }
 

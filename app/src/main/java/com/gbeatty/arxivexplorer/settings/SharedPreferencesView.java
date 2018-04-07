@@ -12,4 +12,6 @@ public interface SharedPreferencesView {
     boolean isPublishedDate();
 
     boolean isRelevanceDate();
+
+    boolean isRenderLatex();
 }

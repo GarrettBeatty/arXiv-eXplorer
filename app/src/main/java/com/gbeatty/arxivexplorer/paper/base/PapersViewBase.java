@@ -11,6 +11,8 @@ public interface PapersViewBase {
 
     void setSummary(String summary);
 
+    void setLatexSummary(String summary);
+
     void setFavoritedIcon();
 
     void setNotFavoritedIcon();

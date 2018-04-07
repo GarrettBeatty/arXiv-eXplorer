@@ -32,7 +32,9 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @BindView(R.id.paper_title)
     TextView paperTitle;
     @BindView(R.id.paper_summary)
-    MathView paperSummary;
+    TextView paperSummary;
+    @BindView(R.id.paper_summary_latex)
+    MathView paperSummaryLatex;
     @BindView(R.id.paper_authors)
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
@@ -130,7 +132,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setSummary(String summary) {
-        paperSummary.setDisplayText(summary);
+        paperSummary.setText(summary);
+    }
+
+    @Override
+    public void setLatexSummary(String summary) {
+        paperSummaryLatex.setDisplayText(summary);
     }
 
     @Override

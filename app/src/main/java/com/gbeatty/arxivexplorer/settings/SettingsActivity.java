@@ -103,12 +103,18 @@ public class SettingsActivity extends BaseSettingsActivity {
             darkMode.setKey("dark_mode");
             darkMode.setTitle(R.string.pref_title_dark_mode);
 
+            SwitchPreference latex = new SwitchPreference(getActivity());
+            latex.setDefaultValue(false);
+            latex.setKey("latex");
+            latex.setTitle(R.string.pref_title_latex);
+
             generalCategory.addPreference(sortBy);
             generalCategory.addPreference(sortOrder);
             generalCategory.addPreference(maxResults);
             generalCategory.addPreference(showAbstract);
             generalCategory.addPreference(deleteDownloadedPapers);
             generalCategory.addPreference(darkMode);
+            generalCategory.addPreference(latex);
 
             PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
             dashboardCategory.setTitle("Dashboard Preferences");
