@@ -24,6 +24,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import katex.hourglass.in.mathlib.MathView;
 
 public class PaperDetailsFragment extends BaseFragment implements PaperDetailsView {
 
@@ -31,7 +32,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @BindView(R.id.paper_title)
     TextView paperTitle;
     @BindView(R.id.paper_summary)
-    TextView paperSummary;
+    MathView paperSummary;
     @BindView(R.id.paper_authors)
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
@@ -129,7 +130,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setSummary(String summary) {
-        paperSummary.setText(summary);
+        paperSummary.setDisplayText(summary);
     }
 
     @Override

@@ -1,16 +1,13 @@
 package com.gbeatty.arxivexplorer;
 
+import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.uiautomator.UiDevice;
-import android.view.View;
 
 import com.gbeatty.arxivexplorer.main.MainActivity;
 
-import org.hamcrest.Matcher;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -27,12 +24,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(JUnit4.class)
-public class MainScreenshots {
+public class LightScreenshots {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
     @Rule
-    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class, false, false);
 
     @BeforeClass
     public static void setUp() {
@@ -77,31 +74,28 @@ public class MainScreenshots {
         onView(withId(R.id.navigation_downloaded)).perform(click());
 
         Screengrab.screenshot("downloaded");
-
     }
-}
 
-class MyViewAction {
+    @Test
+    public void enableDarkAndAbstract() {
 
-    public static ViewAction clickChildViewWithId(final int id) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return null;
-            }
-
-            @Override
-            public String getDescription() {
-                return "Click on a child view with specified id.";
-            }
-
-            @Override
-            public void perform(UiController uiController, View view) {
-                View v = view.findViewById(id);
-                v.performClick();
-            }
-        };
+        SharedPreferences settings = activityRule.getActivity().getSharedPreferences();
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("dark_mode", false);
+        editor.putBoolean("show_abstract", false);
+        editor.commit();
+        activityRule.launchActivity(null);
     }
+
+//    @Before
+//    @After
+//    public void clearSharedPrefs() {
+//        SharedPreferences settings = activityRule.getActivity().getSharedPreferences();
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.clear();
+//        editor.commit();
+//
+//    }
 }
 
 

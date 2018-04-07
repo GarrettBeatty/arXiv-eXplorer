@@ -93,6 +93,8 @@ dependencies {
 
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
+    implementation 'in.hourglass.mathrender:katexmathview:1.0'
+
 
     androidTestImplementation('tools.fastlane:screengrab:1.1.0')
 
