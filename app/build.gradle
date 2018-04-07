@@ -35,8 +35,8 @@ android {
         minSdkVersion 21
 
         targetSdkVersion 27
-        versionCode 22
-        versionName "3.4.3"
+        versionCode 23
+        versionName "3.4.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
