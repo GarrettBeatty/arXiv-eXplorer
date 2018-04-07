@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="detailsBackground">@color/detailsBackground</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+
     </style>
 
     <style name="CardView.DayNight" parent="CardView.Light" />
