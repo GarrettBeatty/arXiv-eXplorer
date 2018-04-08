@@ -1,15 +1,15 @@
 package com.gbeatty.arxivexplorer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.test.InstrumentationRegistry;
+import android.preference.PreferenceManager;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.uiautomator.UiDevice;
 
 import com.gbeatty.arxivexplorer.main.MainActivity;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -21,12 +21,16 @@ import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(JUnit4.class)
 public class DarkScreenshots {
+    static Intent intent;
+    static SharedPreferences.Editor preferencesEditor;
+
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
@@ -37,12 +41,22 @@ public class DarkScreenshots {
     @BeforeClass
     public static void setUp() {
         Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
+        intent = new Intent();
+        Context context = getInstrumentation().getTargetContext();
+        preferencesEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
     }
 
     @Test
     public void takeMainScreenshots() {
+
+        preferencesEditor.putBoolean("dark_mode", true);
+        preferencesEditor.putBoolean("show_abstract", true);
+        preferencesEditor.commit();
+
+        activityRule.launchActivity(intent);
+
         onView(withId(R.id.navigation_browse)).perform(click());
-        Screengrab.screenshot("dark_main");
+        Screengrab.screenshot("dark_browse");
 
         onView(withId(R.id.navigation_dashboard)).perform(click());
 
@@ -67,7 +81,7 @@ public class DarkScreenshots {
 
         Screengrab.screenshot("dark_pdf");
 
-        UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
         mDevice.pressBack();
 
 //        onView(withId(R.id.navigation_favorites)).perform(click());
@@ -80,26 +94,6 @@ public class DarkScreenshots {
 
     }
 
-    @Test
-    public void enableDarkAndAbstract() {
-
-        SharedPreferences settings = activityRule.getActivity().getSharedPreferences();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("dark_mode", true);
-        editor.putBoolean("show_abstract", true);
-        editor.commit();
-        activityRule.launchActivity(null);
-    }
-
-    @Before
-    @After
-    public void clearSharedPrefs() {
-        SharedPreferences settings = activityRule.getActivity().getSharedPreferences();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.clear();
-        editor.commit();
-
-    }
 }
 
 
