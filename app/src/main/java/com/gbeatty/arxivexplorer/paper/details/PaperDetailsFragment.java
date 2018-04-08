@@ -24,7 +24,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import katex.hourglass.in.mathlib.MathView;
 
 public class PaperDetailsFragment extends BaseFragment implements PaperDetailsView {
 
@@ -33,8 +32,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperTitle;
     @BindView(R.id.paper_summary)
     TextView paperSummary;
-    @BindView(R.id.paper_summary_latex)
-    MathView paperSummaryLatex;
+//    @BindView(R.id.paper_summary_latex)
+//    MathView paperSummaryLatex;
     @BindView(R.id.paper_authors)
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
@@ -92,7 +91,15 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        return presenter.onNavigationItemSelected(id) || super.onOptionsItemSelected(item);
+        switch (id) {
+            case R.id.menu_favorite_paper:
+                presenter.navigationFavoritePaperClicked();
+                return true;
+            case R.id.menu_download_paper:
+                presenter.navigationDownloadPaperClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -132,12 +139,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void hideLatexSummary() {
-        paperSummaryLatex.setVisibility(View.GONE);
+//        paperSummaryLatex.setVisibility(View.GONE);
     }
 
     @Override
     public void showLatexSummary() {
-        paperSummaryLatex.setVisibility(View.VISIBLE);
+//        paperSummaryLatex.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -157,7 +164,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setLatexSummary(String summary) {
-        paperSummaryLatex.setDisplayText(summary);
+//        paperSummaryLatex.setDisplayText(summary);
     }
 
     @Override
@@ -181,7 +188,6 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     public void showLoading(){
-        if(BuildConfig.DEBUG) return;
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Downloading..");
         progressDialog.setTitle("Downloading PDF");
@@ -191,12 +197,10 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     public void dismissLoading(){
-        if(BuildConfig.DEBUG) return;
         progressDialog.dismiss();
     }
 
     public void errorLoading() {
-        if(BuildConfig.DEBUG) return;
         getActivity().runOnUiThread(() -> {
             dismissLoading();
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();

@@ -160,7 +160,13 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        return presenter.onNavigationItemSelected(id) || super.onOptionsItemSelected(item);
+        switch (id) {
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+                presenter.navigationRefreshClicked();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setRefreshing(boolean b) {

@@ -85,4 +85,11 @@ class MainPresenter extends BasePresenter{
         view.switchToSearchFragment(searchQuery, Tags.SEARCH_RESULTS_TAG);
     }
 
+    public void navigationSettingsClicked() {
+        view.goToSettings();
+    }
+
+    public void navigationRatingClicked() {
+        view.goToRating();
+    }
 }

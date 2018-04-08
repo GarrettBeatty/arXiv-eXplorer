@@ -142,7 +142,17 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return presenter.onOptionsItemSelected(item.getItemId());
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.menu_settings:
+                presenter.navigationSettingsClicked();
+                return true;
+            case R.id.menu_rating:
+                presenter.navigationRatingClicked();
+                return true;
+        }
+        return false;
     }
 
     @Override

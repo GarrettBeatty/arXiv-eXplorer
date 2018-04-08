@@ -262,4 +262,9 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         getView().showPaginateLoading(false);
     }
 
+    public void navigationRefreshClicked() {
+        view.setRefreshing(true);
+        onRefresh();
+        view.scrollToTop();
+    }
 }

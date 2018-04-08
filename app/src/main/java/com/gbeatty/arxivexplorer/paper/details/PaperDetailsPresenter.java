@@ -70,12 +70,12 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         return Paper.count(Paper.class, "paper_id = ? and downloaded = 1", new String[]{paperID}) > 0;
     }
 
-    private void navigationFavoritePaperClicked() {
+    public void navigationFavoritePaperClicked() {
         toggleFavoritePaper(paper);
         updateFavoritedMenuItem();
     }
 
-    private void navigationDownloadPaperClicked() {
+    public void navigationDownloadPaperClicked() {
 
         File papersPath = new File(view.getFilesDir(), "papers");
         File file = new File(papersPath, paper.getPaperID());
