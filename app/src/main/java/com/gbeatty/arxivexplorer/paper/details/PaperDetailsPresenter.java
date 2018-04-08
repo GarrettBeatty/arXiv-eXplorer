@@ -1,6 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
-import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.paper.base.PapersPresenterBase;
@@ -37,15 +36,13 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         view.hideSummary();
         view.hideLatexSummary();
 
-        if (getSharedPreferenceView().isShowAbstract()) {
 
-            if (getSharedPreferenceView().isRenderLatex()){
-                view.showLatexSummary();
-                view.setLatexSummary(paper.getSummary());
-            }else{
-                view.showSummary();
-                view.setSummary(paper.getSummary());
-            }
+        if (getSharedPreferenceView().isRenderLatex()) {
+            view.showLatexSummary();
+            view.setLatexSummary(paper.getSummary());
+        } else {
+            view.showSummary();
+            view.setSummary(paper.getSummary());
         }
 
     }
@@ -58,10 +55,10 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         }
     }
 
-    void updateDownloadedMenuItem(){
-        if(isPaperDownloaded(paper.getPaperID())){
+    void updateDownloadedMenuItem() {
+        if (isPaperDownloaded(paper.getPaperID())) {
             view.setDownloadedIcon();
-        }else{
+        } else {
             view.setNotDownloadedIcon();
         }
     }
@@ -99,9 +96,9 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         downloadPDFandView(file);
     }
 
-    public static void setPaperDownloaded(String paperID, boolean downloaded){
+    public static void setPaperDownloaded(String paperID, boolean downloaded) {
         List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paperID);
-        if(ps == null || ps.isEmpty()) return;
+        if (ps == null || ps.isEmpty()) return;
         Paper p = ps.get(0);
         p.setDownloaded(downloaded);
         p.save();
@@ -132,15 +129,4 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         });
     }
 
-    boolean onNavigationItemSelected(int id) {
-        switch (id) {
-            case R.id.menu_favorite_paper:
-                navigationFavoritePaperClicked();
-                return true;
-            case R.id.menu_download_paper:
-                navigationDownloadPaperClicked();
-                return true;
-        }
-        return false;
-    }
 }
