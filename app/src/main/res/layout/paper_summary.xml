@@ -87,7 +87,7 @@
         android:visibility="gone"
         app:setClickable="true"
         app:setTextColor="@color/primary_text"
-        app:setTextSize="9sp" />
+        app:setTextSize="14sp" />
 
 
 </LinearLayout>

@@ -225,6 +225,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             paperPublished.setVisibility(View.VISIBLE);
         }
 
+
         @Override
         public void hideLatexSummary() {
             paperSummaryLatex.setVisibility(View.GONE);

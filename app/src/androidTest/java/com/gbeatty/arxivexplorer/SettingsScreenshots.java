@@ -62,7 +62,7 @@ public class SettingsScreenshots {
                         childAtPosition(
                                 withId(android.R.id.list_container),
                                 0)))
-                .atPosition(7);
+                .atPosition(9);
         linearLayout.perform(click());
 
         WaifForUIUpdate.waifForWithId(R.id.toolbar);
