@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @Override
     public void goToRating() {
         final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .ratingBarColor(R.color.grey_500)
                 .threshold(3)
                 .onRatingBarFormSumbit(this::sendFeedbackEmail).build();
 
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     private void goToRatingAuto() {
         final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .ratingBarColor(R.color.grey_500)
                 .threshold(3)
                 .session(7)
                 .onRatingBarFormSumbit(this::sendFeedbackEmail).build();
