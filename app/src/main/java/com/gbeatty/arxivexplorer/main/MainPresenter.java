@@ -19,6 +19,9 @@ class MainPresenter extends BasePresenter{
     }
 
     boolean onNavigationItemSelected(int id) {
+
+        if(view.getCurrentFragment().getTag() == null) return false;
+
         switch (id) {
 
             case 0:

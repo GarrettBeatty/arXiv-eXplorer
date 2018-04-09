@@ -1,5 +1,7 @@
 package com.gbeatty.arxivexplorer.main;
 
+import android.app.UiModeManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,26 +48,29 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     MaterialSearchView searchView;
     private MainPresenter presenter;
     private SharedPreferences preferences;
+    private Toolbar myToolbar;
 
 
     @Override
     protected void onResume() {
-        super.onResume();
         preferences = getSharedPreferences();
+        super.onResume();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        preferences = getSharedPreferences();
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
 
-        preferences = getSharedPreferences();
+        UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
 
         if(isDarkMode()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
+            uiManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
         }
         else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //For night mode theme
+            uiManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -80,24 +84,9 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         searchView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
         searchView.setHintTextColor(ResourcesCompat.getColor(getResources(), R.color.grey_500, null));
 
-        Toolbar myToolbar = findViewById(R.id.toolbar);
+        myToolbar = findViewById(R.id.toolbar);
 
-        if (isDarkMode()) {
-            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
-            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
-            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
-            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
-
-            if (Build.VERSION.SDK_INT >= 21) {
-                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
-                getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
-            }
-        } else {
-            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
-            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
-            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
-            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
-        }
+        setNighModeThemes();
 
         setSupportActionBar(myToolbar);
 
@@ -105,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         navigationAdapter.setupWithBottomNavigation(bottomBarView);
 
         bottomBarView.setOnTabSelectedListener((position, wasSelected) -> presenter.onNavigationItemSelected(position));
-
 
         if(savedInstanceState == null)
             presenter.switchToDashboardFragment();
@@ -126,6 +114,25 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         });
 
         goToRatingAuto();
+    }
+
+    private void setNighModeThemes(){
+        if (isDarkMode()) {
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
+            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
+                getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
+            }
+        } else {
+            bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+            bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabLight, null));
+            searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
+            myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
+        }
     }
 
     @Override

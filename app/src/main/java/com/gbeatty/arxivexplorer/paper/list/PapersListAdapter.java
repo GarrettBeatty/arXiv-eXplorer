@@ -14,6 +14,7 @@ import com.gbeatty.arxivexplorer.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import katex.hourglass.in.mathlib.MathView;
 
 public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
@@ -111,8 +112,8 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         ImageButton favoritePaper;
         @BindView(R.id.paper_summary)
         TextView paperSummary;
-//        @BindView(R.id.paper_summary_latex)
-//        MathView paperSummaryLatex;
+        @BindView(R.id.paper_summary_latex)
+        MathView paperSummaryLatex;
         @BindView(R.id.summary_sep)
         View summarySep;
 
@@ -130,6 +131,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 int section = position.section();
                 presenter.favoriteButtonClicked(getLayoutPosition(),section , this);
             });
+
         }
 
         public void setTitle(String title) {
@@ -142,7 +144,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         @Override
         public void setLatexSummary(String summary) {
-//            paperSummaryLatex.setDisplayText(summary);
+            paperSummaryLatex.setDisplayText(summary);
         }
 
         public void setAuthors(String authors) {
@@ -207,14 +209,14 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         @Override
         public void hideLatexSummary() {
-//            paperSummaryLatex.setVisibility(View.GONE);
-//            summarySep.setVisibility(View.VISIBLE);
+            paperSummaryLatex.setVisibility(View.GONE);
+            summarySep.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void showLatexSummary() {
-//            paperSummaryLatex.setVisibility(View.VISIBLE);
-//            summarySep.setVisibility(View.VISIBLE);
+            paperSummaryLatex.setVisibility(View.VISIBLE);
+            summarySep.setVisibility(View.VISIBLE);
         }
 
     }

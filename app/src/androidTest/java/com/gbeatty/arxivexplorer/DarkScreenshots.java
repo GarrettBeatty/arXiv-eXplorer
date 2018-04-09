@@ -34,8 +34,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(JUnit4.class)
 public class DarkScreenshots {
-    static Intent intent;
-    static SharedPreferences.Editor preferencesEditor;
+    private static Intent intent;
+    private static SharedPreferences.Editor preferencesEditor;
 
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();

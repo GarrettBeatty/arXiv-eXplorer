@@ -94,7 +94,7 @@ dependencies {
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
 //    implementation 'io.github.kexanie.library:MathView:0.0.6'
-//    implementation 'in.hourglass.mathrender:katexmathview:1.0'
+    implementation 'in.hourglass.mathrender:katexmathview:1.0'
 
     androidTestImplementation('tools.fastlane:screengrab:1.1.0')
 

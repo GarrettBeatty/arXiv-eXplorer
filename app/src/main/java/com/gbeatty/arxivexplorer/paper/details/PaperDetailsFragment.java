@@ -24,6 +24,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import katex.hourglass.in.mathlib.MathView;
 
 public class PaperDetailsFragment extends BaseFragment implements PaperDetailsView {
 
@@ -32,8 +33,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperTitle;
     @BindView(R.id.paper_summary)
     TextView paperSummary;
-//    @BindView(R.id.paper_summary_latex)
-//    MathView paperSummaryLatex;
+    @BindView(R.id.paper_summary_latex)
+    MathView paperSummaryLatex;
     @BindView(R.id.paper_authors)
     TextView paperAuthors;
     @BindView(R.id.paper_updated_date)
@@ -139,12 +140,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void hideLatexSummary() {
-//        paperSummaryLatex.setVisibility(View.GONE);
+        paperSummaryLatex.setVisibility(View.GONE);
     }
 
     @Override
     public void showLatexSummary() {
-//        paperSummaryLatex.setVisibility(View.VISIBLE);
+        paperSummaryLatex.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -164,7 +165,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setLatexSummary(String summary) {
-//        paperSummaryLatex.setDisplayText(summary);
+        paperSummaryLatex.setDisplayText(summary);
     }
 
     @Override
@@ -174,6 +175,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void viewDownloadedPaper(File downloadedFile) {
+        if(getActivity() == null)return;
         Uri uri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", downloadedFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
@@ -201,6 +203,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     public void errorLoading() {
+        if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
             dismissLoading();
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
@@ -209,6 +212,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setDownloadedIcon() {
+        if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> downloadedPaper.setIcon(R.drawable.ic_remove_red_eye_black_24dp));
     }
 

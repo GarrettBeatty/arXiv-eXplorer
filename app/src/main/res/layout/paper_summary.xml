@@ -73,15 +73,15 @@
             <!--&gt;-->
         <!--</io.github.kexanie.library.MathView>-->
 
-        <!--<katex.hourglass.in.mathlib.MathView-->
-            <!--android:id="@+id/paper_summary_latex"-->
-            <!--app:setTextColor="@color/primary_text"-->
-            <!--app:setTextSize="9sp"-->
-            <!--app:setClickable="true"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:visibility="gone"/>-->
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/paper_summary_latex"
+            app:setTextColor="@color/primary_text"
+            app:setTextSize="9sp"
+            app:setClickable="true"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

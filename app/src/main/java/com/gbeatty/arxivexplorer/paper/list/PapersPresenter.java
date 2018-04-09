@@ -182,6 +182,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         dates = new ArrayList<>();
 
+        if(view == null || view.getTag() == null) return;
+
         if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
             dates.add("Recently Added");
             return;

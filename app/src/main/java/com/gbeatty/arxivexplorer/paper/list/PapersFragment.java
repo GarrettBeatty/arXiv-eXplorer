@@ -108,7 +108,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showNoPapersMessage() {
-        if (papersRecyclerView == null || emptyView == null) return;
+        if (papersRecyclerView == null || emptyView == null || getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
             papersRecyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -118,12 +118,13 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void notifyAdapter() {
-        if (papersListAdapter == null) return;
+        if (papersListAdapter == null || getActivity() == null) return;
         getActivity().runOnUiThread(() -> papersListAdapter.notifyDataSetChanged());
     }
 
     @Override
     public void showPaginateLoading(boolean isPaginateLoading) {
+        if(getActivity() == null)return;
         getActivity().runOnUiThread(() -> {
                     if (paginate == null) return;
                     paginate.showLoading(isPaginateLoading);
@@ -133,7 +134,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showRecyclerView() {
-        if (papersRecyclerView == null || emptyView == null) return;
+        if (papersRecyclerView == null || emptyView == null || getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
                     papersRecyclerView.setVisibility(View.VISIBLE);
                     emptyView.setVisibility(View.GONE);
@@ -143,11 +144,13 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showPaginateError(boolean isPaginateError) {
+        if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> paginate.showError(isPaginateError));
     }
 
     @Override
     public void setPaginateNoMoreData(boolean isNoMoreItems) {
+        if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> paginate.setNoMoreItems(isNoMoreItems));
     }
 
@@ -170,7 +173,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     }
 
     public void setRefreshing(boolean b) {
-        if (swipeRefreshLayout == null) return;
+        if (swipeRefreshLayout == null || getActivity() == null) return;
         getActivity().runOnUiThread(() -> swipeRefreshLayout.setRefreshing(b));
     }
 

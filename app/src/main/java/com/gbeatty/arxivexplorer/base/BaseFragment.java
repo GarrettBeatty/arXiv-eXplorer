@@ -100,6 +100,7 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     }
 
     public void showError(){
+        if(getActivity() == null) return;
         getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error Loading Papers", Toast.LENGTH_SHORT).show());
     }
 

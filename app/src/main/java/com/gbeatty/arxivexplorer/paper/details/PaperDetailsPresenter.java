@@ -36,7 +36,6 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         view.hideSummary();
         view.hideLatexSummary();
 
-
         if (getSharedPreferenceView().isRenderLatex()) {
             view.showLatexSummary();
             view.setLatexSummary(paper.getSummary());
