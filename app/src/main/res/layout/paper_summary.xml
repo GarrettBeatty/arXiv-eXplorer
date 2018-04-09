@@ -53,7 +53,7 @@
             android:id="@+id/summary_sep"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/divider" />
 
         <TextView

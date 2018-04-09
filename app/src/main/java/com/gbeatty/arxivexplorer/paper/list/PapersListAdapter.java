@@ -178,13 +178,13 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void hideSummary() {
             paperSummary.setVisibility(View.GONE);
-            summarySep.setVisibility(View.GONE);
+//            summarySep.setVisibility(View.GONE);
         }
 
         @Override
         public void showSummary() {
             paperSummary.setVisibility(View.VISIBLE);
-            summarySep.setVisibility(View.VISIBLE);
+//            summarySep.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -210,13 +210,13 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void hideLatexSummary() {
             paperSummaryLatex.setVisibility(View.GONE);
-            summarySep.setVisibility(View.VISIBLE);
+//            summarySep.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void showLatexSummary() {
             paperSummaryLatex.setVisibility(View.VISIBLE);
-            summarySep.setVisibility(View.VISIBLE);
+//            summarySep.setVisibility(View.VISIBLE);
         }
 
     }
