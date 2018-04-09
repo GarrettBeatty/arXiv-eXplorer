@@ -10,6 +10,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -153,6 +154,22 @@ public class SettingsActivity extends BaseSettingsActivity {
                 startActivity(i);
                 return true;
             });
+
+            latex.setOnPreferenceChangeListener((preference, o) -> {
+                SwitchPreference p = (SwitchPreference) preference;
+                if(!p.isChecked()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Rendering Latex may affect performance.")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", (dialog, id) -> {
+                                //do things
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                return true;
+            });
+
         }
 
         @Override
