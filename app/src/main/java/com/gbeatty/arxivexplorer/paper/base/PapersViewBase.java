@@ -13,6 +13,8 @@ public interface PapersViewBase {
 
     void setLatexSummary(String summary);
 
+    void setLatexTitle(String title);
+
     void setFavoritedIcon();
 
     void setNotFavoritedIcon();
@@ -23,7 +25,15 @@ public interface PapersViewBase {
 
     void showLatexSummary();
 
+    void hideLatexTitle();
+
+    void showLatexTitle();
+
     void hideSummary();
 
     void showSummary();
+
+    void hideTitle();
+
+    void showTitle();
 }

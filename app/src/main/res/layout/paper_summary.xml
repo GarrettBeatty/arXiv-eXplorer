@@ -12,6 +12,16 @@
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/primary_text" />
 
+    <katex.hourglass.in.mathlib.MathView
+        android:id="@+id/paper_title_latex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:setClickable="true"
+        app:setTextColor="@color/primary_text"
+        app:setTextSize="13sp" />
+
     <TextView
         android:id="@+id/paper_authors"
         android:layout_width="wrap_content"
@@ -73,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:visibility="gone"
         app:setClickable="true"
         app:setTextColor="@color/primary_text"
