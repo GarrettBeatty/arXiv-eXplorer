@@ -36,12 +36,19 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         view.hideSummary();
         view.hideLatexSummary();
 
+        view.hideTitle();
+        view.hideLatexTitle();
+
         if (getSharedPreferenceView().isRenderLatex()) {
             view.showLatexSummary();
+            view.showLatexTitle();
             view.setLatexSummary(paper.getSummary());
+            view.setLatexTitle(paper.getTitle());
         } else {
             view.showSummary();
+            view.showTitle();
             view.setSummary(paper.getSummary());
+            view.setTitle(paper.getTitle());
         }
 
     }

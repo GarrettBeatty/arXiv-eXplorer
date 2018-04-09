@@ -47,7 +47,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         if (position < 0 || position >= papers.size()) return;
 
         final Paper paper = papers.get(position);
-        paperRowView.setTitle(paper.getTitle());
         paperRowView.setAuthors(paper.getAuthor());
         paperRowView.setPaperCategories(paper.getCategories());
 
@@ -64,20 +63,25 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 //        paperRowView.hideSummary();
 //        paperRowView.hideLatexSummary();
 
+        paperRowView.hideTitle();
+        paperRowView.hideLatexTitle();
+
+        paperRowView.hideSummary();
+        paperRowView.hideLatexSummary();
+
         if (getSharedPreferenceView().isShowAbstract()) {
 
-            if (getSharedPreferenceView().isRenderLatex()){
-                paperRowView.hideSummary();
+            if (getSharedPreferenceView().isRenderLatex()) {
                 paperRowView.showLatexSummary();
+                paperRowView.showLatexTitle();
                 paperRowView.setLatexSummary(paper.getSummary());
-            }else{
-                paperRowView.hideLatexSummary();
+                paperRowView.setLatexTitle(paper.getTitle());
+            } else {
                 paperRowView.showSummary();
+                paperRowView.showTitle();
                 paperRowView.setSummary(paper.getSummary());
+                paperRowView.setTitle(paper.getTitle());
             }
-        }else{
-            paperRowView.hideSummary();
-            paperRowView.hideLatexSummary();
         }
         updateIcons(paper, paperRowView);
     }
@@ -104,7 +108,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         if (papers == null || dates == null) return 0;
         if (isRelevanceDate() || view.getTag() == null || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)
-                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG) || view.getTag().equals(Tags.SEARCH_RESULTS_TAG)) return papers.size();
+                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG) || view.getTag().equals(Tags.SEARCH_RESULTS_TAG))
+            return papers.size();
 
         String date = dates.get(sectionIndex);
         int count = 0;
@@ -182,7 +187,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         dates = new ArrayList<>();
 
-        if(view == null || view.getTag() == null) return;
+        if (view == null || view.getTag() == null) return;
 
         if (view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG) || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) {
             dates.add("Recently Added");

@@ -100,6 +100,8 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         @BindView(R.id.paper_title)
         TextView paperTitle;
+        @BindView(R.id.paper_title_latex)
+        MathView paperTitleLatex;
         @BindView(R.id.paper_authors)
         TextView paperAuthors;
         @BindView(R.id.paper_published_date)
@@ -147,6 +149,11 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             paperSummaryLatex.setDisplayText(summary);
         }
 
+        @Override
+        public void setLatexTitle(String title) {
+            paperTitleLatex.setDisplayText(title);
+        }
+
         public void setAuthors(String authors) {
             paperAuthors.setText(authors);
         }
@@ -188,6 +195,17 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         @Override
+        public void hideTitle() {
+            paperTitle.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void showTitle() {
+            paperTitle.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
         public void hidePublishedDate() {
             paperPublished.setVisibility(View.GONE);
         }
@@ -217,6 +235,16 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         public void showLatexSummary() {
             paperSummaryLatex.setVisibility(View.VISIBLE);
 //            summarySep.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void hideLatexTitle() {
+            paperTitleLatex.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void showLatexTitle() {
+            paperTitleLatex.setVisibility(View.VISIBLE);
         }
 
     }
