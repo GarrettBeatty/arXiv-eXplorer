@@ -31,8 +31,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     private static final String PAPER_KEY = "paperkey";
     @BindView(R.id.paper_title)
     TextView paperTitle;
-    @BindView(R.id.paper_title_latex)
-    MathView paperTitleLatex;
+//    @BindView(R.id.paper_title_latex)
+//    MathView paperTitleLatex;
     @BindView(R.id.paper_summary)
     TextView paperSummary;
     @BindView(R.id.paper_summary_latex)
@@ -152,12 +152,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void hideLatexTitle() {
-        paperTitleLatex.setVisibility(View.INVISIBLE);
+//        paperTitleLatex.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showLatexTitle() {
-        paperTitleLatex.setVisibility(View.VISIBLE);
+//        paperTitleLatex.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setLatexTitle(String title) {
-        paperTitleLatex.setDisplayText(title);
+//        paperTitleLatex.setDisplayText(title);
     }
 
     @Override

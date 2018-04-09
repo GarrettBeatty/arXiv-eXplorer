@@ -36,7 +36,7 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         view.hideSummary();
         view.hideLatexSummary();
 
-        view.hideTitle();
+//        view.hideTitle();
         view.hideLatexTitle();
 
         if (getSharedPreferenceView().isRenderLatex()) {
@@ -48,7 +48,7 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
             view.showSummary();
             view.showTitle();
             view.setSummary(paper.getSummary());
-            view.setTitle(paper.getTitle());
+//            view.setTitle(paper.getTitle());
         }
 
     }

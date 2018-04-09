@@ -60,10 +60,13 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
         }
 
+        paperRowView.setTitle(paper.getTitle());
+
+
 //        paperRowView.hideSummary();
 //        paperRowView.hideLatexSummary();
 
-        paperRowView.hideTitle();
+//        paperRowView.hideTitle();
         paperRowView.hideLatexTitle();
 
         paperRowView.hideSummary();
@@ -80,7 +83,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                 paperRowView.showSummary();
                 paperRowView.showTitle();
                 paperRowView.setSummary(paper.getSummary());
-                paperRowView.setTitle(paper.getTitle());
+//                paperRowView.setTitle(paper.getTitle());
             }
         }
         updateIcons(paper, paperRowView);
