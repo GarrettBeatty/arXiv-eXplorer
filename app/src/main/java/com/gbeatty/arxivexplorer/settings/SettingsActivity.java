@@ -40,13 +40,17 @@ public class SettingsActivity extends BaseSettingsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsActivity.PrefsFragment()).commit();
         setupActionBar();
+
     }
 
-    public static class PrefsFragment extends PreferenceFragment {
+    public static class PrefsFragment extends PreferenceFragment implements SettingsView {
+
+        SettingsPresenter presenter;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class SettingsActivity extends BaseSettingsActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setHasOptionsMenu(true);
+
+            presenter = new SettingsPresenter(this);
 
             PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(getActivity());
 
@@ -134,42 +140,59 @@ public class SettingsActivity extends BaseSettingsActivity {
             bindPreferenceSummaryToValue(maxResults);
 
             deleteDownloadedPapers.setOnPreferenceClickListener(preference -> {
-                Helper.deleteFilesDir(new File(getActivity().getFilesDir(), "papers"));
-                Toast.makeText(preference.getContext(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
+                presenter.deleteDownloadedPapersClicked();
                 return true;
             });
 
             dashboardPreferences.setOnPreferenceClickListener(preference -> {
-                final Intent preferencesActivity = new Intent(getActivity(), DashboardSettingsActivity.class);
-                preferencesActivity.putExtra("Dashboard Settings", "dashboard_settings");
-                startActivity(preferencesActivity);
+                presenter.dashboardPreferencesClicked();
                 return true;
             });
 
             darkMode.setOnPreferenceClickListener(preference -> {
-                Intent i = getActivity().getBaseContext().getPackageManager()
-                        .getLaunchIntentForPackage( getActivity().getBaseContext().getPackageName() );
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                getActivity().finish();
-                startActivity(i);
+                presenter.darkModeClicked();
                 return true;
             });
 
             latex.setOnPreferenceChangeListener((preference, o) -> {
-                SwitchPreference p = (SwitchPreference) preference;
-                if(!p.isChecked()){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Rendering Latex may affect performance.")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", (dialog, id) -> {
-                                //do things
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
+                presenter.latexClicked(((SwitchPreference) preference).isChecked());
                 return true;
             });
 
+        }
+
+        @Override
+        public void deleteDownloadedPapers() {
+            Helper.deleteFilesDir(new File(getActivity().getFilesDir(), "papers"));
+            Toast.makeText(getActivity(), "Deleted Downloaded Papers", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void goToDashboardPreferences() {
+            final Intent preferencesActivity = new Intent(getActivity(), DashboardSettingsActivity.class);
+            preferencesActivity.putExtra("Dashboard Settings", "dashboard_settings");
+            startActivity(preferencesActivity);
+        }
+
+        @Override
+        public void goToDarkMode() {
+            Intent i = getActivity().getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            getActivity().finish();
+            startActivity(i);
+        }
+
+        @Override
+        public void showLatexWarning() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Rendering Latex may affect performance.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        //do things
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
 
         @Override
