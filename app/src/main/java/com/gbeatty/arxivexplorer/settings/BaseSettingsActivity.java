@@ -95,7 +95,7 @@ public class BaseSettingsActivity extends AppCompatPreferenceActivity {
                 myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
                 if (Build.VERSION.SDK_INT >= 21) {
                     getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
-                    getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
+                    getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); //status bar or the time bar at the top
                 }
             }
 

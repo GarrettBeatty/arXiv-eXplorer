@@ -30,7 +30,7 @@ public class DownloadedFragment extends PapersFragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         presenter.getPapers();
     }

@@ -27,7 +27,7 @@ public class Helper {
                 }
             }
             return dir.delete();
-        } else if(dir!= null && dir.isFile()) {
+        } else if (dir != null && dir.isFile()) {
             String name = dir.getName();
             PaperDetailsPresenter.setPaperDownloaded(name, false);
             return dir.delete();

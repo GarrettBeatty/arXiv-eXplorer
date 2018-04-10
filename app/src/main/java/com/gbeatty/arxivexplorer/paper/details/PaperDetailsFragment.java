@@ -31,7 +31,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     private static final String PAPER_KEY = "paperkey";
     @BindView(R.id.paper_title)
     TextView paperTitle;
-//    @BindView(R.id.paper_title_latex)
+    //    @BindView(R.id.paper_title_latex)
 //    MathView paperTitleLatex;
     @BindView(R.id.paper_summary)
     TextView paperSummary;
@@ -202,7 +202,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void viewDownloadedPaper(File downloadedFile) {
-        if(getActivity() == null)return;
+        if (getActivity() == null) return;
         Uri uri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", downloadedFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
@@ -216,7 +216,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         }
     }
 
-    public void showLoading(){
+    public void showLoading() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Downloading..");
         progressDialog.setTitle("Downloading PDF");
@@ -225,12 +225,12 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         progressDialog.show();
     }
 
-    public void dismissLoading(){
+    public void dismissLoading() {
         progressDialog.dismiss();
     }
 
     public void errorLoading() {
-        if(getActivity() == null) return;
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
             dismissLoading();
             Toast.makeText(getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
@@ -239,7 +239,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
     @Override
     public void setDownloadedIcon() {
-        if(getActivity() == null) return;
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> downloadedPaper.setIcon(R.drawable.ic_remove_red_eye_black_24dp));
     }
 

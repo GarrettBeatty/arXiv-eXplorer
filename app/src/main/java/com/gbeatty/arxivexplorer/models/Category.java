@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Category implements Serializable {
 
-    private String name;
     private final String shortName;
     private final Category[] subCategories;
+    private String name;
 
     public Category(String name, String shortName, Category... subCategories) {
         this.name = name;
         this.shortName = shortName;
-        if(subCategories == null) {
+        if (subCategories == null) {
             subCategories = new Category[0];
         }
         this.subCategories = subCategories;
@@ -33,7 +33,7 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public String getCatKey(){
+    public String getCatKey() {
         if (name.equals("All")) return "all";
         return "cat";
     }

@@ -100,7 +100,7 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         @BindView(R.id.paper_title)
         TextView paperTitle;
-//        @BindView(R.id.paper_title_latex)
+        //        @BindView(R.id.paper_title_latex)
 //        MathView paperTitleLatex;
         @BindView(R.id.paper_authors)
         TextView paperAuthors;
@@ -126,12 +126,12 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemView.setOnClickListener(view -> {
                 ItemCoord position = getRelativePosition();
                 int section = position.section();
-                presenter.paperClicked(getLayoutPosition(),section);
+                presenter.paperClicked(getLayoutPosition(), section);
             });
             favoritePaper.setOnClickListener(view -> {
                 ItemCoord position = getRelativePosition();
                 int section = position.section();
-                presenter.favoriteButtonClicked(getLayoutPosition(),section , this);
+                presenter.favoriteButtonClicked(getLayoutPosition(), section, this);
             });
 
         }

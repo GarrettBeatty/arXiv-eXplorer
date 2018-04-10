@@ -6,11 +6,11 @@ public abstract class BasePresenter {
 
     private final SharedPreferencesView sharedPreferencesView;
 
-    protected BasePresenter(SharedPreferencesView sharedPreferencesView){
+    protected BasePresenter(SharedPreferencesView sharedPreferencesView) {
         this.sharedPreferencesView = sharedPreferencesView;
     }
 
-    protected SharedPreferencesView getSharedPreferenceView(){
+    protected SharedPreferencesView getSharedPreferenceView() {
         return sharedPreferencesView;
     }
 

@@ -17,7 +17,7 @@ import com.gbeatty.arxivexplorer.models.Category;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CategoriesFragment extends BaseFragment implements CategoriesView{
+public class CategoriesFragment extends BaseFragment implements CategoriesView {
 
     private static final String CAT_KEY = "catkey";
     @BindView(R.id.category_recycler_view)
@@ -46,7 +46,6 @@ public class CategoriesFragment extends BaseFragment implements CategoriesView{
     public void goToSubCategories(Category[] categories, String tag) {
         showFragment(R.id.content, CategoriesFragment.newInstance(categories), tag);
     }
-
 
 
     @Override

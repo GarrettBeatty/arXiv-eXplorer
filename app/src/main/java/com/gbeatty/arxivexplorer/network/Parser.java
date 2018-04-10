@@ -84,14 +84,13 @@ public class Parser {
             } else if (name.equals("link") && parser.getAttributeValue(null, "title") != null &&
                     parser.getAttributeValue(null, "title").equals("pdf")) {
                 pdfLink = readPDFURL(parser);
-            }else if (name.equals("category")) {
+            } else if (name.equals("category")) {
                 if (categories == null) {
                     categories = new StringBuilder(readCategory(parser));
                 } else {
                     categories.append(", ").append(readCategory(parser));
                 }
-            }
-            else {
+            } else {
                 skip(parser);
             }
         }
@@ -114,11 +113,10 @@ public class Parser {
             try {
                 parser.require(XmlPullParser.END_TAG, null, "author");
                 break;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 parser.next();
             }
-        } while(true);
+        } while (true);
 
         return author;
     }

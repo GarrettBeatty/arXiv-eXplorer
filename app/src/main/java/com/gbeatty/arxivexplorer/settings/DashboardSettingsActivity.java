@@ -79,8 +79,7 @@ public class DashboardSettingsActivity extends BaseSettingsActivity {
                                 }
                                 return false;
                             });
-                        }
-                        else
+                        } else
                             sp.setTitle(subCategory.getShortName() + " - " + subCategory.getName());
                         toggleCategory.addPreference(sp);
                     }
@@ -96,12 +95,12 @@ public class DashboardSettingsActivity extends BaseSettingsActivity {
             setPreferenceScreen(screen);
 
             toggleAll.setOnPreferenceClickListener(preference -> {
-                for(int i = 0; i < screen.getPreferenceCount(); i++){
+                for (int i = 0; i < screen.getPreferenceCount(); i++) {
                     PreferenceCategory preferenceCategory = (PreferenceCategory) screen.getPreference(i);
-                    for(int j = 0; j < preferenceCategory.getPreferenceCount(); j++){
+                    for (int j = 0; j < preferenceCategory.getPreferenceCount(); j++) {
 //                        if(screen.getPreference(i) instanceof SwitchPreference){
-                            SwitchPreference s = (SwitchPreference) preferenceCategory.getPreference(j);
-                            s.setChecked(toggleAll.isChecked());
+                        SwitchPreference s = (SwitchPreference) preferenceCategory.getPreference(j);
+                        s.setChecked(toggleAll.isChecked());
 //                        }
                     }
 
@@ -110,6 +109,7 @@ public class DashboardSettingsActivity extends BaseSettingsActivity {
             });
 
         }
+
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();

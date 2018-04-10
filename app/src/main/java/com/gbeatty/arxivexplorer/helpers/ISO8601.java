@@ -13,7 +13,9 @@ import java.util.GregorianCalendar;
  * missing.
  */
 public final class ISO8601 {
-    /** Transform Calendar to ISO 8601 string. */
+    /**
+     * Transform Calendar to ISO 8601 string.
+     */
     private static String fromCalendar(final Calendar calendar) {
         Date date = calendar.getTime();
         String formatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
@@ -21,12 +23,16 @@ public final class ISO8601 {
         return formatted.substring(0, 22) + ":" + formatted.substring(22);
     }
 
-    /** Get current date and time formatted as ISO 8601 string. */
+    /**
+     * Get current date and time formatted as ISO 8601 string.
+     */
     public static String now() {
         return fromCalendar(GregorianCalendar.getInstance());
     }
 
-    /** Transform ISO 8601 string to Calendar. */
+    /**
+     * Transform ISO 8601 string to Calendar.
+     */
     public static Calendar toCalendar(final String iso8601string)
             throws ParseException {
         Calendar calendar = GregorianCalendar.getInstance();

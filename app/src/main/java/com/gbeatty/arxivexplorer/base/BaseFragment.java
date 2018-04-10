@@ -32,30 +32,6 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         listener.showFragment(fragmentContainerId, fragment, backStateName);
     }
 
-    public interface ActivityListener {
-        void showFragment(int fragmentContainerId, BaseFragment fragment, String backStateName);
-
-        String getSortOrder();
-
-        String getSortBy();
-
-        int getMaxResult();
-
-        boolean isShowAbstract();
-
-        SharedPreferences getSharedPreferences();
-
-        boolean isDashboardCategoryChecked(String categoryName);
-
-        boolean isPublishedDate();
-
-        boolean isLastUpdatedDate();
-
-        boolean isRelevanceDate();
-
-        boolean isRenderLatex();
-    }
-
     @Override
     public String getSortOrder() {
         return listener.getSortOrder();
@@ -72,7 +48,9 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     }
 
     @Override
-    public boolean isShowAbstract(){return  listener.isShowAbstract();}
+    public boolean isShowAbstract() {
+        return listener.isShowAbstract();
+    }
 
     @Override
     public boolean isDashboardCategoryChecked(String categoryName) {
@@ -99,9 +77,33 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         return listener.isRenderLatex();
     }
 
-    public void showError(){
-        if(getActivity() == null) return;
+    public void showError() {
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error Loading Papers", Toast.LENGTH_SHORT).show());
+    }
+
+    public interface ActivityListener {
+        void showFragment(int fragmentContainerId, BaseFragment fragment, String backStateName);
+
+        String getSortOrder();
+
+        String getSortBy();
+
+        int getMaxResult();
+
+        boolean isShowAbstract();
+
+        SharedPreferences getSharedPreferences();
+
+        boolean isDashboardCategoryChecked(String categoryName);
+
+        boolean isPublishedDate();
+
+        boolean isLastUpdatedDate();
+
+        boolean isRelevanceDate();
+
+        boolean isRenderLatex();
     }
 
 }

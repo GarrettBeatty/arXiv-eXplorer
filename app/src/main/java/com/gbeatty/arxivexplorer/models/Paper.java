@@ -18,7 +18,7 @@ public class Paper extends SugarRecord<Paper> implements Serializable {
     private boolean favorited;
     private String categories;
 
-    public Paper(){
+    public Paper() {
 
     }
 

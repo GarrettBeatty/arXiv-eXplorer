@@ -30,7 +30,7 @@ public class FavoritesFragment extends PapersFragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         presenter.getPapers();
     }

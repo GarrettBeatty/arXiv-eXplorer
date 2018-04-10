@@ -12,22 +12,12 @@ import com.gbeatty.arxivexplorer.paper.list.PapersPresenter;
  */
 public class BrowseFragment extends PapersFragment {
 
-    private BrowsePresenter presenter;
     private static final String CATKEYKEY = "catkeykey";
     private static final String SHORTNAMEKEY = "shortnamekey";
+    private BrowsePresenter presenter;
 
     public BrowseFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    protected PapersPresenter getPresenter() {
-        return presenter;
-    }
-
-    @Override
-    protected boolean isPaginate() {
-        return true;
     }
 
     public static BrowseFragment newInstance(String catKey, String shortName) {
@@ -42,6 +32,16 @@ public class BrowseFragment extends PapersFragment {
         args.putString(SHORTNAMEKEY, shortName);
 
         return args;
+    }
+
+    @Override
+    protected PapersPresenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    protected boolean isPaginate() {
+        return true;
     }
 
     @Override

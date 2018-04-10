@@ -87,7 +87,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             }
         }
         updateIcons(paper, paperRowView);
-        }
+    }
 
     void paperClicked(int absolutePosition, int section) {
         int position = absolutePosition - (section + 1);

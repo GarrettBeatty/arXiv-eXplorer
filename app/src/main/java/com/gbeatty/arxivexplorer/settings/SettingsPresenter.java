@@ -21,6 +21,6 @@ class SettingsPresenter {
     }
 
     public void latexClicked(boolean checked) {
-        if(!checked) view.showLatexWarning();
+        if (!checked) view.showLatexWarning();
     }
 }

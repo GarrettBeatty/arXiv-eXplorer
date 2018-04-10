@@ -7,14 +7,14 @@ import okhttp3.Request;
 
 public class ArxivAPI {
 
-    public static String SORT_ORDER_ASCENDING = "ascending";
     public static final String SORT_ORDER_DESCENDING = "descending";
     public static final String SORT_BY_RELEVANCE = "relevance";
-    public static String SORT_BY_LAST_UPDATED_DATE = "lastUpdatedDate";
     public static final String SORT_BY_SUBMITTED_DATE = "submittedDate";
-    private static OkHttpClient client;
     private static final String baseURL = "http://export.arxiv.org/api/";
     private static final String querySegment = "query";
+    public static String SORT_ORDER_ASCENDING = "ascending";
+    public static String SORT_BY_LAST_UPDATED_DATE = "lastUpdatedDate";
+    private static OkHttpClient client;
 
     public static OkHttpClient getClient() {
         if (client == null) {
@@ -69,18 +69,18 @@ public class ArxivAPI {
     }
 
     public static void searchMultipleCategories(String[] catKeys, String[] categories,
-                                 String sortOrder,
-                                 String sortBy,
-                                 int maxResults,
-                                 Callback call) {
+                                                String sortOrder,
+                                                String sortBy,
+                                                int maxResults,
+                                                Callback call) {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();
         urlBuilder.addPathSegment(querySegment);
 
         String query = "";
 
-        if(categories != null && catKeys != null){
-            for(int i = 0; i < categories.length; i++){
+        if (categories != null && catKeys != null) {
+            for (int i = 0; i < categories.length; i++) {
                 query = addORParamToQuery(query, catKeys[i], categories[i]);
             }
         }
@@ -99,10 +99,10 @@ public class ArxivAPI {
     }
 
     public static void searchAll(String searchQuery,
-                                    String sortOrder,
-                                    String sortBy,
-                                    int maxResults,
-                                    Callback call) {
+                                 String sortOrder,
+                                 String sortBy,
+                                 int maxResults,
+                                 Callback call) {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseURL).newBuilder();
         urlBuilder.addPathSegment(querySegment);

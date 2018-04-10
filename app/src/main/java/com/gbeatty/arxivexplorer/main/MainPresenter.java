@@ -9,7 +9,7 @@ import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 import okhttp3.Call;
 
-class MainPresenter extends BasePresenter{
+class MainPresenter extends BasePresenter {
 
     private final MainView view;
 
@@ -20,27 +20,31 @@ class MainPresenter extends BasePresenter{
 
     boolean onNavigationItemSelected(int id) {
 
-        if(view.getCurrentFragment().getTag() == null) return false;
+        if (view.getCurrentFragment().getTag() == null) return false;
 
         switch (id) {
 
             case 0:
-                if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)) return false;
+                if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG))
+                    return false;
                 switchToDashboardFragment();
                 return true;
 
             case 1:
-                if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)) return false;
+                if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG))
+                    return false;
                 switchToFavoritesFragment();
                 return true;
 
-                case 2:
-                if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)) return false;
+            case 2:
+                if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG))
+                    return false;
                 switchToDownloadedFragment();
                 return true;
 
             case 3:
-                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG)) return false;
+                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG))
+                    return false;
                 switchToCategoriesFragment();
                 return true;
         }
@@ -51,20 +55,20 @@ class MainPresenter extends BasePresenter{
         view.switchToDownloadedFragment(Tags.DOWNLOADED_FRAGMENT_TAG);
     }
 
-    public void switchToCategoriesFragment(){
+    public void switchToCategoriesFragment() {
         view.switchToCategoriesFragment(Categories.CATEGORIES, Tags.MAIN_CATEGORIES_TAG);
     }
 
-    private void switchToFavoritesFragment(){
+    private void switchToFavoritesFragment() {
         view.switchToFavoritesFragment(Tags.FAVORITES_FRAGMENT_TAG);
     }
 
-    public void switchToDashboardFragment(){
+    public void switchToDashboardFragment() {
         view.switchToDashboardFragment(Tags.DASHBOARD_FRAGMENT_TAG);
     }
 
     public boolean onOptionsItemSelected(int itemId) {
-        switch (itemId){
+        switch (itemId) {
             case R.id.menu_settings:
                 view.goToSettings();
                 return true;
@@ -76,11 +80,11 @@ class MainPresenter extends BasePresenter{
     }
 
     public void cancelHttpCalls() {
-        for(Call call : ArxivAPI.getClient().dispatcher().queuedCalls()) {
-           call.cancel();
+        for (Call call : ArxivAPI.getClient().dispatcher().queuedCalls()) {
+            call.cancel();
         }
-        for(Call call : ArxivAPI.getClient().dispatcher().runningCalls()) {
-           call.cancel();
+        for (Call call : ArxivAPI.getClient().dispatcher().runningCalls()) {
+            call.cancel();
         }
     }
 

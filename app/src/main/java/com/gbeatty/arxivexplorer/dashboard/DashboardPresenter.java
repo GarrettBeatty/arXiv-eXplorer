@@ -36,19 +36,19 @@ class DashboardPresenter extends PapersPresenter {
                 getSharedPreferenceView().getMaxResult());
     }
 
-    private ArrayList<String> getToggledCatKeys(){
+    private ArrayList<String> getToggledCatKeys() {
         ArrayList<String> catKeys = new ArrayList<>();
-        for(Category category : Categories.CATEGORIES){
+        for (Category category : Categories.CATEGORIES) {
 
-            if(category.getSubCategories().length != 0){
-                for(Category c: category.getSubCategories()){
-                if(c.getCatKey().equals("all")) continue;
-                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+            if (category.getSubCategories().length != 0) {
+                for (Category c : category.getSubCategories()) {
+                    if (c.getCatKey().equals("all")) continue;
+                    if (getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())) {
                         catKeys.add(c.getCatKey());
                     }
                 }
-            }else{
-                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+            } else {
+                if (getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())) {
                     catKeys.add(category.getCatKey());
                 }
             }
@@ -58,19 +58,19 @@ class DashboardPresenter extends PapersPresenter {
         return catKeys;
     }
 
-    private ArrayList<String> getToggledCategoriesNames(){
+    private ArrayList<String> getToggledCategoriesNames() {
         ArrayList<String> categoriesNames = new ArrayList<>();
-        for(Category category : Categories.CATEGORIES){
+        for (Category category : Categories.CATEGORIES) {
 
-            if(category.getSubCategories().length != 0){
-                for(Category c: category.getSubCategories()){
-                if(c.getCatKey().equals("all")) continue;
-                    if(getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())){
+            if (category.getSubCategories().length != 0) {
+                for (Category c : category.getSubCategories()) {
+                    if (c.getCatKey().equals("all")) continue;
+                    if (getSharedPreferenceView().isDashboardCategoryChecked(c.getShortName())) {
                         categoriesNames.add(c.getShortName());
                     }
                 }
-            }else{
-                if(getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())){
+            } else {
+                if (getSharedPreferenceView().isDashboardCategoryChecked(category.getShortName())) {
                     categoriesNames.add(category.getShortName());
                 }
             }
@@ -80,7 +80,7 @@ class DashboardPresenter extends PapersPresenter {
         return categoriesNames;
     }
 
-    private void downloadPapersFromDashboard(String[] catKeys, String[] categories, String sortOrder, String sortBy, int maxResult){
+    private void downloadPapersFromDashboard(String[] catKeys, String[] categories, String sortOrder, String sortBy, int maxResult) {
         try {
 //            getView().setRefreshing(true);
             ArxivAPI.searchMultipleCategories(catKeys, categories,

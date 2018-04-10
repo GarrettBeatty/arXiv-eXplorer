@@ -18,6 +18,11 @@ public class DashboardFragment extends PapersFragment {
         // Required empty public constructor
     }
 
+    public static DashboardFragment newInstance() {
+        DashboardFragment fragment = new DashboardFragment();
+        return fragment;
+    }
+
     @Override
     protected PapersPresenter getPresenter() {
         return presenter;
@@ -26,11 +31,6 @@ public class DashboardFragment extends PapersFragment {
     @Override
     protected boolean isPaginate() {
         return true;
-    }
-
-    public static DashboardFragment newInstance() {
-        DashboardFragment fragment = new DashboardFragment();
-        return fragment;
     }
 
 //    @Override

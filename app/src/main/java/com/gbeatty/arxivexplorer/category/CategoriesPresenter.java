@@ -33,7 +33,6 @@ class CategoriesPresenter extends BasePresenter {
     }
 
 
-
     int getCategoriesRowsCount() {
         return categories.length;
     }

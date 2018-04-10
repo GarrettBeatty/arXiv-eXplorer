@@ -26,6 +26,14 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         this.paper = paper;
     }
 
+    public static void setPaperDownloaded(String paperID, boolean downloaded) {
+        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paperID);
+        if (ps == null || ps.isEmpty()) return;
+        Paper p = ps.get(0);
+        p.setDownloaded(downloaded);
+        p.save();
+    }
+
     void initializeMainContent() {
         view.setTitle(paper.getTitle());
         view.setAuthors(paper.getAuthor());
@@ -100,14 +108,6 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         }
 
         downloadPDFandView(file);
-    }
-
-    public static void setPaperDownloaded(String paperID, boolean downloaded) {
-        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paperID);
-        if (ps == null || ps.isEmpty()) return;
-        Paper p = ps.get(0);
-        p.setDownloaded(downloaded);
-        p.save();
     }
 
     private void downloadPDFandView(File file) {

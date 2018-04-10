@@ -71,7 +71,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 //            manager = new GridLayoutManager(getContext(), 2);
 //            papersListAdapter.setLayoutManager((GridLayoutManager) manager);
 //        }else{
-            manager = new LinearLayoutManager(getActivity());
+        manager = new LinearLayoutManager(getActivity());
 //        }
         papersRecyclerView.setHasFixedSize(false);
         papersRecyclerView.setLayoutManager(manager);
@@ -124,7 +124,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showPaginateLoading(boolean isPaginateLoading) {
-        if(getActivity() == null)return;
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> {
                     if (paginate == null) return;
                     paginate.showLoading(isPaginateLoading);
@@ -144,13 +144,13 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
     @Override
     public void showPaginateError(boolean isPaginateError) {
-        if(getActivity() == null) return;
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> paginate.showError(isPaginateError));
     }
 
     @Override
     public void setPaginateNoMoreData(boolean isNoMoreItems) {
-        if(getActivity() == null) return;
+        if (getActivity() == null) return;
         getActivity().runOnUiThread(() -> paginate.setNoMoreItems(isNoMoreItems));
     }
 
@@ -178,7 +178,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     }
 
     @Override
-    public void scrollToTop(){
+    public void scrollToTop() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) papersRecyclerView
                 .getLayoutManager();
         layoutManager.scrollToPositionWithOffset(0, 0);

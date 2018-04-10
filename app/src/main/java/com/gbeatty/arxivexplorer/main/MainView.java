@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.gbeatty.arxivexplorer.models.Category;
 
-interface MainView{
+interface MainView {
 
     void switchToCategoriesFragment(Category[] categories, String tag);
 
@@ -14,7 +14,6 @@ interface MainView{
     void switchToDashboardFragment(String tag);
 
     void switchToSearchFragment(String searchQuery, String tag);
-
 
     Fragment getCurrentFragment();
 
