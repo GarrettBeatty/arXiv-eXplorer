@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.main;
 
-import android.app.UiModeManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -13,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,13 +63,17 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
 
-        UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+//        UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
 
         if(isDarkMode()) {
-            uiManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+//            uiManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+            getDelegate().setLocalNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
         }
         else
-            uiManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+//            uiManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+            getDelegate().setLocalNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             searchView.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.primary, null));
             myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
         }
+
     }
 
     @Override

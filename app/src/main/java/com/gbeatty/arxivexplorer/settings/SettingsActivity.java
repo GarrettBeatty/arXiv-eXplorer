@@ -90,14 +90,14 @@ public class SettingsActivity extends BaseSettingsActivity {
             maxResults.setTitle(R.string.pref_title_max_results);
             maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
 
+            Preference deleteDownloadedPapers = new Preference(getActivity());
+            deleteDownloadedPapers.setKey("delete_downloaded_papers");
+            deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
+
             SwitchPreference showAbstract = new SwitchPreference(getActivity());
             showAbstract.setDefaultValue(false);
             showAbstract.setKey("show_abstract");
             showAbstract.setTitle(R.string.pref_title_show_abstract);
-
-            Preference deleteDownloadedPapers = new Preference(getActivity());
-            deleteDownloadedPapers.setKey("delete_downloaded_papers");
-            deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
 
             SwitchPreference darkMode = new SwitchPreference(getActivity());
             darkMode.setDefaultValue(false);
@@ -113,9 +113,9 @@ public class SettingsActivity extends BaseSettingsActivity {
             generalCategory.addPreference(sortOrder);
             generalCategory.addPreference(maxResults);
             generalCategory.addPreference(showAbstract);
-            generalCategory.addPreference(deleteDownloadedPapers);
             generalCategory.addPreference(darkMode);
             generalCategory.addPreference(latex);
+            generalCategory.addPreference(deleteDownloadedPapers);
 
             PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
             dashboardCategory.setTitle("Dashboard Preferences");
