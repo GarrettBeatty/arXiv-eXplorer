@@ -1,5 +1,7 @@
 package com.gbeatty.arxivexplorer.main;
 
+import android.app.UiModeManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -63,17 +65,24 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
 
-//        UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        if (isDarkMode()) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+                uiManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+            } else {
+                getDelegate().setLocalNightMode(
+                        AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= 23) {
+                UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+                uiManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+            } else {
+                getDelegate().setLocalNightMode(
+                        AppCompatDelegate.MODE_NIGHT_NO);
+            }
 
-        if(isDarkMode()) {
-//            uiManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
-            getDelegate().setLocalNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
         }
-        else
-//            uiManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
-            getDelegate().setLocalNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -98,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         bottomBarView.setOnTabSelectedListener((position, wasSelected) -> presenter.onNavigationItemSelected(position));
 
-        if(savedInstanceState == null)
+        if (savedInstanceState == null)
             presenter.switchToDashboardFragment();
 
 
@@ -119,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         goToRatingAuto();
     }
 
-    private void setNighModeThemes(){
+    private void setNighModeThemes() {
         if (isDarkMode()) {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));
             bottomBarView.setAccentColor(ResourcesCompat.getColor(getResources(), R.color.tabDark, null));
@@ -128,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
             if (Build.VERSION.SDK_INT >= 21) {
                 getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); // Navigation bar the soft bottom of some phones like nexus and some Samsung note series
-                getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.toolbarDark)); //status bar or the time bar at the top
+                getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.toolbarDark)); //status bar or the time bar at the top
             }
         } else {
             bottomBarView.setDefaultBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.menu_settings:
                 presenter.navigationSettingsClicked();
                 return true;
@@ -186,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     public void switchToSearchFragment(String searchQuery, String tag) {
         showFragment(R.id.content, SearchFragment.newInstance(searchQuery), tag);
     }
-
 
 
     @Override
@@ -224,12 +232,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         ratingDialog.show();
     }
 
-    private void sendFeedbackEmail(String feedback){
+    private void sendFeedbackEmail(String feedback) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"garrettbdev@gmail.com"});
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"garrettbdev@gmail.com"});
         i.putExtra(Intent.EXTRA_SUBJECT, "arXiv eXplorer Feedback");
-        i.putExtra(Intent.EXTRA_TEXT   ,feedback);
+        i.putExtra(Intent.EXTRA_TEXT, feedback);
         try {
             startActivity(Intent.createChooser(i, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
@@ -243,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         presenter.cancelHttpCalls();
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
-        }else{
+        } else {
             int fragments = getSupportFragmentManager().getBackStackEntryCount();
             if (fragments == 1) {
                 finish();
@@ -265,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 //            if(!backStateName.equals(Tags.MAIN_CATEGORIES_TAG)){
-                transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
 //            }else{
 //                transaction.setCustomAnimations(R.anim.enter_two, R.anim.exit_two, R.anim.pop_enter_two, R.anim.pop_exit_two);
 //            }
@@ -322,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
     }
 
-    private boolean isDarkMode(){
+    private boolean isDarkMode() {
         return preferences.getBoolean("dark_mode", false);
     }
 }

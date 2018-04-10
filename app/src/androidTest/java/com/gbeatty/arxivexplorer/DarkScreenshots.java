@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.uiautomator.UiDevice;
@@ -30,7 +31,9 @@ import tools.fastlane.screengrab.locale.LocaleTestRule;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
 
 @RunWith(JUnit4.class)
 public class DarkScreenshots {
@@ -61,10 +64,30 @@ public class DarkScreenshots {
 
         activityRule.launchActivity(intent);
 
-        onView(withId(R.id.navigation_browse)).perform(click());
+        //browse click
+        ViewInteraction frameLayout = onView(
+                allOf(withId(R.id.bottom_navigation_small_container),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.navigation),
+                                        1),
+                                3),
+                        isDisplayed()));
+        frameLayout.perform(click());
+//        onView(withId(R.id.navigation_browse)).perform(click());
         Screengrab.screenshot("dark_browse");
 
-        onView(withId(R.id.navigation_dashboard)).perform(click());
+        //dashboard click
+        frameLayout = onView(
+                allOf(withId(R.id.bottom_navigation_small_container),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.navigation),
+                                        1),
+                                0),
+                        isDisplayed()));
+        frameLayout.perform(click());
+//        onView(withId(R.id.navigation_dashboard)).perform(click());
 
         WaifForUIUpdate.waifForWithId(R.id.papers_recycler_view);
 
@@ -94,7 +117,17 @@ public class DarkScreenshots {
 //
 //        Screengrab.screenshot("favorites");
 
-        onView(withId(R.id.navigation_downloaded)).perform(click());
+        //downloaded click
+        frameLayout = onView(
+                allOf(withId(R.id.bottom_navigation_small_container),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.navigation),
+                                        1),
+                                2),
+                        isDisplayed()));
+        frameLayout.perform(click());
+//        onView(withId(R.id.navigation_downloaded)).perform(click());
 
         Screengrab.screenshot("dark_downloaded");
 
