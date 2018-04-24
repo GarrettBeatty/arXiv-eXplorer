@@ -1,6 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
-import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Tags;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -242,20 +241,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         getPapers();
     }
 
-
-    public boolean onNavigationItemSelected(int id) {
-        switch (id) {
-            // Check if user triggered a refresh:
-            case R.id.menu_refresh:
-                view.setRefreshing(true);
-                onRefresh();
-                view.scrollToTop();
-                return true;
-        }
-
-        // User didn't trigger a refresh, let the superclass handle this action
-        return false;
-    }
 
     public int getSectionCount() {
         if (dates == null) return 0;
