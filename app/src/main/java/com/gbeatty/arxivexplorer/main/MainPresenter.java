@@ -1,6 +1,5 @@
 package com.gbeatty.arxivexplorer.main;
 
-import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.arxivdata.Categories;
 import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.helpers.Tags;
@@ -72,18 +71,6 @@ class MainPresenter extends BasePresenter {
 
     public void switchToDashboardFragment() {
         view.switchToDashboardFragment(Tags.DASHBOARD_FRAGMENT_TAG);
-    }
-
-    public boolean onOptionsItemSelected(int itemId) {
-        switch (itemId) {
-            case R.id.menu_settings:
-                view.goToSettings();
-                return true;
-            case R.id.menu_rating:
-                view.goToRating();
-                return true;
-        }
-        return false;
     }
 
     public void cancelHttpCalls() {

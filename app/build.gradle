@@ -1,35 +1,35 @@
 buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
+//    repositories {
+//        maven { url 'https://maven.fabric.io/public' }
+//    }
+//
+//    dependencies {
+//        classpath 'io.fabric.tools:gradle:1.+'
+//    }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 
-def propsFile = rootProject.file('fabric.properties')
-def props = new Properties()
+//def propsFile = rootProject.file('fabric.properties')
+//def props = new Properties()
 
 
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-if (propsFile.exists()) {
-    props.load(new FileInputStream(propsFile))
-}
+//if (propsFile.exists()) {
+//    props.load(new FileInputStream(propsFile))
+//}
 
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        manifestPlaceholders = [crashlytics:props["crashlytics.key"]]
+//        manifestPlaceholders = [crashlytics:props["crashlytics.key"]]
 
         applicationId "com.gbeatty.arxiv"
         minSdkVersion 21
@@ -94,7 +94,10 @@ dependencies {
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
 //    implementation 'io.github.kexanie.library:MathView:0.0.6'
-    implementation 'in.hourglass.mathrender:katexmathview:1.0'
+//    implementation 'in.hourglass.mathrender:katexmathview:1.0'
+//    implementation 'com.github.Nishant-Pathak:MathView:v1.1'
+
+    implementation project(":katexmathview")
 
     androidTestImplementation('tools.fastlane:screengrab:1.1.0')
 
@@ -118,5 +121,6 @@ dependencies {
 
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 //    maven { url 'https://maven.fabric.io/public' }
 }
