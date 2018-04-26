@@ -36,7 +36,7 @@ public class DownloadedFragment extends PapersFragment {
     }
 
     @Override
-    protected PapersPresenter getPresenter() {
+    public PapersPresenter getPresenter() {
         return presenter;
     }
 

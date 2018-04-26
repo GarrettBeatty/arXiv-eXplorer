@@ -31,6 +31,7 @@ import com.gbeatty.arxivexplorer.downloaded.DownloadedFragment;
 import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
+import com.gbeatty.arxivexplorer.paper.list.PapersFragment;
 import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
@@ -198,6 +199,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     @Override
     public void switchToDownloadedFragment(String tag) {
         showFragment(R.id.content, DownloadedFragment.newInstance(), tag);
+    }
+
+    @Override
+    public void refreshPaperList() {
+        PapersFragment fragment = (PapersFragment) getCurrentFragment();
+        fragment.getPresenter().navigationRefreshClicked();
     }
 
 

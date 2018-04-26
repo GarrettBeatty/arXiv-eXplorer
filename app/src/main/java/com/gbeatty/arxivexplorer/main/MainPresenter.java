@@ -25,26 +25,33 @@ class MainPresenter extends BasePresenter {
         switch (id) {
 
             case 0:
-                if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG))
+                if (view.getCurrentFragment().getTag().equals(Tags.DASHBOARD_FRAGMENT_TAG)){
+                    view.refreshPaperList();
                     return false;
+                }
                 switchToDashboardFragment();
                 return true;
 
             case 1:
-                if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG))
+                if (view.getCurrentFragment().getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)){
+                    view.refreshPaperList();
                     return false;
+                }
                 switchToFavoritesFragment();
                 return true;
 
             case 2:
-                if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG))
+                if (view.getCurrentFragment().getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG)){
+                    view.refreshPaperList();
                     return false;
+                }
                 switchToDownloadedFragment();
                 return true;
 
             case 3:
-                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG))
+                if (view.getCurrentFragment().getTag().equals(Tags.MAIN_CATEGORIES_TAG)){
                     return false;
+                }
                 switchToCategoriesFragment();
                 return true;
         }

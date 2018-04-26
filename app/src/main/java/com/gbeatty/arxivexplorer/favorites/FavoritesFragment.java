@@ -36,7 +36,7 @@ public class FavoritesFragment extends PapersFragment {
     }
 
     @Override
-    protected PapersPresenter getPresenter() {
+    public PapersPresenter getPresenter() {
         return presenter;
     }
 

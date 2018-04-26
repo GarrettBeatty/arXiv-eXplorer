@@ -24,7 +24,7 @@ public class DashboardFragment extends PapersFragment {
     }
 
     @Override
-    protected PapersPresenter getPresenter() {
+    public PapersPresenter getPresenter() {
         return presenter;
     }
 

@@ -47,7 +47,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         setHasOptionsMenu(true);
     }
 
-    protected abstract PapersPresenter getPresenter();
+    public abstract PapersPresenter getPresenter();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -22,4 +22,6 @@ interface MainView {
     void goToRating();
 
     void switchToDownloadedFragment(String downloadedFragmentTag);
+
+    void refreshPaperList();
 }

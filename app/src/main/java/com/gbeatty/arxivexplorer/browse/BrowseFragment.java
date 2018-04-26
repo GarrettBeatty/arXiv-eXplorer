@@ -35,7 +35,7 @@ public class BrowseFragment extends PapersFragment {
     }
 
     @Override
-    protected PapersPresenter getPresenter() {
+    public PapersPresenter getPresenter() {
         return presenter;
     }
 
