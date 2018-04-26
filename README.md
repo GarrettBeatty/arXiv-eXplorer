@@ -16,11 +16,11 @@ Features include:
 * Open Source
 
 ## Screenshots
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_browse_1523488615365.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_dashboard_1523488619380.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_details_1523488620316.png" width="200"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_downloaded_1523488639206.png" width="200"> 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_dashboard_1523488645282.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_details_1523488646225.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_downloaded_1523488663901.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_pdf_1523488661784.png" width="200">
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_1523488668011.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_dashboard_1523488671803.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_browse_1523556279595.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_dashboard_1523556283583.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_details_1523556284512.png" width="200"><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dark_downloaded_1523556303643.png" width="200"> 
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_dashboard_1523556309738.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_details_1523556310665.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_downloaded_1523556328075.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/light_pdf_1523556326138.png" width="200">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_1523556331590.png" width="200"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_dashboard_1523556335373.png" width="200">
 
 ## Downloading
 
