@@ -75,6 +75,8 @@ public class Parser {
                 }
             } else if (name.equals("summary")) {
                 summary = readSummary(parser);
+                summary = summary.replace("<", "&lt;");
+                summary = summary.replace(">", "&gt;");
             } else if (name.equals("updated")) {
                 updated = readDate(parser);
             } else if (name.equals("published")) {
