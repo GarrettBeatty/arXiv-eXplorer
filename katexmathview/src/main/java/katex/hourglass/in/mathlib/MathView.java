@@ -109,6 +109,7 @@ public class MathView extends WebView {
                 "body {"+
                 "margin: 0px;"+
                 "padding: 0px;"+
+                ".katex { font-size: 1em !important; }" +
                 "font-size:" +this.text_size+"px;"+
                 "color:"+getHexColor(this.text_color)+";"+
                 " }"+
