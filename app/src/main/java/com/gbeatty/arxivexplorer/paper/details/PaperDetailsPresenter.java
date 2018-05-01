@@ -1,5 +1,6 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
+import com.gbeatty.arxivexplorer.helpers.Helper;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.paper.base.PapersPresenterBase;
@@ -86,6 +87,21 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         updateFavoritedMenuItem();
     }
 
+    public void updateDeletePaperMenuItem() {
+        if(isPaperDownloaded(paper.getPaperID())){
+            view.showDeletePaperIcon();
+        }else{
+            view.hideDeletePaperIcon();
+        }
+    }
+
+    public void navigationDeletePaperClicked() {
+        File papersPath = new File(view.getFilesDir(), "papers");
+        File file = new File(papersPath, paper.getPaperID());
+        Helper.deleteFilesDir(file);
+        view.showDeleteSuccessfulToast();
+    }
+
     public void navigationDownloadPaperClicked() {
 
         File papersPath = new File(view.getFilesDir(), "papers");
@@ -134,5 +150,7 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
             }
         });
     }
+
+
 
 }

@@ -18,4 +18,10 @@ interface PaperDetailsView extends PapersViewBase {
     void setDownloadedIcon();
 
     void setNotDownloadedIcon();
+
+    void showDeletePaperIcon();
+
+    void hideDeletePaperIcon();
+
+    void showDeleteSuccessfulToast();
 }

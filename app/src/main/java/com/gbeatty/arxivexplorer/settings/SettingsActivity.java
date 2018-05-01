@@ -67,6 +67,21 @@ public class SettingsActivity extends BaseSettingsActivity {
 
             PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(getActivity());
 
+            //DASHBOARD PREFERENCES
+            PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
+            dashboardCategory.setTitle("Dashboard Preferences");
+            screen.addPreference(dashboardCategory);
+
+            Preference dashboardPreferences = new Preference(getActivity());
+            dashboardPreferences.setKey("dashboard_preferences");
+            dashboardPreferences.setTitle(R.string.pref_title_dashboard_preferences);
+
+            dashboardCategory.addPreference(dashboardPreferences);
+
+            setPreferenceScreen(screen);
+            //END DASHBOARD PREFERENCES
+
+
             PreferenceCategory generalCategory = new PreferenceCategory(getActivity());
             generalCategory.setTitle("General Preferences");
 
@@ -122,18 +137,6 @@ public class SettingsActivity extends BaseSettingsActivity {
             generalCategory.addPreference(darkMode);
             generalCategory.addPreference(latex);
             generalCategory.addPreference(deleteDownloadedPapers);
-
-            PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
-            dashboardCategory.setTitle("Dashboard Preferences");
-            screen.addPreference(dashboardCategory);
-
-            Preference dashboardPreferences = new Preference(getActivity());
-            dashboardPreferences.setKey("dashboard_preferences");
-            dashboardPreferences.setTitle(R.string.pref_title_dashboard_preferences);
-
-            dashboardCategory.addPreference(dashboardPreferences);
-
-            setPreferenceScreen(screen);
 
             bindPreferenceSummaryToValue(sortOrder);
             bindPreferenceSummaryToValue(sortBy);

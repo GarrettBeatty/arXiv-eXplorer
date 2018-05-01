@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.helpers;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.paper.details.PaperDetailsPresenter;
 
 import java.io.File;
@@ -10,7 +8,6 @@ public class Helper {
 
     public static void deleteFilesDir(File dir) {
         try {
-            Log.d("deleting dir", dir.getAbsolutePath());
             deleteDir(dir);
         } catch (Exception e) {
             e.printStackTrace();

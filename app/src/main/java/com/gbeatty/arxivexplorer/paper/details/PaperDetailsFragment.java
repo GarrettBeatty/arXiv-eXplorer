@@ -48,6 +48,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
+    private MenuItem deletePaper;
     private ProgressDialog progressDialog;
 
     public PaperDetailsFragment() {
@@ -86,8 +87,10 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         inflater.inflate(R.menu.menu_paper_details, menu);
         favoritePaper = menu.findItem(R.id.menu_favorite_paper);
         downloadedPaper = menu.findItem(R.id.menu_download_paper);
+        deletePaper = menu.findItem(R.id.menu_delete_paper);
         presenter.updateFavoritedMenuItem();
         presenter.updateDownloadedMenuItem();
+        presenter.updateDeletePaperMenuItem();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -100,6 +103,9 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
                 return true;
             case R.id.menu_download_paper:
                 presenter.navigationDownloadPaperClicked();
+                return true;
+            case R.id.menu_delete_paper:
+                presenter.navigationDeletePaperClicked();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -246,6 +252,21 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void setNotDownloadedIcon() {
         downloadedPaper.setIcon(R.drawable.ic_file_download_black_24dp);
+    }
+
+    @Override
+    public void showDeletePaperIcon() {
+        deletePaper.setVisible(true);
+    }
+
+    @Override
+    public void hideDeletePaperIcon() {
+        deletePaper.setVisible(false);
+    }
+
+    @Override
+    public void showDeleteSuccessfulToast() {
+        Toast.makeText(getContext(), "Paper Deleted from Downloads", Toast.LENGTH_SHORT).show();
     }
 
 }
