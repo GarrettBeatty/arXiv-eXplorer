@@ -29,6 +29,7 @@ import com.gbeatty.arxivexplorer.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
 import com.gbeatty.arxivexplorer.downloaded.DownloadedFragment;
 import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
+import com.gbeatty.arxivexplorer.helpers.Defaults;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.paper.list.PapersFragment;
@@ -290,19 +291,19 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     public String getSortOrder() {
-        return preferences.getString("sort_order_list", ArxivAPI.SORT_ORDER_DESCENDING);
+        return preferences.getString("sort_order_list", Defaults.SORT_ORDER);
     }
 
     public String getSortBy() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE);
+        return preferences.getString("sort_by_list", Defaults.SORT_BY);
     }
 
     public int getMaxResult() {
-        return Integer.parseInt(preferences.getString("max_results", getString(R.string.maxResultDefault)));
+        return Integer.parseInt(preferences.getString("max_results", Defaults.MAX_RESULTS));
     }
 
     public boolean isShowAbstract() {
-        return preferences.getBoolean("show_abstract", true);
+        return preferences.getBoolean("show_abstract", Defaults.SHOW_ABSTRACT);
     }
 
     @Override
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @Override
     public boolean isRenderLatex() {
-        return preferences.getBoolean("latex", false);
+        return preferences.getBoolean("latex", Defaults.RENDER_LATEX);
     }
 
     @Override
@@ -336,6 +337,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     private boolean isDarkMode() {
-        return preferences.getBoolean("dark_mode", false);
+        return preferences.getBoolean("dark_mode", Defaults.DARK_MODE);
     }
 }

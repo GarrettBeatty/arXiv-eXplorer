@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.R;
+import com.gbeatty.arxivexplorer.helpers.Defaults;
 import com.gbeatty.arxivexplorer.helpers.Helper;
-import com.gbeatty.arxivexplorer.network.ArxivAPI;
 
 import java.io.File;
 
@@ -88,7 +88,7 @@ public class SettingsActivity extends BaseSettingsActivity {
             screen.addPreference(generalCategory);
 
             ListPreference sortBy = new ListPreference(getActivity());
-            sortBy.setDefaultValue(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+            sortBy.setDefaultValue(Defaults.SORT_BY);
             sortBy.setEntries(R.array.pref_sort_by_list_titles);
             sortBy.setEntryValues(R.array.pref_sort_by_list_values);
             sortBy.setKey("sort_by_list");
@@ -97,7 +97,7 @@ public class SettingsActivity extends BaseSettingsActivity {
             sortBy.setTitle(R.string.pref_title_sort_by);
 
             ListPreference sortOrder = new ListPreference(getActivity());
-            sortOrder.setDefaultValue(ArxivAPI.SORT_ORDER_DESCENDING);
+            sortOrder.setDefaultValue(Defaults.SORT_ORDER);
             sortOrder.setEntries(R.array.pref_sort_order_list_titles);
             sortOrder.setEntryValues(R.array.pref_sort_order_list_values);
             sortOrder.setKey("sort_order_list");
@@ -106,7 +106,7 @@ public class SettingsActivity extends BaseSettingsActivity {
             sortOrder.setTitle(R.string.pref_title_sort_order);
 
             EditTextPreference maxResults = new EditTextPreference(getActivity());
-            maxResults.setDefaultValue("10");
+            maxResults.setDefaultValue(Defaults.MAX_RESULTS);
             maxResults.setKey("max_results");
             maxResults.setTitle(R.string.pref_title_max_results);
             maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -116,17 +116,17 @@ public class SettingsActivity extends BaseSettingsActivity {
             deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
 
             SwitchPreference showAbstract = new SwitchPreference(getActivity());
-            showAbstract.setDefaultValue(false);
+            showAbstract.setDefaultValue(Defaults.SHOW_ABSTRACT);
             showAbstract.setKey("show_abstract");
             showAbstract.setTitle(R.string.pref_title_show_abstract);
 
             SwitchPreference darkMode = new SwitchPreference(getActivity());
-            darkMode.setDefaultValue(false);
+            darkMode.setDefaultValue(Defaults.DARK_MODE);
             darkMode.setKey("dark_mode");
             darkMode.setTitle(R.string.pref_title_dark_mode);
 
             SwitchPreference latex = new SwitchPreference(getActivity());
-            latex.setDefaultValue(false);
+            latex.setDefaultValue(Defaults.RENDER_LATEX);
             latex.setKey("latex");
             latex.setTitle(R.string.pref_title_latex);
 
