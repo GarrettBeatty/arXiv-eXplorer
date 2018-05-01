@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     }
 
     public boolean isShowAbstract() {
-        return preferences.getBoolean("show_abstract", false);
+        return preferences.getBoolean("show_abstract", true);
     }
 
     @Override
