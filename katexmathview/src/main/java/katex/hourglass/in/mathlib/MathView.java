@@ -109,6 +109,7 @@ public class MathView extends WebView {
                 "body {"+
                 "margin: 0px;"+
                 "padding: 0px;"+
+                ".katex { font-size: 1em !important; }" +
                 "font-size:" +this.text_size+"px;"+
                 "color:"+getHexColor(this.text_color)+";"+
                 " }"+
@@ -132,10 +133,6 @@ public class MathView extends WebView {
                 "        </script>\n" +
                 "    </body>\n" +
                 "</html>";
-        String start = "<html><head><meta http-equiv='Content-Type' content='text/html' charset='UTF-8' /><style> body {"+
-       " white-space: nowrap;}</style></head><body>";
-
-    String end = "</body></html>";
         //return   start+offline_config.replace("{formula}",this.display_text)+end;
         return offline_config.replace("{formula}",this.display_text);
 
@@ -158,7 +155,6 @@ public class MathView extends WebView {
     {
         //Android and javascript color format differ javascript support Hex color, so the android color which user sets is converted to hexcolor to replicate the same in javascript.
         String hexColor = String.format("#%06X", (0xFFFFFF & intColor));
-        Log.d(TAG,"Hex Color:"+hexColor);
         return hexColor;
     }
 
