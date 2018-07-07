@@ -218,7 +218,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         try {
             startActivity(intent1);
         } catch (ActivityNotFoundException e) {
-            // Instruct the user to install a PDF reader here, or something
+            Toast.makeText(getContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show();
         }
     }
 
