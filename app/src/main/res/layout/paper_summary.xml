@@ -47,6 +47,13 @@
         android:textColor="@color/secondary_text" />
 
     <TextView
+        android:id="@+id/paper_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textColor="@color/secondary_text" />
+
+    <TextView
         android:id="@+id/paper_categories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

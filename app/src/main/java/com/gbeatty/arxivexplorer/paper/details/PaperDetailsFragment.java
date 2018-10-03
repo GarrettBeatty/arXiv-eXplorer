@@ -45,6 +45,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperPublished;
     @BindView(R.id.paper_categories)
     TextView paperCategories;
+    @BindView(R.id.paper_id)
+    TextView paperID;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
@@ -184,6 +186,11 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void showTitle() {
         paperTitle.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setPaperID(String id) {
+        paperID.setText(id);
     }
 
     @Override

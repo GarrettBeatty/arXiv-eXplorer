@@ -36,4 +36,7 @@ public interface PapersViewBase {
     void hideTitle();
 
     void showTitle();
+
+    void setPaperID(String paperID);
+
 }
