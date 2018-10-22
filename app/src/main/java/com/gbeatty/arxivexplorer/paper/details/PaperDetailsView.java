@@ -24,4 +24,6 @@ interface PaperDetailsView extends PapersViewBase {
     void hideDeletePaperIcon();
 
     void showDeleteSuccessfulToast();
+
+    void sharePaperURL(String text);
 }

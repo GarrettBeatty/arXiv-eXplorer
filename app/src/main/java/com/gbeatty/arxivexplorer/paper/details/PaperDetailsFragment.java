@@ -106,9 +106,13 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
             case R.id.menu_download_paper:
                 presenter.navigationDownloadPaperClicked();
                 return true;
+            case R.id.menu_share_paper:
+                presenter.navigationSharePaperClicked();
+                return true;
             case R.id.menu_delete_paper:
                 presenter.navigationDeletePaperClicked();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -274,6 +278,14 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void showDeleteSuccessfulToast() {
         Toast.makeText(getContext(), "Paper Deleted from Downloads", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void sharePaperURL(String text) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
 }

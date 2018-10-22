@@ -48,5 +48,6 @@
     <string name="downloaded">Downloaded</string>
     <string name="pref_title_dark_mode">Dark Mode</string>
     <string name="pref_title_latex">Render Latex</string>
+    <string name="share">Share</string>
 
 </resources>

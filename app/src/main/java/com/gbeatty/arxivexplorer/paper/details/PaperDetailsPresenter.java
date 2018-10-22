@@ -152,6 +152,7 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         });
     }
 
-
-
+    public void navigationSharePaperClicked() {
+        view.sharePaperURL(paper.getPaperURL());
+    }
 }
