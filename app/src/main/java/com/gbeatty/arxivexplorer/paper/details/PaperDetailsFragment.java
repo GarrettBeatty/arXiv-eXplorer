@@ -45,6 +45,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperPublished;
     @BindView(R.id.paper_categories)
     TextView paperCategories;
+    @BindView(R.id.paper_id)
+    TextView paperID;
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
@@ -104,9 +106,13 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
             case R.id.menu_download_paper:
                 presenter.navigationDownloadPaperClicked();
                 return true;
+            case R.id.menu_share_paper:
+                presenter.navigationSharePaperClicked();
+                return true;
             case R.id.menu_delete_paper:
                 presenter.navigationDeletePaperClicked();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -187,6 +193,11 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     }
 
     @Override
+    public void setPaperID(String id) {
+        paperID.setText(id);
+    }
+
+    @Override
     public void setSummary(String summary) {
         paperSummary.setText(summary);
     }
@@ -218,7 +229,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         try {
             startActivity(intent1);
         } catch (ActivityNotFoundException e) {
-            // Instruct the user to install a PDF reader here, or something
+            Toast.makeText(getContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -267,6 +278,14 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void showDeleteSuccessfulToast() {
         Toast.makeText(getContext(), "Paper Deleted from Downloads", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void sharePaperURL(String text) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
 }

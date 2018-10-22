@@ -17,6 +17,7 @@ public class Paper extends SugarRecord<Paper> implements Serializable {
     private boolean downloaded;
     private boolean favorited;
     private String categories;
+    private String paperURL;
 
     public Paper() {
 
@@ -29,7 +30,8 @@ public class Paper extends SugarRecord<Paper> implements Serializable {
                  String publishedDate,
                  String paperID,
                  String pdfURL,
-                 String categories) {
+                 String categories,
+                 String paperURL) {
         this.title = title;
         this.author = author;
         this.summary = summary;
@@ -38,6 +40,7 @@ public class Paper extends SugarRecord<Paper> implements Serializable {
         this.paperID = paperID;
         this.pdfURL = pdfURL;
         this.categories = categories;
+        this.paperURL = paperURL;
         this.downloaded = false;
         this.favorited = false;
     }
@@ -84,5 +87,9 @@ public class Paper extends SugarRecord<Paper> implements Serializable {
 
     public String getCategories() {
         return categories;
+    }
+
+    public String getPaperURL() {
+        return paperURL;
     }
 }

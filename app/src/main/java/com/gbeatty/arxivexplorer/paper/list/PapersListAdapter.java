@@ -100,6 +100,8 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         @BindView(R.id.paper_title)
         TextView paperTitle;
+        @BindView(R.id.paper_id)
+        TextView paperID;
         //        @BindView(R.id.paper_title_latex)
 //        MathView paperTitleLatex;
         @BindView(R.id.paper_authors)
@@ -203,6 +205,11 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         public void showTitle() {
             paperTitle.setVisibility(View.VISIBLE);
 
+        }
+
+        @Override
+        public void setPaperID(String id) {
+            paperID.setText(id);
         }
 
         @Override

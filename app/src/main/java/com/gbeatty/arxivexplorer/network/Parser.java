@@ -58,6 +58,7 @@ public class Parser {
         String published = null;
         String id = null;
         String pdfLink = null;
+        String url = null;
         StringBuilder categories = null;
 
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -82,7 +83,9 @@ public class Parser {
             } else if (name.equals("published")) {
                 published = readDate(parser);
             } else if (name.equals("id")) {
-                id = readID(parser);
+                String[] idUrl = readID(parser);
+                id = idUrl[0];
+                url = idUrl[1];
             } else if (name.equals("link") && parser.getAttributeValue(null, "title") != null &&
                     parser.getAttributeValue(null, "title").equals("pdf")) {
                 pdfLink = readPDFURL(parser);
@@ -96,7 +99,7 @@ public class Parser {
                 skip(parser);
             }
         }
-        return new Paper(title, author.toString(), summary, updated, published, id, pdfLink, categories.toString());
+        return new Paper(title, author.toString(), summary, updated, published, id, pdfLink, categories.toString(), url);
     }
 
     private static String readDate(XmlPullParser parser) throws IOException, XmlPullParserException, ParseException {
@@ -150,12 +153,12 @@ public class Parser {
         return pdfLink;
     }
 
-    private static String readID(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private static String[] readID(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, null, "id");
-        String id = readText(parser);
-        id = id.substring(id.lastIndexOf("/") + 1);
+        String url = readText(parser);
+        String id = url.substring(url.lastIndexOf("/") + 1);
         parser.require(XmlPullParser.END_TAG, null, "id");
-        return id;
+        return new String[] {id, url};
     }
 
 //    private static DateTime readPublished(XmlPullParser parser) throws IOException, XmlPullParserException {
