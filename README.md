@@ -30,12 +30,6 @@ git clone https://github.com/GarrettBeatty/arXiv-eXplorer.git
 bundle install
 ```
 
-## Running the tests
-
-```
-fastlane test
-```
-
 ## Built With
 
 * [OkHttp](http://square.github.io/okhttp/)
