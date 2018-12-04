@@ -1,6 +1,4 @@
-# arXiv eXplorer 
-master: [![Build Status](https://travis-ci.org/GarrettBeatty/arXiv-eXplorer.svg?branch=master)](https://travis-ci.org/GarrettBeatty/arXiv-eXplorer)
-dev: [![Build Status](https://travis-ci.org/GarrettBeatty/arXiv-eXplorer.svg?branch=dev)](https://travis-ci.org/GarrettBeatty/arXiv-eXplorer)
+# arXiv eXplorer
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
