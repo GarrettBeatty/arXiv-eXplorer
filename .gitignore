@@ -9,12 +9,9 @@
 .externalNativeBuild
 app/release/
 keystore.properties
-fabric.properties
 keystore.jks
 fastlane/googleplay.json
 fastlane/metadata/android/screenshots.html
-secrets.tar.gz
-secrets.tar
 
 # fastlane specific
 fastlane/report.xml

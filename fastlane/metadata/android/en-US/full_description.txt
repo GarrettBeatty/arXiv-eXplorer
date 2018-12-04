@@ -1,0 +1,20 @@
+Find, save, and download arXiv articles quickly and easily with arXiv eXplorer!
+
+Features include:
+• Personalized Dashboard (Customize which arXiv categories you want to view)
+• Browse categories (Physics, Astronomy, Computer Science, etc)
+• Favorite arXiv articles
+• Search for arXiv articles
+• Download arXiv articles and save the PDF
+• Share papers easily!
+• Pagination
+• Latex Support
+• Dark Mode
+• Animations
+• Material Design
+• Free
+• Open Source
+
+The app is open source and contributions are welcome at https://github.com/GarrettBeatty/arXiv-eXplorer
+
+If you have any suggestions just create an issue at https://github.com/GarrettBeatty/arXiv-eXplorer/issues
