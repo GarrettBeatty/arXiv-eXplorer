@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         preferences = getSharedPreferences();
         super.onCreate(savedInstanceState);
-//        Fabric.with(this, new Crashlytics());
 
         if (isDarkMode()) {
             if (Build.VERSION.SDK_INT >= 23) {
