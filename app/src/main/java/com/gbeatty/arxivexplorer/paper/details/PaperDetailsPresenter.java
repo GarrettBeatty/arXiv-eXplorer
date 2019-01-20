@@ -39,8 +39,8 @@ public class PaperDetailsPresenter extends PapersPresenterBase {
         view.setTitle(paper.getTitle());
         view.setAuthors(paper.getAuthor());
         view.setPaperID("ID: " + paper.getPaperID());
-        view.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
-        view.setPublishedDate("Submitted: " + paper.getPublishedDate());
+        view.setLastUpdatedDate("Updated: " + Helper.convertDateToLocale(paper.getUpdatedDate()));
+        view.setPublishedDate("Submitted: " + Helper.convertDateToLocale(paper.getPublishedDate()));
         view.setPaperCategories(paper.getCategories());
 
         view.hideSummary();

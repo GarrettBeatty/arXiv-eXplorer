@@ -3,8 +3,25 @@ package com.gbeatty.arxivexplorer.helpers;
 import com.gbeatty.arxivexplorer.paper.details.PaperDetailsPresenter;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Helper {
+
+    public static String convertDateToLocale(String dateStr){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            // handle exception here !
+        }
+
+        String myString = DateFormat.getDateInstance(DateFormat.SHORT).format(date);
+        return myString;
+    }
 
     public static void deleteFilesDir(File dir) {
         try {

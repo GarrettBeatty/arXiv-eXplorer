@@ -3,23 +3,28 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_dashboard_settings">Dashboard Settings</string>
 
-    <!-- Strings related to Settings -->
+    <string name="submittedDate">submittedDate</string>
+    <string name="lastUpdatedDate">lastUpdatedDate</string>
+    <string name="relevance">relevance</string>
+    <string name="descending">descending</string>
+    <string name="ascending">ascending</string>
 
-    <!-- Example General settings -->
+    <string name="sort_order_default">@string/descending</string>
+    <string name="sort_by_default">@string/submittedDate</string>
 
-    <string name="pref_title_sort_by">Paper Sort Order</string>
     <string-array name="pref_sort_by_list_titles">
         <item>Updated Date</item>
         <item>Submitted Date</item>
         <item>Relevance</item>
     </string-array>
     <string-array name="pref_sort_by_list_values">
-        <item>lastUpdatedDate</item>
-        <item>submittedDate</item>
-        <item>relevance</item>
+        <item>@string/lastUpdatedDate</item>
+        <item>@string/submittedDate</item>
+        <item>@string/relevance</item>
     </string-array>
 
-    <string name="pref_title_sort_order">Paper Order By</string>
+    <string name="pref_title_sort_by">Paper Sort By</string>
+    <string name="pref_title_sort_order">Paper Sort Order</string>
     <string name="pref_title_clear_downloads">Delete Downloaded Papers Cache</string>
     <string name="pref_title_max_results">Max Results</string>
     <string name="category">Category</string>
@@ -31,7 +36,6 @@
     <string name="browse">Browse</string>
     <string name="favorites">Favorites</string>
     <string name="favorite_paper">Favorite Paper</string>
-    <string name="maxResultDefault">10</string>
     <string name="dashboard">Dashboard</string>
     <string name="pref_title_show_abstract">Show Abstract in List View</string>
     <string-array name="pref_sort_order_list_titles">
@@ -39,8 +43,8 @@
         <item>Oldest</item>
     </string-array>
     <string-array name="pref_sort_order_list_values">
-        <item>descending</item>
-        <item>ascending</item>
+        <item>@string/descending</item>
+        <item>@string/ascending</item>
     </string-array>
 
     <string name="pref_title_dashboard_preferences">Dashboard Categories</string>
@@ -49,5 +53,16 @@
     <string name="pref_title_dark_mode">Dark Mode</string>
     <string name="pref_title_latex">Render Latex</string>
     <string name="share">Share</string>
+    <string name="general_preferences">General Preferences</string>
+    <string name="sort_by_list_key">sort_by_list</string>
+    <string name="sort_order_list_key">sort_order_list</string>
+    <string name="max_results_key">max_results</string>
+    <string name="delete_downloaded_papers_key">delete_downloaded_papers</string>
+    <string name="show_abstract_key">show_abstract</string>
+    <string name="dark_mode_key">dark_mode</string>
+    <string name="render_latex_key">render_latex</string>
+    <string name="dashboard_preferences_key">dashboard_preferences</string>
+    <string name="dashboard_preferences">Dashboard Preferences</string>
+    <string name="error_loading">Error Loading Papers</string>
 
 </resources>

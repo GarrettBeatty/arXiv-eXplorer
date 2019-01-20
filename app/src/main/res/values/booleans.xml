@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="render_latex_default">false</bool>
+    <bool name="dark_mode_default">false</bool>
+    <bool name="show_abstract_default">true</bool>
+
+</resources>

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 
 public abstract class BaseFragment extends Fragment implements SharedPreferencesView {
@@ -80,7 +81,7 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
     public void showError() {
         if (getActivity() == null) return;
         if(getContext() == null) return;
-        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error Loading Papers", Toast.LENGTH_SHORT).show());
+        getActivity().runOnUiThread(() -> Toast.makeText(getContext(), R.string.error_loading, Toast.LENGTH_SHORT).show());
     }
 
     public interface ActivityListener {

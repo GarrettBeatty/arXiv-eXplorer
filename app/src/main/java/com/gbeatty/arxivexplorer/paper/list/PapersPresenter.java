@@ -1,5 +1,6 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
+import com.gbeatty.arxivexplorer.helpers.Helper;
 import com.gbeatty.arxivexplorer.helpers.Tags;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -53,11 +54,11 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         if (getSharedPreferenceView().isLastUpdatedDate()) {
             paperRowView.hidePublishedDate();
             paperRowView.showLastUpdatedDate();
-            paperRowView.setLastUpdatedDate("Updated: " + paper.getUpdatedDate());
+            paperRowView.setLastUpdatedDate("Updated: " + Helper.convertDateToLocale(paper.getUpdatedDate()));
         } else {
             paperRowView.hideLastUpdatedDate();
             paperRowView.showPublishedDate();
-            paperRowView.setPublishedDate("Submitted: " + paper.getPublishedDate());
+            paperRowView.setPublishedDate("Submitted: " + Helper.convertDateToLocale(paper.getPublishedDate()));
         }
 
         paperRowView.setTitle(paper.getTitle());

@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.R;
-import com.gbeatty.arxivexplorer.helpers.Defaults;
 import com.gbeatty.arxivexplorer.helpers.Helper;
 
 import java.io.File;
@@ -69,11 +68,11 @@ public class SettingsActivity extends BaseSettingsActivity {
 
             //DASHBOARD PREFERENCES
             PreferenceCategory dashboardCategory = new PreferenceCategory(getActivity());
-            dashboardCategory.setTitle("Dashboard Preferences");
+            dashboardCategory.setTitle(R.string.dashboard_preferences);
             screen.addPreference(dashboardCategory);
 
             Preference dashboardPreferences = new Preference(getActivity());
-            dashboardPreferences.setKey("dashboard_preferences");
+            dashboardPreferences.setKey(getString(R.string.dashboard_preferences_key));
             dashboardPreferences.setTitle(R.string.pref_title_dashboard_preferences);
 
             dashboardCategory.addPreference(dashboardPreferences);
@@ -83,51 +82,51 @@ public class SettingsActivity extends BaseSettingsActivity {
 
 
             PreferenceCategory generalCategory = new PreferenceCategory(getActivity());
-            generalCategory.setTitle("General Preferences");
+            generalCategory.setTitle(R.string.general_preferences);
 
             screen.addPreference(generalCategory);
 
             ListPreference sortBy = new ListPreference(getActivity());
-            sortBy.setDefaultValue(Defaults.SORT_BY);
+            sortBy.setDefaultValue(getResources().getString(R.string.sort_by_default));
             sortBy.setEntries(R.array.pref_sort_by_list_titles);
             sortBy.setEntryValues(R.array.pref_sort_by_list_values);
-            sortBy.setKey("sort_by_list");
+            sortBy.setKey(getString(R.string.sort_by_list_key));
             sortBy.setPositiveButtonText(null);
             sortBy.setNegativeButtonText(null);
             sortBy.setTitle(R.string.pref_title_sort_by);
 
             ListPreference sortOrder = new ListPreference(getActivity());
-            sortOrder.setDefaultValue(Defaults.SORT_ORDER);
+            sortOrder.setDefaultValue(getResources().getString(R.string.sort_order_default));
             sortOrder.setEntries(R.array.pref_sort_order_list_titles);
             sortOrder.setEntryValues(R.array.pref_sort_order_list_values);
-            sortOrder.setKey("sort_order_list");
+            sortOrder.setKey(getString(R.string.sort_order_list_key));
             sortOrder.setPositiveButtonText(null);
             sortOrder.setNegativeButtonText(null);
             sortOrder.setTitle(R.string.pref_title_sort_order);
 
             EditTextPreference maxResults = new EditTextPreference(getActivity());
-            maxResults.setDefaultValue(Defaults.MAX_RESULTS);
-            maxResults.setKey("max_results");
+            maxResults.setDefaultValue(getResources().getInteger(R.integer.max_results_default));
+            maxResults.setKey(getString(R.string.max_results_key));
             maxResults.setTitle(R.string.pref_title_max_results);
             maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
 
             Preference deleteDownloadedPapers = new Preference(getActivity());
-            deleteDownloadedPapers.setKey("delete_downloaded_papers");
+            deleteDownloadedPapers.setKey(getString(R.string.delete_downloaded_papers_key));
             deleteDownloadedPapers.setTitle(R.string.pref_title_clear_downloads);
 
             SwitchPreference showAbstract = new SwitchPreference(getActivity());
-            showAbstract.setDefaultValue(Defaults.SHOW_ABSTRACT);
-            showAbstract.setKey("show_abstract");
+            showAbstract.setDefaultValue(getResources().getBoolean(R.bool.show_abstract_default));
+            showAbstract.setKey(getString(R.string.show_abstract_key));
             showAbstract.setTitle(R.string.pref_title_show_abstract);
 
             SwitchPreference darkMode = new SwitchPreference(getActivity());
-            darkMode.setDefaultValue(Defaults.DARK_MODE);
-            darkMode.setKey("dark_mode");
+            darkMode.setDefaultValue(getResources().getBoolean(R.bool.dark_mode_default));
+            darkMode.setKey(getString(R.string.dark_mode_key));
             darkMode.setTitle(R.string.pref_title_dark_mode);
 
             SwitchPreference latex = new SwitchPreference(getActivity());
-            latex.setDefaultValue(Defaults.RENDER_LATEX);
-            latex.setKey("latex");
+            latex.setDefaultValue(getResources().getBoolean(R.bool.render_latex_default));
+            latex.setKey(getString(R.string.render_latex_key));
             latex.setTitle(R.string.pref_title_latex);
 
             generalCategory.addPreference(sortBy);

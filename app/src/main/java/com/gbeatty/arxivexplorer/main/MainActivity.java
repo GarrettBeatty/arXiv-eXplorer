@@ -29,9 +29,7 @@ import com.gbeatty.arxivexplorer.category.CategoriesFragment;
 import com.gbeatty.arxivexplorer.dashboard.DashboardFragment;
 import com.gbeatty.arxivexplorer.downloaded.DownloadedFragment;
 import com.gbeatty.arxivexplorer.favorites.FavoritesFragment;
-import com.gbeatty.arxivexplorer.helpers.Defaults;
 import com.gbeatty.arxivexplorer.models.Category;
-import com.gbeatty.arxivexplorer.network.ArxivAPI;
 import com.gbeatty.arxivexplorer.paper.list.PapersFragment;
 import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
@@ -289,22 +287,6 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         }
     }
 
-    public String getSortOrder() {
-        return preferences.getString("sort_order_list", Defaults.SORT_ORDER);
-    }
-
-    public String getSortBy() {
-        return preferences.getString("sort_by_list", Defaults.SORT_BY);
-    }
-
-    public int getMaxResult() {
-        return Integer.parseInt(preferences.getString("max_results", Defaults.MAX_RESULTS));
-    }
-
-    public boolean isShowAbstract() {
-        return preferences.getBoolean("show_abstract", Defaults.SHOW_ABSTRACT);
-    }
-
     @Override
     public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
@@ -317,25 +299,42 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @Override
     public boolean isLastUpdatedDate() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_LAST_UPDATED_DATE);
+        return getSortBy().equals(getResources().getString(R.string.lastUpdatedDate));
     }
 
     @Override
     public boolean isRelevanceDate() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_RELEVANCE);
-    }
-
-    @Override
-    public boolean isRenderLatex() {
-        return preferences.getBoolean("latex", Defaults.RENDER_LATEX);
+        return getSortBy().equals(getResources().getString(R.string.relevance));
     }
 
     @Override
     public boolean isPublishedDate() {
-        return preferences.getString("sort_by_list", ArxivAPI.SORT_BY_SUBMITTED_DATE).equals(ArxivAPI.SORT_BY_SUBMITTED_DATE);
+        return getSortBy().equals( getResources().getString(R.string.submittedDate));
+    }
+
+    @Override
+    public boolean isRenderLatex() {
+        return preferences.getBoolean(getString(R.string.render_latex_key), getResources().getBoolean(R.bool.render_latex_default));
     }
 
     private boolean isDarkMode() {
-        return preferences.getBoolean("dark_mode", Defaults.DARK_MODE);
+        return preferences.getBoolean(getString(R.string.dark_mode_key), getResources().getBoolean(R.bool.dark_mode_default));
     }
+
+    public boolean isShowAbstract() {
+        return preferences.getBoolean(getString(R.string.show_abstract_key), getResources().getBoolean(R.bool.show_abstract_default));
+    }
+
+    public String getSortOrder() {
+        return preferences.getString(getString(R.string.sort_order_list_key), getResources().getString(R.string.sort_order_default));
+    }
+
+    public String getSortBy() {
+        return preferences.getString(getString(R.string.sort_by_list_key), getResources().getString(R.string.sort_by_default));
+    }
+
+    public int getMaxResult() {
+        return Integer.parseInt(preferences.getString(getString(R.string.max_results_key), String.valueOf(getResources().getInteger(R.integer.max_results_default))));
+    }
+
 }

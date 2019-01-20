@@ -89,7 +89,7 @@ public class BaseSettingsActivity extends AppCompatPreferenceActivity {
 
             Toolbar myToolbar = findViewById(R.id.toolbar);
 
-            if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("dark_mode", false)) {
+            if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(getString(R.string.dark_mode_key), false)) {
                 myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarLight, null));
             } else {
                 myToolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.toolbarDark, null));

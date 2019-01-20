@@ -7,13 +7,8 @@ import okhttp3.Request;
 
 public class ArxivAPI {
 
-    public static final String SORT_ORDER_DESCENDING = "descending";
-    public static final String SORT_BY_RELEVANCE = "relevance";
-    public static final String SORT_BY_SUBMITTED_DATE = "submittedDate";
     private static final String baseURL = "http://export.arxiv.org/api/";
     private static final String querySegment = "query";
-    public static String SORT_ORDER_ASCENDING = "ascending";
-    public static String SORT_BY_LAST_UPDATED_DATE = "lastUpdatedDate";
     private static OkHttpClient client;
 
     public static OkHttpClient getClient() {
