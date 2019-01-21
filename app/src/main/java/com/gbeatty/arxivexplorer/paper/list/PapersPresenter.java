@@ -122,9 +122,9 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     int getPapersRowsCount(int sectionIndex) {
 
-        if (papers == null || dates == null) return 0;
+        if (papers == null || dates == null || sectionIndex > dates.size()) return 0;
         if (isRelevanceDate() || view.getTag() == null || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)
-                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG) || view.getTag().equals(Tags.SEARCH_RESULTS_TAG))
+                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG))
             return papers.size();
 
         String date = dates.get(sectionIndex);
@@ -165,13 +165,15 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                     ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
 
-                    addToPapers(p);
+                    if(p.size() > 0){
+                        addToPapers(p);
+                        view.showPaginateLoading(false);
+                    }
+
 
                     if (p.size() < getSharedPreferenceView().getMaxResult()) {
                         view.setPaginateNoMoreData(true);
-                        return;
                     }
-                    view.showPaginateLoading(false);
 
                 } catch (XmlPullParserException | ParseException e) {
                     view.showPaginateLoading(false);
@@ -210,7 +212,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             return;
         }
 
-        if (isRelevanceDate() || view.getTag().equals(Tags.SEARCH_RESULTS_TAG)) {
+        if (isRelevanceDate()) {
             dates.add("Relevance");
             return;
         }

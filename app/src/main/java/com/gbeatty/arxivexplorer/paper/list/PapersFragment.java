@@ -86,7 +86,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
             paginate = new PaginateBuilder()
                     .with(papersRecyclerView)
                     .setOnLoadMoreListener(presenter)
-                    .setLoadingTriggerThreshold(5)
+                    .setLoadingTriggerThreshold(9)
                     .build();
         }
 
@@ -119,7 +119,11 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     @Override
     public void notifyAdapter() {
         if (papersListAdapter == null || getActivity() == null) return;
-        getActivity().runOnUiThread(() -> papersListAdapter.notifyDataSetChanged());
+        getActivity().runOnUiThread(() -> {
+//            papersRecyclerView.stopScroll();
+            papersListAdapter.notifyDataSetChanged();
+
+        });
     }
 
     @Override
