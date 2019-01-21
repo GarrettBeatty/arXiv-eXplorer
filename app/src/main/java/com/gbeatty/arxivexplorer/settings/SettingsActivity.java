@@ -105,7 +105,7 @@ public class SettingsActivity extends BaseSettingsActivity {
             sortOrder.setTitle(R.string.pref_title_sort_order);
 
             EditTextPreference maxResults = new EditTextPreference(getActivity());
-            maxResults.setDefaultValue(getResources().getInteger(R.integer.max_results_default));
+            maxResults.setDefaultValue(String.valueOf(getResources().getInteger(R.integer.max_results_default)));
             maxResults.setKey(getString(R.string.max_results_key));
             maxResults.setTitle(R.string.pref_title_max_results);
             maxResults.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
