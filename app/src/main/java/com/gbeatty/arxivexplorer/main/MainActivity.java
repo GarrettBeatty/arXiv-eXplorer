@@ -1,5 +1,6 @@
 package com.gbeatty.arxivexplorer.main;
 
+import android.app.AlertDialog;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -132,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         });
 
         goToRatingAuto();
+        donateDialog();
     }
 
     private void setNighModeThemes() {
@@ -226,6 +229,47 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     public void goToSettings() {
         Intent i = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(i);
+    }
+
+    public void donateDialog() {
+        int num = preferences.getInt("donate", 0);
+        boolean askAgain = preferences.getBoolean("askagain", true);
+
+        preferences
+                .edit()
+                .putInt("donate", num + 1)
+                .apply();
+
+        Log.d("number", String.valueOf(num));
+
+        if (num % 10 != 0) return;
+
+        if(!askAgain) return;
+        // Place your dialog code here to display the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Donate");
+        builder.setMessage("Consider donating to support the developer.");
+        builder.setPositiveButton("Yes, Donate",
+                (dialog, id) -> {
+                    preferences
+                            .edit()
+                            .putBoolean("askagain", false)
+                            .apply();
+                    goToDonate();
+                });
+
+        builder.setNegativeButton("Not now",
+                (dialog, id) -> dialog.cancel());
+
+        builder.setNeutralButton("do not ask again",
+                (dialog, id) -> {
+                    preferences
+                            .edit()
+                            .putBoolean("askagain", false)
+                            .apply();
+                    dialog.cancel();
+                });
+        builder.create().show();
     }
 
     @Override
@@ -339,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     @Override
     public boolean isPublishedDate() {
-        return getSortBy().equals( getResources().getString(R.string.submittedDate));
+        return getSortBy().equals(getResources().getString(R.string.submittedDate));
     }
 
     @Override
