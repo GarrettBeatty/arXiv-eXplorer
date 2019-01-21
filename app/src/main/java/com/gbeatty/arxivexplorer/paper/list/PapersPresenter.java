@@ -103,10 +103,22 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         updateIcons(paper, paperRowView);
     }
 
+    void downloadButtonClicked(int absolutePosition, int section, PaperRowView paperRowView) {
+        int position = absolutePosition - (section + 1);
+        Paper paper = papers.get(position);
+        viewFile(paper, paperRowView);
+        updateIcons(paper, paperRowView);
+
+    }
+
     private void updateIcons(Paper paper, PaperRowView paperRowView) {
         if (isPaperFavorited(paper.getPaperID())) paperRowView.setFavoritedIcon();
         else paperRowView.setNotFavoritedIcon();
+
+        if(isPaperDownloaded(paper.getPaperID())) paperRowView.setDownloadedIcon();
+        else paperRowView.setNotDownloadedIcon();
     }
+
 
     int getPapersRowsCount(int sectionIndex) {
 
@@ -264,4 +276,6 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         onRefresh();
         view.scrollToTop();
     }
+
+
 }

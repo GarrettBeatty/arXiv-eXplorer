@@ -1,16 +1,26 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
+import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.sectionedrecyclerview.ItemCoord;
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.gbeatty.arxivexplorer.BuildConfig;
 import com.gbeatty.arxivexplorer.R;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +29,7 @@ import katex.hourglass.in.mathlib.MathView;
 public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
 
     private final PapersPresenter presenter;
+    private ProgressDialog progressDialog;
 
     PapersListAdapter(PapersPresenter presenter) {
         this.presenter = presenter;
@@ -114,6 +125,8 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         TextView paperCategories;
         @BindView(R.id.button_favorite_paper)
         ImageButton favoritePaper;
+        @BindView(R.id.button_download_paper)
+        ImageButton downloadPaper;
         @BindView(R.id.paper_summary)
         TextView paperSummary;
         @BindView(R.id.paper_summary_latex)
@@ -135,7 +148,29 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 int section = position.section();
                 presenter.favoriteButtonClicked(getLayoutPosition(), section, this);
             });
+            downloadPaper.setOnClickListener(view -> {
+                ItemCoord position = getRelativePosition();
+                int section = position.section();
+                presenter.downloadButtonClicked(getLayoutPosition(), section, this);
+            });
 
+        }
+
+        @Override
+        public void viewDownloadedPaper(File downloadedFile) {
+            Log.d("testing", "testing");
+            if (itemView.getContext() == null) return;
+            Uri uri = FileProvider.getUriForFile(itemView.getContext(), BuildConfig.APPLICATION_ID + ".provider", downloadedFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent intent1 = Intent.createChooser(intent, "Open With");
+            try {
+                itemView.getContext().startActivity(intent1);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(itemView.getContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void setTitle(String title) {
@@ -210,6 +245,48 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void setPaperID(String id) {
             paperID.setText(id);
+        }
+
+        @Override
+        public void setDownloadedIcon() {
+            downloadPaper.setBackgroundResource(R.drawable.ic_remove_red_eye_black_24dp);
+        }
+
+        @Override
+        public void setNotDownloadedIcon() {
+            downloadPaper.setBackgroundResource(R.drawable.ic_file_download_black_24dp);
+        }
+
+        @Override
+        public File getFilesDir() {
+            return itemView.getContext().getFilesDir();
+        }
+
+        @Override
+        public void showLoading() {
+
+            progressDialog = new ProgressDialog(itemView.getContext());
+            progressDialog.setMessage("Downloading..");
+            progressDialog.setTitle("Downloading PDF");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+        }
+
+        @Override
+        public void errorLoading() {
+            //TODO fix
+//            if (itemView.getContext() == null) return;
+//            itemView.getContext().runOnUiThread(() -> {
+//                dismissLoading();
+//                Toast.makeText(itemView.getContext(), "Error Downloading Paper", Toast.LENGTH_SHORT).show();
+//            });
+        }
+
+        @Override
+        public void dismissLoading() {
+            progressDialog.dismiss();
         }
 
         @Override

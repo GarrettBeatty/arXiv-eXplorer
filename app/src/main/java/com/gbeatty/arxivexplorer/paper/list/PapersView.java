@@ -25,4 +25,5 @@ public interface PapersView {
     void showError();
 
     String getTag();
+
 }

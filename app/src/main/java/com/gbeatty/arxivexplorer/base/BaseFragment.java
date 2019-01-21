@@ -1,14 +1,21 @@
 package com.gbeatty.arxivexplorer.base;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
+import com.gbeatty.arxivexplorer.BuildConfig;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
+
+import java.io.File;
 
 public abstract class BaseFragment extends Fragment implements SharedPreferencesView {
 
@@ -82,6 +89,21 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         if (getActivity() == null) return;
         if(getContext() == null) return;
         getActivity().runOnUiThread(() -> Toast.makeText(getContext(), R.string.error_loading, Toast.LENGTH_SHORT).show());
+    }
+
+    public void viewDownloadedPaper(File downloadedFile) {
+        if (getActivity() == null) return;
+        Uri uri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", downloadedFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent intent1 = Intent.createChooser(intent, "Open With");
+        try {
+            startActivity(intent1);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public interface ActivityListener {

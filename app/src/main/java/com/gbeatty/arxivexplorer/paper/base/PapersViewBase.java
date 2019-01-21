@@ -1,6 +1,11 @@
 package com.gbeatty.arxivexplorer.paper.base;
 
+import java.io.File;
+
 public interface PapersViewBase {
+
+    void viewDownloadedPaper(File downloadedFile);
+
     void setTitle(String title);
 
     void setAuthors(String authors);
@@ -39,4 +44,15 @@ public interface PapersViewBase {
 
     void setPaperID(String paperID);
 
+    void setDownloadedIcon();
+
+    void setNotDownloadedIcon();
+
+    File getFilesDir();
+
+    void showLoading();
+
+    void errorLoading();
+
+    void dismissLoading();
 }

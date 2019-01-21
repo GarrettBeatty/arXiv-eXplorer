@@ -21,16 +21,34 @@
 
         <include layout="@layout/paper_summary" />
 
-        <ImageButton
-            android:id="@+id/button_favorite_paper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/ic_favorite_black_24dp"
-            android:backgroundTint="@color/favoriteColor"
-            android:contentDescription="@string/favorite_paper" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end">
+
+            <ImageButton
+                android:id="@+id/button_download_paper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_file_download_black_24dp"
+                android:backgroundTint="@color/favoriteColor"
+                android:contentDescription="@string/download" />
+
+            <ImageButton
+                android:id="@+id/button_favorite_paper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_favorite_black_24dp"
+                android:backgroundTint="@color/favoriteColor"
+                android:contentDescription="@string/favorite_paper" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

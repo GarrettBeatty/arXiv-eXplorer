@@ -1,11 +1,8 @@
 package com.gbeatty.arxivexplorer.paper.details;
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gbeatty.arxivexplorer.BuildConfig;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.models.Paper;
@@ -217,22 +213,9 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         return getActivity().getFilesDir();
     }
 
-    @Override
-    public void viewDownloadedPaper(File downloadedFile) {
-        if (getActivity() == null) return;
-        Uri uri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", downloadedFile);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(uri, "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Intent intent1 = Intent.createChooser(intent, "Open With");
-        try {
-            startActivity(intent1);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show();
-        }
-    }
 
+
+    @Override
     public void showLoading() {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Downloading..");
@@ -242,6 +225,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         progressDialog.show();
     }
 
+    @Override
     public void dismissLoading() {
         progressDialog.dismiss();
     }
