@@ -21,6 +21,8 @@ interface MainView {
 
     void goToRating();
 
+    void goToDonate();
+
     void switchToDownloadedFragment(String downloadedFragmentTag);
 
     void refreshPaperList();

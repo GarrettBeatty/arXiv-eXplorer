@@ -93,4 +93,8 @@ class MainPresenter extends BasePresenter {
     public void navigationRatingClicked() {
         view.goToRating();
     }
+
+    public void navigationDonateClicked() {
+        view.goToDonate();
+    }
 }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.codemybrainsout.ratingdialog.RatingDialog;
+import com.gbeatty.arxivexplorer.BuildConfig;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.category.CategoriesFragment;
@@ -35,6 +36,8 @@ import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import org.sufficientlysecure.donations.DonationsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
     private SharedPreferences preferences;
     private Toolbar myToolbar;
 
+    private static final String GOOGLE_PUBKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA26PDdUKgq2kMQsOVxnJ0elEquDXue03TOCuJPyOHAbuArGH5+9XMWGXBkLOxJW3yKVQB7P7u2rFtOMyPMSObm8Ja8yHWT5o+fELttwPW+QDOtYspURcvf9QCJPHU0IyEwNWBJLfWqrLaqFlrdmJKnmsihcwsKot53jHGv+FxehGNrb00sBy9k5oau1DlqlrNMsCDzHdp0GZGXuJ5RF2x+vh3AXHVLmvNZes1LRgYRRppVLNcFwdiLTqqRFJ9+m3OTRRC18x7QfM8HY+d2mj4IcMhbeP/8IsUf2CxeGe+1Ot1N4UXQ/xrSx91W74HJDhWoQERpN+v/Ea8/zDxNlWrUwIDAQAB";
+    private static final String[] GOOGLE_CATALOG = new String[]{"donate_1",
+            "donate_2", "donate_3", "donate_5", "donate_8",
+            "donate_13"};
+
+    private static final String BITCOIN_ADDRESS = "bc1q6p0k9ddzcv0ajsm85l0da4v03lq9k0n8dnhg38";
 
     @Override
     protected void onResume() {
@@ -168,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             case R.id.menu_rating:
                 presenter.navigationRatingClicked();
                 return true;
+            case R.id.menu_donate:
+                presenter.navigationDonateClicked();
+                return true;
         }
         return false;
     }
@@ -224,6 +236,24 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
                 .onRatingBarFormSumbit(this::sendFeedbackEmail).build();
 
         ratingDialog.show();
+    }
+
+    @Override
+    public void goToDonate() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        DonationsFragment donationsFragment;
+        if (BuildConfig.DONATIONS_GOOGLE) {
+            donationsFragment = DonationsFragment.newInstance(BuildConfig.DEBUG, true, GOOGLE_PUBKEY, GOOGLE_CATALOG,
+                    getResources().getStringArray(R.array.donation_google_catalog_values), false, null, null,
+                    null, false, null, null, false, null);
+        } else {
+            donationsFragment = DonationsFragment.newInstance(BuildConfig.DEBUG, false, null, null, null, false, null,
+                    null, null, false, null, null, true, BITCOIN_ADDRESS);
+        }
+
+        ft.replace(R.id.content, donationsFragment, "donationsFragment");
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     private void goToRatingAuto() {
@@ -335,6 +365,21 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
     public int getMaxResult() {
         return Integer.parseInt(preferences.getString(getString(R.string.max_results_key), String.valueOf(getResources().getInteger(R.integer.max_results_default))));
+    }
+
+    /**
+     * Needed for Google Play In-app Billing. It uses startIntentSenderForResult(). The result is not propagated to
+     * the Fragment like in startActivityForResult(). Thus we need to propagate manually to our Fragment.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag("donationsFragment");
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 }

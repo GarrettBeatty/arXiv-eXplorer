@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="donation_google_catalog_values">
+        <item>1 Dollar</item>
+        <item>2 Dollars</item>
+        <item>3 Dollars</item>
+        <item>5 Dollars</item>
+        <item>8 Dollars</item>
+        <item>13 Dollars</item>
+    </string-array>
+</resources>

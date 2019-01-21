@@ -16,5 +16,10 @@
         android:title="@string/rate_arxiv_explorer"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_donate"
+        android:title="@string/donate"
+        app:showAsAction="never" />
+
 
 </menu>

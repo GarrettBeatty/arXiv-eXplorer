@@ -34,27 +34,27 @@ android {
         minSdkVersion 21
 
         targetSdkVersion 27
-        versionCode 34
-        versionName "3.5.7"
+        versionCode 36
+        versionName "4.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs {
-        if (keystorePropertiesFile.exists()) {
-            release {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-            }
-        }
-    }
+//    signingConfigs {
+//        if (keystorePropertiesFile.exists()) {
+//            release {
+//                keyAlias keystoreProperties['keyAlias']
+//                keyPassword keystoreProperties['keyPassword']
+//                storeFile file(keystoreProperties['storeFile'])
+//                storePassword keystoreProperties['storePassword']
+//            }
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (keystorePropertiesFile.exists()) {
-                signingConfig signingConfigs.release
-            }
+//            if (keystorePropertiesFile.exists()) {
+//                signingConfig signingConfigs.release
+//            }
         }
         debug {
             testCoverageEnabled true
@@ -66,6 +66,17 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+    flavorDimensions("freedom")
+    productFlavors {
+        google {
+            dimension "freedom"
+            buildConfigField "boolean", "DONATIONS_GOOGLE", "true"
+        }
+        fdroid {
+            dimension "freedom"
+            buildConfigField "boolean", "DONATIONS_GOOGLE", "false"
+        }
     }
 }
 
@@ -91,6 +102,8 @@ dependencies {
     implementation 'com.afollestad:sectioned-recyclerview:0.5.0'
 
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+    implementation 'org.sufficientlysecure:donations:2.6'
 
 //    implementation 'io.github.kexanie.library:MathView:0.0.6'
 //    implementation 'in.hourglass.mathrender:katexmathview:1.0'
