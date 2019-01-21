@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
             "donate_2", "donate_3", "donate_5", "donate_8",
             "donate_13"};
 
-    private static final String BITCOIN_ADDRESS = "bc1q6p0k9ddzcv0ajsm85l0da4v03lq9k0n8dnhg38";
+    private static final String BITCOIN_ADDRESS = "1BmqSrEkvqBLZ1AGaaCJb73bzRkijKDgPN";
 
     @Override
     protected void onResume() {
