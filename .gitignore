@@ -7,6 +7,8 @@
 /build
 /captures
 .externalNativeBuild
+app/google/
+app/fdroid/
 app/release/
 keystore.properties
 keystore.jks
