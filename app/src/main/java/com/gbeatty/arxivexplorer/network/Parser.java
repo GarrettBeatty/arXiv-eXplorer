@@ -12,13 +12,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Parser {
 
-    public static ArrayList<Paper> parse(InputStream in) throws XmlPullParserException, IOException, ParseException {
+    public static List<Paper> parse(InputStream in) throws XmlPullParserException, IOException, ParseException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -30,8 +31,8 @@ public class Parser {
         }
     }
 
-    private static ArrayList<Paper> readPapers(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
-        ArrayList<Paper> papers = new ArrayList<>();
+    private static List<Paper> readPapers(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
+        List<Paper> papers = new CopyOnWriteArrayList<>();
 
         parser.require(XmlPullParser.START_TAG, null, "feed");
         while (parser.next() != XmlPullParser.END_TAG) {

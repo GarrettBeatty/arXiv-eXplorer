@@ -12,8 +12,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,7 +32,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     protected PapersPresenter(PapersView view, SharedPreferencesView sharedPreferencesView) {
         super(sharedPreferencesView);
         this.view = view;
-        dates = new ArrayList<>();
+        dates = new CopyOnWriteArrayList<>();
         start = 0;
     }
 
@@ -162,7 +162,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful())
                         throw new IOException("Unexpected code " + response);
-                    ArrayList<Paper> p = Parser.parse(responseBody.byteStream());
+                    List<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
 
                     if(p.size() > 0){
@@ -184,13 +184,13 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     }
 
-    private void addToPapers(ArrayList<Paper> papers) {
+    private void addToPapers(List<Paper> papers) {
         this.papers.addAll(papers);
         updateDates();
         view.notifyAdapter();
     }
 
-    protected void updatePapers(ArrayList<Paper> papers) {
+    protected void updatePapers(List<Paper> papers) {
         this.papers = papers;
         if (papers.isEmpty()) {
             view.showNoPapersMessage();
@@ -203,7 +203,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
     private void updateDates() {
 
-        dates = new ArrayList<>();
+        dates = new CopyOnWriteArrayList<>();
 
         if (view == null || view.getTag() == null) return;
 

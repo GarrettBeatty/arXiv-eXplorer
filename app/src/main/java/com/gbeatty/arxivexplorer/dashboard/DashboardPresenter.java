@@ -14,6 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -98,7 +99,7 @@ class DashboardPresenter extends PapersPresenter {
                             try (ResponseBody responseBody = response.body()) {
                                 if (!response.isSuccessful())
                                     throw new IOException("Unexpected code " + response);
-                                ArrayList<Paper> papers = Parser.parse(responseBody.byteStream());
+                                List<Paper> papers = Parser.parse(responseBody.byteStream());
                                 responseBody.close();
 
                                 setQuery(response.request().url().toString());
