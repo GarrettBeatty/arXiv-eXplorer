@@ -10,16 +10,16 @@ buildscript {
 apply plugin: 'com.android.application'
 //apply plugin: 'io.fabric'
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
+//def keystorePropertiesFile = rootProject.file("keystore.properties")
+//def keystoreProperties = new Properties()
 
 //def propsFile = rootProject.file('fabric.properties')
 //def props = new Properties()
 
-
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
+//
+//if (keystorePropertiesFile.exists()) {
+//    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//}
 
 //if (propsFile.exists()) {
 //    props.load(new FileInputStream(propsFile))

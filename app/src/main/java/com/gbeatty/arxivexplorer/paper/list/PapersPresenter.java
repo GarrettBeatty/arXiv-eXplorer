@@ -130,12 +130,12 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         String date = dates.get(sectionIndex);
         int count = 0;
 
-        for (int i = 0; i < papers.size(); i++) {
+        for (Paper paper : papers) {
 
             if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                if (papers.get(i).getPublishedDate().equals(date)) count++;
+                if (paper.getPublishedDate().equals(date)) count++;
             } else {
-                if (papers.get(i).getUpdatedDate().equals(date)) count++;
+                if (paper.getUpdatedDate().equals(date)) count++;
             }
         }
 
@@ -216,18 +216,16 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             dates.add("Relevance");
             return;
         }
-
-        for (int i = 0; i < papers.size(); i++) {
+        for (Paper paper : papers){
             boolean found = false;
-            for (int j = 0; j < dates.size(); j++) {
-
+            for(String date : dates){
                 if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                    if (dates.get(j).equals(papers.get(i).getPublishedDate())) {
+                    if (date.equals(paper.getPublishedDate())) {
                         found = true;
                         break;
                     }
                 } else {
-                    if (dates.get(j).equals(papers.get(i).getUpdatedDate())) {
+                    if (date.equals(paper.getUpdatedDate())) {
                         found = true;
                         break;
                     }
@@ -235,9 +233,9 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
             }
             if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                if (!found) dates.add(papers.get(i).getPublishedDate());
+                if (!found) dates.add(paper.getPublishedDate());
             } else {
-                if (!found) dates.add(papers.get(i).getUpdatedDate());
+                if (!found) dates.add(paper.getUpdatedDate());
             }
         }
     }
