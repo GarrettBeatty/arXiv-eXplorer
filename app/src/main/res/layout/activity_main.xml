@@ -35,13 +35,15 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/navigation" />
 
     </LinearLayout>
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        app:menu="@menu/navigation" />
 
 </android.support.design.widget.CoordinatorLayout>
 

@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         navigationAdapter.setupWithBottomNavigation(bottomBarView);
 
         bottomBarView.setOnTabSelectedListener((position, wasSelected) -> presenter.onNavigationItemSelected(position));
+        bottomBarView.setTranslucentNavigationEnabled(true);
 
         if (savedInstanceState == null)
             presenter.switchToDashboardFragment();
