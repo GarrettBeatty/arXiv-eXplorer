@@ -63,9 +63,9 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         paperRowView.setTitle(paper.getTitle());
 
-        if(isPaperRead(paper.getPaperID())){
+        if (isPaperRead(paper.getPaperID())) {
             paperRowView.setBackgroundColorRead();
-        }else{
+        } else {
             paperRowView.setBackgroundColorNotRead();
         }
 
@@ -118,7 +118,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
         if (isPaperFavorited(paper.getPaperID())) paperRowView.setFavoritedIcon();
         else paperRowView.setNotFavoritedIcon();
 
-        if(isPaperDownloaded(paper.getPaperID())) paperRowView.setDownloadedIcon();
+        if (isPaperDownloaded(paper.getPaperID())) paperRowView.setDownloadedIcon();
         else paperRowView.setNotDownloadedIcon();
     }
 
@@ -168,7 +168,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
                     List<Paper> p = Parser.parse(responseBody.byteStream());
                     responseBody.close();
 
-                    if(p.size() > 0){
+                    if (p.size() > 0) {
                         addToPapers(p);
                         view.showPaginateLoading(false);
                     }
@@ -219,26 +219,15 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             dates.add("Relevance");
             return;
         }
-        for (Paper paper : papers){
-            boolean found = false;
-            for(String date : dates){
-                if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                    if (date.equals(paper.getPublishedDate())) {
-                        found = true;
-                        break;
-                    }
-                } else {
-                    if (date.equals(paper.getUpdatedDate())) {
-                        found = true;
-                        break;
-                    }
+        for (Paper paper : papers) {
+            if (getSharedPreferenceView().isLastUpdatedDate()) {
+                if (!dates.contains(paper.getUpdatedDate())) {
+                    dates.add(paper.getUpdatedDate());
                 }
-
-            }
-            if (!getSharedPreferenceView().isLastUpdatedDate()) {
-                if (!found) dates.add(paper.getPublishedDate());
             } else {
-                if (!found) dates.add(paper.getUpdatedDate());
+                if (!dates.contains(paper.getPublishedDate())) {
+                    dates.add(paper.getPublishedDate());
+                }
             }
         }
     }
