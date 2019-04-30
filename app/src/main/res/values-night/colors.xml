@@ -9,6 +9,8 @@
     <color name="icons">#80FFFFFF</color>
     <color name="divider">#80FFFFFF</color>
     <color name="colorBackground">#303030</color>
+    <color name="readBackground">#303F9F</color>
+    <color name="cardBackground">@color/cardview_dark_background</color>
     <color name="detailsBackground">#303030</color>
     <color name="tabLight">#303F9F</color>
     <color name="tabDark">#B3E5FC</color>

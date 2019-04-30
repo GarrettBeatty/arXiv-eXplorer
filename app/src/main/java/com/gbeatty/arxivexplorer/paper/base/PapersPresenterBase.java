@@ -84,6 +84,10 @@ public class PapersPresenterBase extends BasePresenter {
         return Paper.count(Paper.class, "paper_id = ? and favorited = 1", new String[]{paperID}) > 0;
     }
 
+    protected boolean isPaperRead(String paperID) {
+        return Paper.count(Paper.class, "paper_id = ? and read = 1", new String[]{paperID}) > 0;
+    }
+
     protected boolean isPaperDownloaded(String paperID) {
         return Paper.count(Paper.class, "paper_id = ? and downloaded = 1", new String[]{paperID}) > 0;
     }

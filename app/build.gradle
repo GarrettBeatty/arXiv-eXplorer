@@ -105,6 +105,7 @@ dependencies {
 
     implementation 'org.sufficientlysecure:donations:2.6'
 
+
 //    implementation 'io.github.kexanie.library:MathView:0.0.6'
 //    implementation 'in.hourglass.mathrender:katexmathview:1.0'
 //    implementation 'com.github.Nishant-Pathak:MathView:v1.1'

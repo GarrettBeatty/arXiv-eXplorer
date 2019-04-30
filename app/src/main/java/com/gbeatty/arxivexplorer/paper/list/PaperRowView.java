@@ -13,4 +13,7 @@ interface PaperRowView extends PapersViewBase {
 
     void showPublishedDate();
 
+    void setBackgroundColorRead();
+
+    void setBackgroundColorNotRead();
 }

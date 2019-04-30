@@ -63,11 +63,12 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         paperRowView.setTitle(paper.getTitle());
 
+        if(isPaperRead(paper.getPaperID())){
+            paperRowView.setBackgroundColorRead();
+        }else{
+            paperRowView.setBackgroundColorNotRead();
+        }
 
-//        paperRowView.hideSummary();
-//        paperRowView.hideLatexSummary();
-
-//        paperRowView.hideTitle();
         paperRowView.hideLatexTitle();
 
         paperRowView.hideSummary();
@@ -93,6 +94,8 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     void paperClicked(int absolutePosition, int section) {
         int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
+        paper.setRead(true);
+        paper.save();
         view.goToPaperDetails(paper, paper.getPaperID());
     }
 

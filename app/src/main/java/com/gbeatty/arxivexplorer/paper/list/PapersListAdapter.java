@@ -309,6 +309,16 @@ public class PapersListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             paperPublished.setVisibility(View.VISIBLE);
         }
 
+        @Override
+        public void setBackgroundColorRead() {
+            itemView.setBackgroundColor(itemView.getResources().getColor(R.color.readBackground));
+        }
+
+        @Override
+        public void setBackgroundColorNotRead() {
+            itemView.setBackgroundColor(itemView.getResources().getColor(R.color.cardBackground));
+        }
+
 
         @Override
         public void hideLatexSummary() {

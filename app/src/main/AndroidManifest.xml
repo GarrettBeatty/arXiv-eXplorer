@@ -35,7 +35,7 @@
             android:value="arxiv.db" />
         <meta-data
             android:name="VERSION"
-            android:value="23" />
+            android:value="24" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="false" />
