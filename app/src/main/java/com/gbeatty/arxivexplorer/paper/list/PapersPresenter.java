@@ -63,7 +63,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         paperRowView.setTitle(paper.getTitle());
 
-        if (isPaperRead(paper.getPaperID())) {
+        if (getSharedPreferenceView().isReadIndicator() && isPaperRead(paper.getPaperID())) {
             paperRowView.setBackgroundColorRead();
         } else {
             paperRowView.setBackgroundColorNotRead();

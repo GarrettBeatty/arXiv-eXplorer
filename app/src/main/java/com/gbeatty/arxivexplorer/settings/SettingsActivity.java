@@ -129,12 +129,18 @@ public class SettingsActivity extends BaseSettingsActivity {
             latex.setKey(getString(R.string.render_latex_key));
             latex.setTitle(R.string.pref_title_latex);
 
+            SwitchPreference read = new SwitchPreference(getActivity());
+            read.setDefaultValue(getResources().getBoolean(R.bool.read_default));
+            read.setKey(getString(R.string.read_key));
+            read.setTitle(R.string.pref_title_read);
+
             generalCategory.addPreference(sortBy);
             generalCategory.addPreference(sortOrder);
             generalCategory.addPreference(maxResults);
             generalCategory.addPreference(showAbstract);
             generalCategory.addPreference(darkMode);
             generalCategory.addPreference(latex);
+            generalCategory.addPreference(read);
             generalCategory.addPreference(deleteDownloadedPapers);
 
             bindPreferenceSummaryToValue(sortOrder);

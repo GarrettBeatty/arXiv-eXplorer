@@ -4,5 +4,6 @@
     <bool name="render_latex_default">false</bool>
     <bool name="dark_mode_default">false</bool>
     <bool name="show_abstract_default">true</bool>
+    <bool name="read_default">true</bool>
 
 </resources>

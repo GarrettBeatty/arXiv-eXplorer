@@ -65,5 +65,7 @@
     <string name="dashboard_preferences">Dashboard Preferences</string>
     <string name="error_loading">Error Loading Papers</string>
     <string name="donate">Donate!</string>
+    <string name="read_key">read</string>
+    <string name="pref_title_read">Read Indicator</string>
 
 </resources>

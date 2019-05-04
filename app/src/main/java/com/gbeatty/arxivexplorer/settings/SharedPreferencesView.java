@@ -19,4 +19,6 @@ public interface SharedPreferencesView {
     boolean isRelevanceDate();
 
     boolean isRenderLatex();
+
+    boolean isReadIndicator();
 }

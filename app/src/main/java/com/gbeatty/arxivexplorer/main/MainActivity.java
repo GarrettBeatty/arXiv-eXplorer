@@ -392,6 +392,11 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
         return preferences.getBoolean(getString(R.string.render_latex_key), getResources().getBoolean(R.bool.render_latex_default));
     }
 
+    @Override
+    public boolean isReadIndicator() {
+        return preferences.getBoolean(getString(R.string.read_key), getResources().getBoolean(R.bool.read_default));
+    }
+
     private boolean isDarkMode() {
         return preferences.getBoolean(getString(R.string.dark_mode_key), getResources().getBoolean(R.bool.dark_mode_default));
     }

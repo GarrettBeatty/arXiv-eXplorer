@@ -85,6 +85,11 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         return listener.isRenderLatex();
     }
 
+    @Override
+    public boolean isReadIndicator() {
+        return listener.isReadIndicator();
+    }
+
     public void showError() {
         if (getActivity() == null) return;
         if(getContext() == null) return;
@@ -128,6 +133,8 @@ public abstract class BaseFragment extends Fragment implements SharedPreferences
         boolean isRelevanceDate();
 
         boolean isRenderLatex();
+
+        boolean isReadIndicator();
     }
 
 }
