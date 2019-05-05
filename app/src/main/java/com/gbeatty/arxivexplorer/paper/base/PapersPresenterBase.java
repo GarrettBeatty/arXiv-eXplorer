@@ -34,8 +34,6 @@ public class PapersPresenterBase extends BasePresenter {
 
     protected void viewFile(Paper paper, PapersViewBase view){
 
-        Log.d("Garrett", "Beatty");
-
         File papersPath = new File(view.getFilesDir(), "papers");
         File file = new File(papersPath, paper.getPaperID());
         savePaperIfDoesntExist(paper);

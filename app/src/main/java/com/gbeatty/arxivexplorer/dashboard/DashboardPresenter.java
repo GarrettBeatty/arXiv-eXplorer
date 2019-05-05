@@ -1,5 +1,7 @@
 package com.gbeatty.arxivexplorer.dashboard;
 
+import android.util.Log;
+
 import com.gbeatty.arxivexplorer.arxivdata.Categories;
 import com.gbeatty.arxivexplorer.models.Category;
 import com.gbeatty.arxivexplorer.models.Paper;
@@ -91,6 +93,7 @@ class DashboardPresenter extends PapersPresenter {
                     new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            Log.d("garrett", e.getMessage());
                             errorLoading();
                         }
 
