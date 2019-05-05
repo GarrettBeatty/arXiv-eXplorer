@@ -94,9 +94,15 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     void paperClicked(int absolutePosition, int section) {
         int position = absolutePosition - (section + 1);
         Paper paper = papers.get(position);
-        paper.setRead(true);
-        paper.save();
+        readPaper(paper);
         view.goToPaperDetails(paper, paper.getPaperID());
+    }
+
+    private void readPaper(Paper paper) {
+        savePaperIfDoesntExist(paper);
+        List<Paper> ps = Paper.find(Paper.class, "paper_id = ?", paper.getPaperID());
+        ps.get(0).setRead(true);
+        ps.get(0).save();
     }
 
     void favoriteButtonClicked(int absolutePosition, int section, PaperRowView paperRowView) {
