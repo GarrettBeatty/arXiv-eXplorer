@@ -37,7 +37,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
     }
 
     public void onBindHeaderViewAtPosition(int section, HeaderView view) {
-        view.setHeaderDate(dates.get(section));
+        view.setHeaderDate(Helper.convertDateToLocale(dates.get(section)));
     }
 
     void onBindPaperRowViewAtPosition(int section, int absolutePosition, PaperRowView paperRowView) {
