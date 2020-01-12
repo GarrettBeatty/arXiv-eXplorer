@@ -1,22 +1,30 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.paper.details.PaperDetailsFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +41,10 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     private Paginate paginate;
     private PapersListAdapter papersListAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private AdView adView;
+    @BindView(R.id.ad_container)
+    LinearLayout adContainer;
+
 //    private boolean isPaginate;
 
     public PapersFragment() {
@@ -79,6 +91,18 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         papersRecyclerView.setAdapter(papersListAdapter);
         papersRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        papersRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    adView.setVisibility(View.VISIBLE);
+                } else {
+                    adView.setVisibility(View.GONE);
+                }
+            }
+        });
+
         swipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
 
@@ -89,6 +113,8 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
                     .setLoadingTriggerThreshold(9)
                     .build();
         }
+
+        initializeAds(rootView);
 
         return rootView;
     }
@@ -186,5 +212,39 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
         LinearLayoutManager layoutManager = (LinearLayoutManager) papersRecyclerView
                 .getLayoutManager();
         layoutManager.scrollToPositionWithOffset(0, 0);
+    }
+
+    private void initializeAds(View rootView) {
+        adView = new AdView(rootView.getContext());
+        //change to real unit on release
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+        AdSize adSize = getAdSize(rootView);
+        adView.setAdSize(adSize);
+        adView.setVisibility(View.GONE);
+        adContainer.addView(adView);
+
+        AdRequest adRequest =
+                new AdRequest.Builder()
+                        .build();
+
+
+        adView.loadAd(adRequest);
+    }
+
+
+    private AdSize getAdSize(View rootView) {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(rootView.getContext(), adWidth);
     }
 }

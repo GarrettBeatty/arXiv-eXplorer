@@ -22,51 +22,52 @@
         android:usesCleartextTraffic="true"
         >
 
+        <!-- Sample app id. Change to real id on release -->
         <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3940256099942544~3347511713"/>
 
-        <activity
-            android:name=".main.MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <activity
+        android:name=".main.MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:windowSoftInputMode="adjustPan">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
+    <meta-data
+        android:name="DATABASE"
+        android:value="arxiv.db" />
+    <meta-data
+        android:name="VERSION"
+        android:value="24" />
+    <meta-data
+        android:name="QUERY_LOG"
+        android:value="false" />
+    <meta-data
+        android:name="DOMAIN_PACKAGE_NAME"
+        android:value="com.gbeatty.arxiv" />
+
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
         <meta-data
-            android:name="DATABASE"
-            android:value="arxiv.db" />
-        <meta-data
-            android:name="VERSION"
-            android:value="24" />
-        <meta-data
-            android:name="QUERY_LOG"
-            android:value="false" />
-        <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.gbeatty.arxiv" />
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths" />
+    </provider>
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".settings.DashboardSettingsActivity"
-            android:label="@string/title_activity_dashboard_settings" />
-    </application>
+    <activity
+        android:name=".settings.SettingsActivity"
+        android:label="@string/title_activity_settings" />
+    <activity
+        android:name=".settings.DashboardSettingsActivity"
+        android:label="@string/title_activity_dashboard_settings" />
+</application>
 
 </manifest>

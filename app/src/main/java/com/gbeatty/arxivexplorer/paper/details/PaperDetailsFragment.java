@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.models.Paper;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
@@ -283,23 +284,22 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
-    @Override
-    public void initializeAds(View rootView) {
-//        adView = new AdView(rootView.getContext());
-//        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-//
-//        AdSize adSize = getAdSize(adContainer);
-//        adView.setAdSize(adSize);
-//
-//
-//
-//        adContainer.addView(adView);
-//
-//        AdRequest adRequest =
-//                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                        .build();
-//
-//        adView.loadAd(adRequest);
+
+    private void initializeAds(View rootView) {
+        adView = new AdView(rootView.getContext());
+        //change to real unit on release
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+        AdSize adSize = getAdSize(adContainer);
+        adView.setAdSize(adSize);
+
+        adContainer.addView(adView);
+
+        AdRequest adRequest =
+                new AdRequest.Builder()
+                        .build();
+
+        adView.loadAd(adRequest);
     }
 
     private AdSize getAdSize(View rootView) {
