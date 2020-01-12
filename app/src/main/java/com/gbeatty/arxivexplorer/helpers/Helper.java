@@ -11,6 +11,7 @@ import java.util.Date;
 public class Helper {
 
     public static String convertDateToLocale(String dateStr){
+        if(dateStr == null) return "";
         SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
         Date date = null;
         try {
@@ -19,8 +20,12 @@ public class Helper {
             // handle exception here !
         }
 
-        String myString = DateFormat.getDateInstance(DateFormat.SHORT).format(date);
-        return myString;
+        try{
+            String myString = DateFormat.getDateInstance(DateFormat.SHORT).format(date);
+            return myString;
+        } catch (Exception e){
+            return "";
+        }
     }
 
     public static void deleteFilesDir(File dir) {

@@ -1,15 +1,15 @@
 package com.gbeatty.arxivexplorer;
 
-import android.support.annotation.IdRes;
-import android.support.test.espresso.ViewInteraction;
+import androidx.annotation.IdRes;
+import androidx.test.espresso.ViewInteraction;
 
 import org.junit.Assert;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class WaifForUIUpdate {
 

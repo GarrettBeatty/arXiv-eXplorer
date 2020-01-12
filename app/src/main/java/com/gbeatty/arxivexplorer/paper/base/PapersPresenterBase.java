@@ -1,7 +1,5 @@
 package com.gbeatty.arxivexplorer.paper.base;
 
-import android.util.Log;
-
 import com.gbeatty.arxivexplorer.base.BasePresenter;
 import com.gbeatty.arxivexplorer.models.Paper;
 import com.gbeatty.arxivexplorer.network.ArxivAPI;
@@ -35,7 +33,7 @@ public class PapersPresenterBase extends BasePresenter {
     protected void viewFile(Paper paper, PapersViewBase view){
 
         File papersPath = new File(view.getFilesDir(), "papers");
-        File file = new File(papersPath, paper.getPaperID());
+        File file = new File(papersPath, paper.getPaperID() + ".pdf");
         savePaperIfDoesntExist(paper);
 
         if (file.exists()) {

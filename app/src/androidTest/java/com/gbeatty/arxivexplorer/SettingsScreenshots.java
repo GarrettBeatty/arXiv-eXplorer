@@ -1,8 +1,8 @@
 package com.gbeatty.arxivexplorer;
 
 import android.content.Intent;
-import android.support.test.espresso.DataInteraction;
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.espresso.DataInteraction;
+import androidx.test.rule.ActivityTestRule;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -23,9 +23,9 @@ import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
 import tools.fastlane.screengrab.locale.LocaleTestRule;
 
-import static android.support.test.espresso.Espresso.onData;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 

@@ -33,7 +33,7 @@ class SearchPresenter extends PapersPresenter {
 //            getView().setRefreshing(true);
             ArxivAPI.searchAll(searchQuery,
                     getSharedPreferenceView().getSortOrder(),
-                    getSharedPreferenceView().getSortBy(),
+                    "relevance",
                     getSharedPreferenceView().getMaxResult(),
                     new Callback() {
                         @Override

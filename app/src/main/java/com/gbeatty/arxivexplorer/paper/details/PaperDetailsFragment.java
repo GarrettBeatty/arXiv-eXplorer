@@ -3,18 +3,23 @@ package com.gbeatty.arxivexplorer.paper.details;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.base.BaseFragment;
 import com.gbeatty.arxivexplorer.models.Paper;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import java.io.File;
 
@@ -43,11 +48,15 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperCategories;
     @BindView(R.id.paper_id)
     TextView paperID;
+    @BindView(R.id.ad_container)
+    LinearLayout adContainer;
+
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
     private MenuItem downloadedPaper;
     private MenuItem deletePaper;
     private ProgressDialog progressDialog;
+    private AdView adView;
 
     public PaperDetailsFragment() {
         // Required empty public constructor
@@ -77,8 +86,10 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         ButterKnife.bind(this, rootView);
 
         presenter.initializeMainContent();
+        initializeAds(rootView);
         return rootView;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -271,5 +282,40 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
+
+    @Override
+    public void initializeAds(View rootView) {
+//        adView = new AdView(rootView.getContext());
+//        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+//
+//        AdSize adSize = getAdSize(adContainer);
+//        adView.setAdSize(adSize);
+//
+//
+//
+//        adContainer.addView(adView);
+//
+//        AdRequest adRequest =
+//                new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                        .build();
+//
+//        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize(View rootView) {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(rootView.getContext(), adWidth);
+    }
+
 
 }

@@ -133,7 +133,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
 
         if (papers == null || dates == null || sectionIndex > dates.size()) return 0;
         if (isRelevanceDate() || view.getTag() == null || view.getTag().equals(Tags.FAVORITES_FRAGMENT_TAG)
-                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG))
+                || view.getTag().equals(Tags.DOWNLOADED_FRAGMENT_TAG) || view.getTag().equals(Tags.SEARCH_RESULTS_TAG))
             return papers.size();
 
         String date = dates.get(sectionIndex);
@@ -221,7 +221,7 @@ public abstract class PapersPresenter extends PapersPresenterBase implements OnL
             return;
         }
 
-        if (isRelevanceDate()) {
+        if (isRelevanceDate() || view.getTag().equals(Tags.SEARCH_RESULTS_TAG)) {
             dates.add("Relevance");
             return;
         }

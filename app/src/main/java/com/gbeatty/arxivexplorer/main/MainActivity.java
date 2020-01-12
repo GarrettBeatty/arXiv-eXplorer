@@ -8,19 +8,20 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
@@ -37,6 +38,7 @@ import com.gbeatty.arxivexplorer.paper.list.PapersFragment;
 import com.gbeatty.arxivexplorer.search.SearchFragment;
 import com.gbeatty.arxivexplorer.settings.SettingsActivity;
 import com.gbeatty.arxivexplorer.settings.SharedPreferencesView;
+import com.google.android.gms.ads.MobileAds;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.sufficientlysecure.donations.DonationsFragment;
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements MainView, BaseFra
 
         preferences = getSharedPreferences();
         super.onCreate(savedInstanceState);
+
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
         if (isDarkMode()) {
             if (Build.VERSION.SDK_INT >= 23) {

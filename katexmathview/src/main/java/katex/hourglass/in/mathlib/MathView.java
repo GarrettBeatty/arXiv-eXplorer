@@ -3,12 +3,13 @@ package katex.hourglass.in.mathlib;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import androidx.core.content.ContextCompat;
 
 
 /**
