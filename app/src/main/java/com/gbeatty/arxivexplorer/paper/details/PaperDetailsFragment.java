@@ -2,7 +2,9 @@ package com.gbeatty.arxivexplorer.paper.details;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -51,6 +53,8 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     TextView paperID;
     @BindView(R.id.ad_container)
     LinearLayout adContainer;
+    private SharedPreferences preferences;
+
 
     private PaperDetailsPresenter presenter;
     private MenuItem favoritePaper;
@@ -74,6 +78,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getSharedPreferences();
         Paper paper = (Paper) getArguments().getSerializable(PAPER_KEY);
         presenter = new PaperDetailsPresenter(this, this, paper);
         setHasOptionsMenu(true);
@@ -87,10 +92,11 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         ButterKnife.bind(this, rootView);
 
         presenter.initializeMainContent();
-        initializeAds(rootView);
+        if(preferences.getBoolean("ads", true)){
+            initializeAds(rootView);
+        }
         return rootView;
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -286,6 +292,9 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
 
 
     private void initializeAds(View rootView) {
+
+
+
         adView = new AdView(rootView.getContext());
         //change to real unit on release
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
@@ -317,5 +326,7 @@ public class PaperDetailsFragment extends BaseFragment implements PaperDetailsVi
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(rootView.getContext(), adWidth);
     }
 
-
+    public SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(getContext());
+    }
 }

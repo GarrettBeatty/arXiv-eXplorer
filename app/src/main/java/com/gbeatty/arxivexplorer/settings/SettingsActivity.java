@@ -10,13 +10,14 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.gbeatty.arxivexplorer.R;
 import com.gbeatty.arxivexplorer.helpers.Helper;
@@ -134,6 +135,11 @@ public class SettingsActivity extends BaseSettingsActivity {
             read.setKey(getString(R.string.read_key));
             read.setTitle(R.string.pref_title_read);
 
+            SwitchPreference ads = new SwitchPreference(getActivity());
+            ads.setDefaultValue(true);
+            ads.setKey(getString(R.string.ad_key));
+            ads.setTitle(R.string.pref_title_ads);
+
             generalCategory.addPreference(sortBy);
             generalCategory.addPreference(sortOrder);
             generalCategory.addPreference(maxResults);
@@ -141,6 +147,7 @@ public class SettingsActivity extends BaseSettingsActivity {
             generalCategory.addPreference(darkMode);
             generalCategory.addPreference(latex);
             generalCategory.addPreference(read);
+            generalCategory.addPreference(ads);
             generalCategory.addPreference(deleteDownloadedPapers);
 
             bindPreferenceSummaryToValue(sortOrder);
@@ -166,6 +173,16 @@ public class SettingsActivity extends BaseSettingsActivity {
                 presenter.latexClicked(((SwitchPreference) preference).isChecked());
                 return true;
             });
+
+            ads.setOnPreferenceChangeListener((preference, o) -> {
+                Intent i = getActivity().getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getActivity().finish();
+                startActivity(i);
+                return true;
+            });
+
 
         }
 

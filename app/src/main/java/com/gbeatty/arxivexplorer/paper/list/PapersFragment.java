@@ -1,6 +1,8 @@
 package com.gbeatty.arxivexplorer.paper.list;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     private AdView adView;
     @BindView(R.id.ad_container)
     LinearLayout adContainer;
+    private SharedPreferences preferences;
 
 //    private boolean isPaginate;
 
@@ -54,6 +57,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getSharedPreferences();
         presenter = getPresenter();
         presenter.getPapers();
         setHasOptionsMenu(true);
@@ -95,6 +99,7 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if(adView == null) return;
                 if (dy > 0) {
                     adView.setVisibility(View.VISIBLE);
                 } else {
@@ -114,7 +119,9 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
                     .build();
         }
 
-        initializeAds(rootView);
+        if(preferences.getBoolean("ads", true)){
+            initializeAds(rootView);
+        }
 
         return rootView;
     }
@@ -246,5 +253,9 @@ public abstract class PapersFragment extends BaseFragment implements PapersView 
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(rootView.getContext(), adWidth);
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 }
