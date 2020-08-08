@@ -52,7 +52,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## Authors
 
 * [**Garrett Beatty**](https://github.com/GarrettBeatty) - Developer
-* [**Gabriele Bozzola**](https://github.com/Sbozzolo) - UI Ideas and Functionality Ideas
+* [**Gabriele Bozzola**](https://github.com/Sbozzolo) - Some UI Ideas and Functionality Ideas
 
 
 ## License
