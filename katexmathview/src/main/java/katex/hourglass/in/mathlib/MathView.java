@@ -81,7 +81,7 @@ public class MathView extends WebView {
     private void configurationSettingWebView()
     {
         getSettings().setJavaScriptEnabled(true);
-        getSettings().setAllowFileAccess(true);
+        getSettings().setAllowFileAccess(false);
         getSettings().setDisplayZoomControls(false);
         getSettings().setBuiltInZoomControls(false);
         getSettings().setSupportZoom(false);
